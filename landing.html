@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sanātana Dharma Guide — Your Beginner's Path</title>
+  <meta name="description" content="Your beginner-friendly guide to Sanātana Dharma — the world's oldest living wisdom tradition. Fact-checked, simple English, 20 primary source books.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Noto+Serif+Devanagari:wght@300;400;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --bg: #0a0705;
+      --gold: #d4a017;
+      --gold-bright: #f2c14e;
+      --gold-dim: #8a6510;
+      --vermillion: #c0392b;
+      --ivory: #f5efe6;
+      --muted: #a08f78;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --deva: 'Noto Serif Devanagari', serif;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      font-family: var(--serif);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── CANVAS (particles + sacred geometry) ── */
+    #canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+    }
+
+    /* ── MAIN WRAPPER ── */
+    #intro {
+      position: relative;
+      z-index: 10;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+
+    /* ── FLOATING SANSKRIT WORDS (background layer) ── */
+    .float-word {
+      position: fixed;
+      font-family: var(--deva);
+      color: rgba(212, 160, 23, 0.06);
+      font-size: clamp(18px, 3vw, 42px);
+      font-weight: 400;
+      pointer-events: none;
+      animation: floatDrift linear infinite;
+      z-index: 1;
+      white-space: nowrap;
+      user-select: none;
+    }
+    @keyframes floatDrift {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      5%   { opacity: 1; }
+      95%  { opacity: 1; }
+      100% { transform: translateY(-20vh) rotate(8deg); opacity: 0; }
+    }
+
+    /* ── OM SYMBOL ── */
+    #om-wrap {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeScaleIn 1.4s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+    }
+    #om-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1.5px solid rgba(212,160,23,0.3);
+      animation: ringPulse 4s ease-in-out infinite;
+    }
+    #om-ring-2 {
+      position: absolute;
+      inset: -16px;
+      border-radius: 50%;
+      border: 1px solid rgba(212,160,23,0.12);
+      animation: ringPulse 4s ease-in-out 1s infinite;
+    }
+    #om-ring-3 {
+      position: absolute;
+      inset: -36px;
+      border-radius: 50%;
+      border: 0.5px solid rgba(212,160,23,0.06);
+      animation: ringPulse 4s ease-in-out 2s infinite;
+    }
+    @keyframes ringPulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50%       { transform: scale(1.06); opacity: 1; }
+    }
+    #om-glow {
+      position: absolute;
+      inset: -30px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,160,23,0.14) 0%, transparent 70%);
+      animation: glowBreath 4s ease-in-out infinite;
+    }
+    @keyframes glowBreath {
+      0%,100% { opacity: 0.6; transform: scale(1); }
+      50%     { opacity: 1;   transform: scale(1.15); }
+    }
+    #om-symbol {
+      font-family: var(--deva);
+      font-size: 96px;
+      color: var(--gold-bright);
+      line-height: 1;
+      text-shadow:
+        0 0 40px rgba(242,193,78,0.8),
+        0 0 80px rgba(242,193,78,0.4),
+        0 0 140px rgba(212,160,23,0.3);
+      animation: omPulse 4s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
+    }
+    @keyframes omPulse {
+      0%,100% { text-shadow: 0 0 40px rgba(242,193,78,0.8), 0 0 80px rgba(242,193,78,0.4), 0 0 140px rgba(212,160,23,0.3); }
+      50%     { text-shadow: 0 0 60px rgba(242,193,78,1),   0 0 120px rgba(242,193,78,0.6), 0 0 200px rgba(212,160,23,0.5); }
+    }
+
+    /* ── TAGLINE ABOVE TITLE ── */
+    #pre-title {
+      font-family: 'Lora', Georgia, serif;
+      font-size: clamp(12px, 1.4vw, 16px);
+      color: var(--vermillion);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.2s forwards;
+      margin-bottom: 12px;
+    }
+
+    /* ── MAIN TITLE ── */
+    #main-title {
+      font-family: var(--serif);
+      font-size: clamp(48px, 7vw, 96px);
+      font-weight: 300;
+      color: var(--ivory);
+      letter-spacing: -0.01em;
+      line-height: 1;
+      text-align: center;
+      opacity: 0;
+      animation: titleReveal 1.6s cubic-bezier(0.16,1,0.3,1) 1.5s forwards;
+      margin-bottom: 6px;
+    }
+    #main-title span {
+      color: var(--gold-bright);
+      font-style: italic;
+    }
+
+    /* ── TITLE UNDERLINE ── */
+    #title-line {
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 16px auto 20px;
+      animation: lineExpand 1.2s ease 2.4s forwards;
+      max-width: 500px;
+    }
+    @keyframes lineExpand {
+      to { width: 500px; }
+    }
+
+    /* ── SANSKRIT SUBTITLE ── */
+    #sanskrit-sub {
+      font-family: var(--deva);
+      font-size: clamp(18px, 2.2vw, 28px);
+      color: rgba(242,193,78,0.7);
+      letter-spacing: 0.06em;
+      opacity: 0;
+      animation: fadeUp 1s ease 2.8s forwards;
+      margin-bottom: 6px;
+    }
+    #english-sub {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(14px, 1.6vw, 18px);
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 1s ease 3.1s forwards;
+      margin-bottom: 48px;
+    }
+
+    /* ── QUOTE ── */
+    #quote-block {
+      border-left: 2px solid rgba(212,160,23,0.4);
+      padding: 10px 24px;
+      max-width: 560px;
+      text-align: left;
+      opacity: 0;
+      animation: fadeUp 1s ease 3.5s forwards;
+      margin-bottom: 52px;
+    }
+    #quote-deva {
+      font-family: var(--deva);
+      font-size: clamp(14px, 1.5vw, 17px);
+      color: rgba(242,193,78,0.6);
+      margin-bottom: 6px;
+      line-height: 1.6;
+    }
+    #quote-en {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(13px, 1.3vw, 15px);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    #quote-src {
+      font-size: 11px;
+      color: rgba(160,143,120,0.5);
+      margin-top: 6px;
+      font-family: monospace;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── CTA BUTTON ── */
+    #cta-wrap {
+      opacity: 0;
+      animation: fadeUp 1s ease 4s forwards;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    #begin-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 52px;
+      font-family: var(--serif);
+      font-size: clamp(16px, 1.8vw, 20px);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--bg);
+      background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold) 60%, #b8860b 100%);
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      overflow: hidden;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 30px rgba(212,160,23,0.35), 0 8px 24px rgba(0,0,0,0.5);
+    }
+    #begin-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    #begin-btn:hover::before { opacity: 1; }
+    #begin-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 60px rgba(212,160,23,0.6), 0 16px 40px rgba(0,0,0,0.5);
+    }
+    #begin-btn:active { transform: translateY(0) scale(0.99); }
+    .btn-arrow {
+      font-size: 20px;
+      transition: transform 0.3s;
+    }
+    #begin-btn:hover .btn-arrow { transform: translateX(4px); }
+
+    /* Button ring animation */
+    #begin-btn::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 6px;
+      border: 1px solid rgba(242,193,78,0.4);
+      animation: btnRing 3s ease-in-out 4.5s infinite;
+    }
+    @keyframes btnRing {
+      0%,100% { opacity: 0; transform: scale(1); }
+      50%     { opacity: 1; transform: scale(1.04); }
+    }
+
+    #scroll-hint {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(160,143,120,0.4);
+      animation: hintBlink 3s ease-in-out 5s infinite;
+    }
+    @keyframes hintBlink {
+      0%,100% { opacity: 0.4; } 50% { opacity: 0.8; }
+    }
+
+    /* ── MANDALA RING (decorative, behind content) ── */
+    #mandala {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(90vw, 90vh);
+      height: min(90vw, 90vh);
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeIn 3s ease 0.5s forwards;
+    }
+    @keyframes fadeIn { to { opacity: 0.07; } }
+    #mandala svg {
+      width: 100%;
+      height: 100%;
+      animation: mandalaRotate 120s linear infinite;
+    }
+    @keyframes mandalaRotate { to { transform: rotate(360deg); } }
+    #mandala-inner svg {
+      animation: mandalaRotate 80s linear infinite reverse;
+    }
+    #mandala-inner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(60vw, 60vh);
+      height: min(60vw, 60vh);
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeIn2 3s ease 1s forwards;
+    }
+    @keyframes fadeIn2 { to { opacity: 0.05; } }
+
+    /* ── CORNER DECORATIONS ── */
+    .corner-deco {
+      position: fixed;
+      font-family: var(--deva);
+      font-size: 14px;
+      color: rgba(212,160,23,0.2);
+      letter-spacing: 0.15em;
+      animation: fadeUp 2s ease 4s forwards;
+      opacity: 0;
+    }
+    .corner-deco.tl { top: 28px; left: 32px; }
+    .corner-deco.tr { top: 28px; right: 32px; text-align: right; }
+    .corner-deco.bl { bottom: 28px; left: 32px; }
+    .corner-deco.br { bottom: 28px; right: 32px; text-align: right; }
+
+    /* ── PAGE EXIT ANIMATION ── */
+    .page-exit {
+      animation: exitFade 0.8s cubic-bezier(0.7,0,1,1) forwards !important;
+    }
+    @keyframes exitFade {
+      0%   { opacity: 1; transform: scale(1); filter: blur(0); }
+      100% { opacity: 0; transform: scale(1.08); filter: blur(8px); }
+    }
+    #cover {
+      position: fixed;
+      inset: 0;
+      background: #0a0705;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.7s ease;
+    }
+    #cover.active { opacity: 1; pointer-events: all; }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeScaleIn {
+      from { opacity: 0; transform: scale(0.7); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes titleReveal {
+      from { opacity: 0; transform: translateY(40px) skewY(2deg); filter: blur(8px); }
+      to   { opacity: 1; transform: translateY(0) skewY(0); filter: blur(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      #om-symbol { font-size: 72px; }
+      #om-wrap { width: 130px; height: 130px; margin-bottom: 20px; }
+      #begin-btn { padding: 14px 36px; }
+      #quote-block { padding: 10px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Dark cover for page transition -->
+<div id="cover"></div>
+
+<!-- Particle canvas -->
+<canvas id="canvas"></canvas>
+
+<!-- Mandala geometry (outer ring) -->
+<div id="mandala">
+  <svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="400" cy="400" r="390" stroke="#d4a017" stroke-width="0.5"/>
+    <circle cx="400" cy="400" r="350" stroke="#d4a017" stroke-width="0.3"/>
+    <circle cx="400" cy="400" r="300" stroke="#d4a017" stroke-width="0.5"/>
+    <!-- 12 petals -->
+    <g stroke="#d4a017" stroke-width="0.4">
+      <line x1="400" y1="10" x2="400" y2="790"/>
+      <line x1="10" y1="400" x2="790" y2="400"/>
+      <line x1="67" y1="67" x2="733" y2="733"/>
+      <line x1="733" y1="67" x2="67" y2="733"/>
+      <line x1="400" y1="10" x2="600" y2="346"/>
+      <line x1="600" y1="346" x2="600" y2="454"/>
+      <line x1="600" y1="454" x2="400" y2="790"/>
+      <line x1="400" y1="790" x2="200" y2="454"/>
+      <line x1="200" y1="454" x2="200" y2="346"/>
+      <line x1="200" y1="346" x2="400" y2="10"/>
+      <!-- Star of David style inner -->
+      <polygon points="400,50 650,450 150,450" fill="none" stroke="#d4a017" stroke-width="0.4" opacity="0.5"/>
+      <polygon points="400,750 650,350 150,350" fill="none" stroke="#d4a017" stroke-width="0.4" opacity="0.5"/>
+    </g>
+    <!-- Dots at 12 positions -->
+    <g fill="#d4a017" opacity="0.6">
+      <circle cx="400" cy="10" r="3"/>
+      <circle cx="400" cy="790" r="3"/>
+      <circle cx="10" cy="400" r="3"/>
+      <circle cx="790" cy="400" r="3"/>
+      <circle cx="67" cy="67" r="3"/>
+      <circle cx="733" cy="67" r="3"/>
+      <circle cx="67" cy="733" r="3"/>
+      <circle cx="733" cy="733" r="3"/>
+    </g>
+    <!-- Flower of life circles -->
+    <circle cx="400" cy="250" r="150" stroke="#d4a017" stroke-width="0.25" opacity="0.4"/>
+    <circle cx="400" cy="550" r="150" stroke="#d4a017" stroke-width="0.25" opacity="0.4"/>
+    <circle cx="270" cy="325" r="150" stroke="#d4a017" stroke-width="0.25" opacity="0.4"/>
+    <circle cx="530" cy="325" r="150" stroke="#d4a017" stroke-width="0.25" opacity="0.4"/>
+    <circle cx="270" cy="475" r="150" stroke="#d4a017" stroke-width="0.25" opacity="0.4"/>
+    <circle cx="530" cy="475" r="150" stroke="#d4a017" stroke-width="0.25" opacity="0.4"/>
+  </svg>
+</div>
+
+<!-- Inner mandala ring (rotates reverse) -->
+<div id="mandala-inner">
+  <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="250" cy="250" r="240" stroke="#f2c14e" stroke-width="0.4"/>
+    <circle cx="250" cy="250" r="180" stroke="#f2c14e" stroke-width="0.3"/>
+    <!-- 8-pointed star -->
+    <polygon points="250,10 290,210 490,250 290,290 250,490 210,290 10,250 210,210" fill="none" stroke="#f2c14e" stroke-width="0.5" opacity="0.6"/>
+    <!-- Inner 4-point -->
+    <polygon points="250,70 430,250 250,430 70,250" fill="none" stroke="#f2c14e" stroke-width="0.4" opacity="0.4"/>
+    <circle cx="250" cy="250" r="80" stroke="#f2c14e" stroke-width="0.4" opacity="0.5"/>
+    <circle cx="250" cy="250" r="40" stroke="#f2c14e" stroke-width="0.6" opacity="0.6"/>
+  </svg>
+</div>
+
+<!-- Floating Sanskrit words -->
+<div class="float-word" style="left:5%;animation-duration:22s;animation-delay:0s;font-size:28px;">सत्यम्</div>
+<div class="float-word" style="left:15%;animation-duration:28s;animation-delay:3s;font-size:20px;">अहिंसा</div>
+<div class="float-word" style="left:30%;animation-duration:19s;animation-delay:7s;font-size:36px;">धर्म</div>
+<div class="float-word" style="left:45%;animation-duration:25s;animation-delay:1s;font-size:22px;">ब्रह्म</div>
+<div class="float-word" style="left:60%;animation-duration:32s;animation-delay:5s;font-size:30px;">कर्म</div>
+<div class="float-word" style="left:72%;animation-duration:21s;animation-delay:9s;font-size:18px;">मोक्ष</div>
+<div class="float-word" style="left:83%;animation-duration:27s;animation-delay:2s;font-size:24px;">शान्ति</div>
+<div class="float-word" style="left:92%;animation-duration:24s;animation-delay:6s;font-size:20px;">आत्मा</div>
+<div class="float-word" style="left:8%;animation-duration:30s;animation-delay:14s;font-size:32px;">विद्या</div>
+<div class="float-word" style="left:55%;animation-duration:18s;animation-delay:11s;font-size:16px;">योग</div>
+
+<!-- Corner decorations -->
+    <div class="corner-deco tl">ॐ &nbsp; सर्वे भवन्तु सुखिनः</div>
+    <div class="corner-deco tr">असतो मा सद्गमय &nbsp; ॐ</div>
+    <div class="corner-deco bl">sanatan dharma guide</div>
+    <div class="corner-deco br">सत्यमेव जयते</div>
+
+<!-- MAIN INTRO CONTENT -->
+<div id="intro">
+  <!-- OM -->
+  <div id="om-wrap">
+    <div id="om-ring"></div>
+    <div id="om-ring-2"></div>
+    <div id="om-ring-3"></div>
+    <div id="om-glow"></div>
+    <span id="om-symbol">ॐ</span>
+  </div>
+
+  <!-- Labels -->
+  <div id="pre-title">The Eternal Way of Life — For Beginners</div>
+  <h1 id="main-title">Sanātana <span>Dharma</span></h1>
+  <div id="title-line"></div>
+  <div id="sanskrit-sub">सनातन धर्म — ज्ञान मार्ग</div>
+  <div id="english-sub">Understand your roots — in simple English, backed by 20 primary source books</div>
+
+  <!-- Shloka quote -->
+  <div id="quote-block">
+    <div id="quote-deva">एकं सद्विप्रा बहुधा वदन्ति</div>
+    <div id="quote-en">"Truth is One — the wise call it by many names."</div>
+    <div id="quote-src">— Rig Veda 1.164.46</div>
+  </div>
+
+  <!-- CTA -->
+  <div id="cta-wrap">
+    <a id="begin-btn" href="index.html">
+      Begin Your Journey <span class="btn-arrow">→</span>
+    </a>
+    <div id="scroll-hint">12 lessons &middot; 20 primary source books &middot; Absolutely free &middot; Simple English</div>
+  </div>
+</div>
+
+<script>
+// ── PARTICLE SYSTEM ──────────────────────────────────────────
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [], mouse = {x: -999, y: -999};
+
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function rand(min, max) { return Math.random() * (max - min) + min; }
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x  = rand(0, W);
+    this.y  = rand(0, H);
+    this.vx = rand(-0.15, 0.15);
+    this.vy = rand(-0.25, -0.05);
+    this.r  = rand(0.5, 2.2);
+    this.alpha = rand(0.1, 0.6);
+    this.life  = rand(0, 1);
+    this.speed = rand(0.003, 0.008);
+    // gold hue variants
+    const hues = ['242,193,78','212,160,23','192,130,43','255,215,100'];
+    this.color = hues[Math.floor(Math.random() * hues.length)];
+  }
+  update() {
+    this.life += this.speed;
+    // drift toward center gently
+    const cx = W/2, cy = H/2;
+    const dx = cx - this.x, dy = cy - this.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    this.vx += (dx / dist) * 0.003;
+    this.vy += (dy / dist) * 0.003;
+    // mouse repel
+    const mdx = this.x - mouse.x, mdy = this.y - mouse.y;
+    const mdist = Math.sqrt(mdx*mdx + mdy*mdy);
+    if (mdist < 120) {
+      this.vx += (mdx / mdist) * 0.4;
+      this.vy += (mdy / mdist) * 0.4;
+    }
+    // dampen
+    this.vx *= 0.98;
+    this.vy *= 0.98;
+    this.x += this.vx;
+    this.y += this.vy;
+    // opacity pulse
+    const t = this.life % 1;
+    this.currentAlpha = this.alpha * Math.sin(t * Math.PI);
+    if (this.life > 2) this.reset();
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.currentAlpha;
+    ctx.fillStyle = `rgba(${this.color}, 1)`;
+    ctx.shadowColor = `rgba(${this.color}, 0.8)`;
+    ctx.shadowBlur = this.r * 4;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+// Connection lines between nearby particles
+function drawConnections() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d  = Math.sqrt(dx*dx + dy*dy);
+      if (d < 90) {
+        const alpha = (1 - d / 90) * 0.08;
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(212,160,23,${alpha})`;
+        ctx.lineWidth = 0.5;
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+// Init particles
+const PARTICLE_COUNT = 120;
+for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+function loop() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Dark gradient background
+  const grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W,H)/1.2);
+  grad.addColorStop(0,   'rgba(22,12,6,0.98)');
+  grad.addColorStop(0.5, 'rgba(12,7,3,0.99)');
+  grad.addColorStop(1,   'rgba(5,3,1,1)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  drawConnections();
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(loop);
+}
+loop();
+
+// Track mouse
+window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+window.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+
+// ── PAGE TRANSITION ─────────────────────────────────────────
+document.getElementById('begin-btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  const dest = this.href;
+  // Fade intro out
+  document.getElementById('intro').style.animation = 'exitFade 0.7s cubic-bezier(0.7,0,1,1) forwards';
+  // Bring in dark cover
+  const cover = document.getElementById('cover');
+  cover.classList.add('active');
+  // Navigate after animation
+  setTimeout(() => { window.location.href = dest; }, 900);
+});
+
+// ── KEYBOARD support ────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    document.getElementById('begin-btn').click();
+  }
+});
+</script>
+</body>
+</html>

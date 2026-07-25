@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Primary Source Library — 20 Original Books | Sanātana Dharma Guide</title>
+  <meta name="description" content="Read all 20 primary source books used in this portal directly in your browser — Rig Veda, Upanishads, Bhagavad Gita, Puranas, Mahabharata and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+Devanagari:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="progress"></div>
+
+  <!-- Header -->
+  <header class="header-bar">
+    <a href="index.html" class="brand-title">
+      <span class="om">ॐ</span>
+      <span>Sanātana Dharma <em>Guide</em><span class="brand-sub">Your Beginner's Path</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">← Curriculum Hub</a></li>
+      <li class="lib-link"><a href="library.html" class="active">📚 Source Library</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Library Hero -->
+  <section class="library-hero">
+    <div class="hero-tag">Primary Source Verification Library · 20 Books · 16,000+ Pages</div>
+    <h1>Every Claim is <em style="color: var(--gold-bright)">Backed by a Book.</em><br>Read Them Yourself.</h1>
+    <p>
+      This portal does not ask you to trust us blindly. Every lesson links to the exact original book and page. Open any of the 20 primary texts below — directly in your browser.
+    </p>
+    <div class="library-stat-strip">
+      <div class="lib-stat"><span class="num">20</span><span class="label">Primary Books</span></div>
+      <div class="lib-stat"><span class="num">16,000+</span><span class="label">Total Pages</span></div>
+      <div class="lib-stat"><span class="num">700+</span><span class="label">MB of Scriptures</span></div>
+      <div class="lib-stat"><span class="num">100%</span><span class="label">Fact-Verified</span></div>
+    </div>
+  </section>
+
+  <!-- Category Tabs -->
+  <div class="category-tabs">
+    <button class="cat-tab active" onclick="filterBooks('all', this)">All Books (20)</button>
+    <button class="cat-tab" onclick="filterBooks('vedas', this)">Vedas</button>
+    <button class="cat-tab" onclick="filterBooks('upanishads', this)">Upanishads</button>
+    <button class="cat-tab" onclick="filterBooks('gita', this)">Gita & Commentaries</button>
+    <button class="cat-tab" onclick="filterBooks('epics', this)">Epics (Mahabharata)</button>
+    <button class="cat-tab" onclick="filterBooks('puranas', this)">Puranas</button>
+    <button class="cat-tab" onclick="filterBooks('philosophy', this)">Philosophy</button>
+    <button class="cat-tab" onclick="filterBooks('yoga', this)">Yoga</button>
+    <button class="cat-tab" onclick="filterBooks('dharma', this)">Dharmashastra</button>
+  </div>
+
+  <!-- Library Grid -->
+  <div class="library-grid" id="library-grid">
+
+    <!-- 1. Rig Veda -->
+    <div class="book-card" data-category="vedas">
+      <div class="book-card-spine spine-vedas"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-vedas">Vedas</span>
+        <div class="book-title">Rig Veda Complete (Sakala Shakha)</div>
+        <div class="book-meta">
+          <span>📄 1,636 pages</span>
+          <span>💾 149 MB</span>
+        </div>
+        <p class="book-desc">
+          The oldest of the four Vedas. Contains 10,552 hymns (mantras) in 10 Maṇḍalas praising Agni, Indra, Varuna, and the cosmic order (Ṛta). Foundation of all Sanātana knowledge.
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 1.1, 2.1, Myths 5.1</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Rig Veda Complete (Sakala Shakha)', 'Leads/Rig Veda Complete (Sakala Shakha).pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/Rig Veda Complete (Sakala Shakha).pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 2. Atharva Veda -->
+    <div class="book-card" data-category="vedas">
+      <div class="book-card-spine spine-vedas"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-vedas">Vedas</span>
+        <div class="book-title">Atharva Veda Samhita Part 1 — Pandit Jayadev Sharma</div>
+        <div class="book-meta">
+          <span>📄 616 pages</span>
+          <span>💾 85 MB</span>
+        </div>
+        <p class="book-desc">
+          The fourth Veda — dealing with healing, protection, cosmology, and everyday life. Contains hymns for health, harmony, and the force of time (Kāla). Often called "the Veda of daily life."
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 2.1</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Atharva Veda Samhita Part 1', 'Leads/Atharva_Veda_Samhita_Part_1_Pandit_Jayadev_Sharma.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/Atharva_Veda_Samhita_Part_1_Pandit_Jayadev_Sharma.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 3. 108 Upanishads -->
+    <div class="book-card" data-category="upanishads">
+      <div class="book-card-spine spine-upanishads"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-upanishads">Upanishads</span>
+        <div class="book-title">108 Upanishads — with Commentary by Swami Nirmalananda Giri</div>
+        <div class="book-meta">
+          <span>📄 908 pages</span>
+          <span>💾 3.2 MB</span>
+        </div>
+        <p class="book-desc">
+          The complete collection of all 108 Upanishads as listed in the Muktika Upanishad. Includes the 10 principal Upanishads with full commentary on the nature of Self (Ātman) and ultimate Reality (Brahman).
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 1.2, 2.2, 5.1</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('108 Upanishads', 'Leads/108upanishads.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/108upanishads.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 4. Brihadaranyaka Upanishad -->
+    <div class="book-card" data-category="upanishads">
+      <div class="book-card-spine spine-upanishads"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-upanishads">Upanishads</span>
+        <div class="book-title">Brihadāraṇyaka Upaniṣad — With Commentary of Śaṅkarācārya</div>
+        <div class="book-meta">
+          <span>📄 987 pages</span>
+          <span>💾 14.3 MB</span>
+        </div>
+        <p class="book-desc">
+          The longest and most ancient of all Upanishads. Contains the famous dialogues of sage Yājñavalkya with his wife Maitreyī and the scholar Gārgī. Source of the Mahāvākya <em>"Aham Brahmāsmi"</em>.
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 1.2, 2.2, Myths 5.1 (Women in Vedas)</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Brihadaranyaka Upanishad', 'Leads/Brihadaranyaka-Upanishad.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/Brihadaranyaka-Upanishad.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 5. Katha Upanishad -->
+    <div class="book-card" data-category="upanishads">
+      <div class="book-card-spine spine-upanishads"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-upanishads">Upanishads</span>
+        <div class="book-title">Katha Upaniṣad</div>
+        <div class="book-meta">
+          <span>📄 20 pages</span>
+          <span>💾 0.17 MB</span>
+        </div>
+        <p class="book-desc">
+          The most widely known Upanishad. Story of young Nachiketas who travels to Yama (Death) and receives the ultimate teaching about the immortal Self (Ātman). Basis of Sri Ramakrishna's teachings.
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 1.2, 2.2</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Katha Upanishad', 'Leads/Katha-Upanishad.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/Katha-Upanishad.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 6. Isa Kena Katha Prasna -->
+    <div class="book-card" data-category="upanishads">
+      <div class="book-card-spine spine-upanishads"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-upanishads">Upanishads</span>
+        <div class="book-title">Īśa, Kena, Katha, Praśna, Muṇḍaka & Māṇḍūkya Upaniṣads</div>
+        <div class="book-meta">
+          <span>📄 334 pages</span>
+          <span>💾 23.8 MB</span>
+        </div>
+        <p class="book-desc">
+          Sacred Books of the Hindus Vol. 1. Contains 6 Upanishads in full with traditional Sanskrit commentaries. Source of the AUM teaching from Māṇḍūkya Upanishad and Isa Upanishad's core hymns.
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 2.2, 3.2 (AUM symbol)</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Isa Kena Katha Prasna Upanishads', 'Leads/isakenakathapras0000upan.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/isakenakathapras0000upan.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 7. Bhagavad Gita Sadhak Sanjivani -->
+    <div class="book-card" data-category="gita">
+      <div class="book-card-spine spine-gita"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-gita">Gita & Commentaries</span>
+        <div class="book-title">Gita Sādhaka Sañjīvanī — Swami Ramsukhdas (English)</div>
+        <div class="book-meta">
+          <span>📄 2,159 pages</span>
+          <span>💾 57 MB</span>
+        </div>
+        <p class="book-desc">
+          The most comprehensive commentary on all 18 chapters of the Bhagavad Gita in English. Published by Gita Press. Covers Karma Yoga, Jnana Yoga, Bhakti Yoga, and the meaning of each verse in detail.
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 2.3, Myths 5.1 (Varna by Guna)</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Gita Sadhaka Sanjivani', 'Leads/Gita-Sadhak-Sanjevani-English-old.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/Gita-Sadhak-Sanjevani-English-old.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 8. Mahabharata -->
+    <div class="book-card" data-category="epics">
+      <div class="book-card-spine spine-epics"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-epics">Epics</span>
+        <div class="book-title">The Mahābhārata — Set of 10 Volumes (Complete)</div>
+        <div class="book-meta">
+          <span>📄 ~10,000+ pages</span>
+          <span>💾 54 MB</span>
+        </div>
+        <p class="book-desc">
+          The world's longest epic poem. Contains the story of Kurukshetra war, the Bhagavad Gita (as one chapter), and encyclopaedic teachings on Dharma, Artha, Kama, and Moksha. "Jaya" — the original title.
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 2.3, 3.1</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('The Mahabharata', 'Leads/The Mahabharata Set of 10 Volumes.htm')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/The Mahabharata Set of 10 Volumes.htm" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 9. Bhagavata Purana -->
+    <div class="book-card" data-category="puranas">
+      <div class="book-card-spine spine-puranas"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-puranas">Puranas</span>
+        <div class="book-title">Bhāgavata Purāṇa — Gita Press (Complete)</div>
+        <div class="book-meta">
+          <span>📄 1,590 pages</span>
+          <span>💾 64 MB</span>
+        </div>
+        <p class="book-desc">
+          The "Great Purana" — 12 Skandhas (Books) covering creation, the 10 Avatars of Vishnu, the life of Krishna (Skanda 10), Prahlada, Dhruva, and the ultimate teaching of pure devotion (Bhakti).
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 3.1 (Dashavatara), 1.2</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Bhagavata Purana - Gita Press', 'Leads/Bhagavata Purana - Gita Press_text.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/Bhagavata Purana - Gita Press_text.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 10. Vishnu Purana -->
+    <div class="book-card" data-category="puranas">
+      <div class="book-card-spine spine-puranas"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-puranas">Puranas</span>
+        <div class="book-title">The Viṣṇu Purāṇa — English Translation</div>
+        <div class="book-meta">
+          <span>📄 424 pages</span>
+          <span>💾 32.6 MB</span>
+        </div>
+        <p class="book-desc">
+          One of the 18 Mahāpurāṇas. Covers creation of the universe, four Yugas (ages), the genealogy of kings, and detailed accounts of Vishnu's divine manifestations including Narasimha and Vamana.
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 3.1 (Trimurti)</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('The Vishnu Purana', 'Leads/2015.47536.The-Vishnu-Purana.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/2015.47536.The-Vishnu-Purana.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 11. Shiv Purana -->
+    <div class="book-card" data-category="puranas">
+      <div class="book-card-spine spine-puranas"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-puranas">Puranas</span>
+        <div class="book-title">Śiva Purāṇa — Complete English Translation</div>
+        <div class="book-meta">
+          <span>📄 1,240 pages</span>
+          <span>💾 29 MB</span>
+        </div>
+        <p class="book-desc">
+          One of the most important Puranas dedicated to Shiva. Contains the stories of creation by Shiva, the symbolism of the Trishula, Lingam worship, the meaning of Rudra, and the Tandava dance.
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 3.1, 3.2 (Symbols), Myths 5.1</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Shiv Purana', 'Leads/SHIV PURAN.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/SHIV PURAN.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 12. Devi Bhagavata Vol 1 -->
+    <div class="book-card" data-category="puranas">
+      <div class="book-card-spine spine-puranas"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-puranas">Puranas</span>
+        <div class="book-title">Devī Bhāgavata Purāṇa Vol. 1 — Gita Press (Hindi Trans.)</div>
+        <div class="book-meta">
+          <span>📄 881 pages</span>
+          <span>💾 47 MB</span>
+        </div>
+        <p class="book-desc">
+          Scripture dedicated to the Divine Feminine (Shakti/Devi). Covers Durga's origin, her battles with Mahishasura, the nature of the primordial Goddess as the supreme power behind all creation.
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 3.1 (Shakti)</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Devi Bhagavata Vol 1', 'Leads/Devi Bhagavata with Hindi Translation Volume 1 Gita Press.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/Devi Bhagavata with Hindi Translation Volume 1 Gita Press.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 13. Devi Bhagavata Vol 2 -->
+    <div class="book-card" data-category="puranas">
+      <div class="book-card-spine spine-puranas"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-puranas">Puranas</span>
+        <div class="book-title">Devī Bhāgavata Purāṇa Vol. 2 — Gita Press (Hindi Trans.)</div>
+        <div class="book-meta">
+          <span>📄 881 pages</span>
+          <span>💾 46.7 MB</span>
+        </div>
+        <p class="book-desc">
+          Continuation of Devi Bhagavata — covers the mystical aspects of the Goddess, Navadurga forms, the chakras, and Shakta philosophy. Also referenced in Tantra traditions.
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 3.1 (Shakti)</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Devi Bhagavata Vol 2', 'Leads/Devi Bhagavata with Hindi Translation Volume 2 Gita Press - Tantra Books.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/Devi Bhagavata with Hindi Translation Volume 2 Gita Press - Tantra Books.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 14. Brahma Sutra -->
+    <div class="book-card" data-category="philosophy">
+      <div class="book-card-spine spine-philosophy"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-philosophy">Philosophy</span>
+        <div class="book-title">Brahma Sūtra — Swami Gambhirananda (Vedanta)</div>
+        <div class="book-meta">
+          <span>📄 941 pages</span>
+          <span>💾 52.9 MB</span>
+        </div>
+        <p class="book-desc">
+          The third Prasthanatraya (source texts) of Vedanta. 555 aphorisms systematizing the knowledge of Brahman from the Upanishads. Essential for understanding Advaita (non-dual) philosophy.
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 1.2 (Brahman)</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Brahma Sutra', 'Leads/Brahma_Sutra_Swami_Gambhirananda.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/Brahma_Sutra_Swami_Gambhirananda.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 15. Samkhya Philosophy -->
+    <div class="book-card" data-category="philosophy">
+      <div class="book-card-spine spine-philosophy"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-philosophy">Philosophy</span>
+        <div class="book-title">The Sāṃkhya Philosophy — Classical System</div>
+        <div class="book-meta">
+          <span>📄 206 pages</span>
+          <span>💾 19.4 MB</span>
+        </div>
+        <p class="book-desc">
+          One of the six orthodox (āstika) philosophical systems of Sanātana Dharma. Founded by Kapila Muni. Explains the 25 principles (tattvas) underlying creation — Puruṣa (consciousness) and Prakṛti (matter).
+        </p>
+        <div class="source-badge">📖 Used in: Background Philosophy</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Samkhya Philosophy', 'Leads/thesamkhyaphilos00sinhuoft.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/thesamkhyaphilos00sinhuoft.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 16. Vaisheshika -->
+    <div class="book-card" data-category="philosophy">
+      <div class="book-card-spine spine-philosophy"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-philosophy">Philosophy</span>
+        <div class="book-title">The Vaiśeṣika Sūtras of Kaṇāda</div>
+        <div class="book-meta">
+          <span>📄 380 pages</span>
+          <span>💾 27.5 MB</span>
+        </div>
+        <p class="book-desc">
+          Ancient atomic theory of creation by sage Kanada. Proposes the world is made of eternal, indivisible atoms (paramāṇu). One of the oldest physical philosophy systems in the world — predating Greek atomism.
+        </p>
+        <div class="source-badge">📖 Used in: Background Philosophy</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Vaisheshika Sutras', 'Leads/thevaiasesikasut00kanauoft.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/thevaiasesikasut00kanauoft.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 17. Raja Yoga -->
+    <div class="book-card" data-category="yoga">
+      <div class="book-card-spine spine-yoga"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-yoga">Yoga</span>
+        <div class="book-title">Rāja Yoga — Swami Vivekananda</div>
+        <div class="book-meta">
+          <span>📄 230 pages</span>
+          <span>💾 0.6 MB</span>
+        </div>
+        <p class="book-desc">
+          Swami Vivekananda's landmark commentary on Patanjali's Yoga Sutras. Explains the 8 limbs of Yoga (Ashtanga), meditation techniques, Prāṇāyāma, and the science of the mind in simple, modern English.
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 4.1 (Daily Practices)</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Raja Yoga - Swami Vivekananda', 'Leads/Raja-Yoga-by-Swami-Vivekananda.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/Raja-Yoga-by-Swami-Vivekananda.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 18. Dharmashastra 8232 -->
+    <div class="book-card" data-category="dharma">
+      <div class="book-card-spine spine-dharma"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-dharma">Dharmashastra</span>
+        <div class="book-title">Dharmaśāstra — Sacred Law Texts (Vol. 1)</div>
+        <div class="book-meta">
+          <span>📄 ~860 pages</span>
+          <span>💾 16.2 MB</span>
+        </div>
+        <p class="book-desc">
+          Traditional texts on social ethics, duties (dharma), and the sixteen Saṃskāras (life sacraments). Source for rites of passage from birth to death. Based on Manusmriti and Grihyasutras.
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 4.2 (16 Sacraments)</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Dharmashastra Vol 1', 'Leads/8232.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/8232.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 19. Dharmashastra 8254 -->
+    <div class="book-card" data-category="dharma">
+      <div class="book-card-spine spine-dharma"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-dharma">Dharmashastra</span>
+        <div class="book-title">Dharmaśāstra — Sacred Law Texts (Vol. 2)</div>
+        <div class="book-meta">
+          <span>📄 ~862 pages</span>
+          <span>💾 48 MB</span>
+        </div>
+        <p class="book-desc">
+          Continuation of the Dharmaśāstra texts. Covers the Grihyasutras (household rites), marriage ceremonies (Vivāha Saṃskāra), student life (Brahmacharya), and the four Āśramas (stages of life).
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 4.2 (16 Sacraments)</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Dharmashastra Vol 2', 'Leads/8254.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/8254.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <!-- 20. User Index (Ramayana) -->
+    <div class="book-card" data-category="epics">
+      <div class="book-card-spine spine-epics"></div>
+      <div class="book-card-body">
+        <span class="book-category-tag tag-epics">Epics</span>
+        <div class="book-title">Rāmāyaṇa — Complete Index Volume</div>
+        <div class="book-meta">
+          <span>📄 1,626 pages</span>
+          <span>💾 26.4 MB</span>
+        </div>
+        <p class="book-desc">
+          The epic of Rama — containing the story of Ayodhya, Sita's abduction by Ravana, Hanuman's role as devotion incarnate, and the final dharmic battle. The Ādi-Kāvya (first poem) of Sanskrit literature.
+        </p>
+        <div class="source-badge">📖 Used in: Lesson 3.1 (Avatars)</div>
+      </div>
+      <div class="book-actions">
+        <button class="btn-read" onclick="openReader('Ramayana Index', 'Leads/user index.pdf')">📖 Read in Browser</button>
+        <a class="btn-download" href="Leads/user index.pdf" download>⬇ Download</a>
+      </div>
+    </div>
+
+  </div><!-- end library-grid -->
+
+  <!-- Notice for users -->
+  <div style="max-width: 860px; margin: 0 auto 60px; padding: 0 24px; text-align: center;">
+    <div style="background: var(--bg-card); border: 1px solid var(--line); border-left: 4px solid var(--teal); border-radius: 0 12px 12px 0; padding: 24px 28px; text-align: left;">
+      <div style="font-family: var(--mono); font-size: 11px; color: var(--teal); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;">Note to Sceptics &amp; Fact-Checkers</div>
+      <p style="font-size: 16px; color: var(--ivory); line-height: 1.7;">
+        Every claim in this portal is sourced from these primary texts. If you believe anything on this website contradicts what a book actually says — <strong>open that book right here</strong>, check the cited page, and you will find the original text. We do not add our own opinions, we only explain what these original scriptures contain, in simple language.
+      </p>
+    </div>
+  </div>
+
+  <!-- PDF Viewer Modal -->
+  <div class="pdf-modal-overlay" id="pdfModal">
+    <div class="pdf-modal-header">
+      <div class="pdf-modal-title" id="pdfModalTitle">Loading...</div>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <a id="pdfModalDownload" href="#" download style="font-family: var(--mono); font-size: 12px; color: var(--muted); text-decoration: none;">⬇ Download</a>
+        <button class="pdf-modal-close" onclick="closeReader()">✕ Close Viewer</button>
+      </div>
+    </div>
+    <iframe class="pdf-modal-frame" id="pdfFrame" src="" title="PDF Viewer"></iframe>
+  </div>
+
+  <footer>
+    <div class="om">ॐ</div>
+    <p><strong>Sanātana Dharma Guide — Primary Source Library</strong></p>
+    <p style="margin-top: 6px; font-size: 14px; color: var(--muted-2);">20 original scripture books · 16,000+ pages · Open access for fact-verification</p>
+    <p style="margin-top: 14px;"><a href="index.html" style="font-family: var(--mono); font-size: 13px;">← Back to Curriculum Hub</a></p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // PDF Viewer
+    function openReader(title, path) {
+      document.getElementById('pdfModalTitle').textContent = title;
+      document.getElementById('pdfFrame').src = path;
+      document.getElementById('pdfModalDownload').href = path;
+      document.getElementById('pdfModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeReader() {
+      document.getElementById('pdfModal').classList.remove('open');
+      document.getElementById('pdfFrame').src = '';
+      document.body.style.overflow = '';
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeReader();
+    });
+
+    // Category Filter
+    function filterBooks(category, btn) {
+      // Update active tab
+      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Filter cards
+      document.querySelectorAll('.book-card').forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'flex';
+          card.style.animation = 'none';
+          setTimeout(() => card.style.animation = '', 10);
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
