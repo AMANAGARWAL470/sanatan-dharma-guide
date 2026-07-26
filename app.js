@@ -9,9 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function initAudio() {
     if (!audioCtx) {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (AudioContext) {
-        audioCtx = new AudioContext();
-      }
+      if (AudioContext) audioCtx = new AudioContext();
     }
     if (audioCtx && audioCtx.state === 'suspended') {
       audioCtx.resume();
@@ -19,31 +17,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Play a resonant 432Hz Temple Bell / Singing Bowl Tone
-  window.playTempleChime = function(freq = 432, duration = 3.0) {
+  window.playTempleChime = function(freq = 432, duration = 2.8) {
     if (!soundEnabled) return;
     try {
       initAudio();
       if (!audioCtx) return;
 
       const now = audioCtx.currentTime;
-      
-      // Master Gain for smooth fade out
       const masterGain = audioCtx.createGain();
-      masterGain.gain.setValueAtTime(0.3, now);
+      masterGain.gain.setValueAtTime(0.35, now);
       masterGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
       masterGain.connect(audioCtx.destination);
 
-      # Fundamental Sine Oscillator (432 Hz - Om frequency)
       const osc1 = audioCtx.createOscillator();
       osc1.type = 'sine';
       osc1.frequency.setValueAtTime(freq, now);
 
-      # Harmonic Overtone (Singing Bowl shimmer)
       const osc2 = audioCtx.createOscillator();
       osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(freq * 2.76, now); // Metallic overtone ratio
+      osc2.frequency.setValueAtTime(freq * 2.76, now);
 
-      # Sub-harmonic (Deep warm bass resonance)
       const osc3 = audioCtx.createOscillator();
       osc3.type = 'sine';
       osc3.frequency.setValueAtTime(freq / 2, now);
@@ -62,25 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
       osc3.connect(gain3);
       gain3.connect(masterGain);
 
-      osc1.start(now);
-      osc2.start(now);
-      osc3.start(now);
-
-      osc1.stop(now + duration);
-      osc2.stop(now + duration);
-      osc3.stop(now + duration);
-    } catch (e) {
-      console.log('Audio chime disabled:', e);
-    }
+      osc1.start(now); osc2.start(now); osc3.start(now);
+      osc1.stop(now + duration); osc2.stop(now + duration); osc3.stop(now + duration);
+    } catch (e) {}
   };
 
-  // Play a soft click chime for UI buttons
   window.playClickChime = function() {
     if (!soundEnabled) return;
     try {
       initAudio();
       if (!audioCtx) return;
-
       const now = audioCtx.currentTime;
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
@@ -92,15 +76,12 @@ document.addEventListener('DOMContentLoaded', () => {
       gain.gain.setValueAtTime(0.15, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
 
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-
-      osc.start(now);
-      osc.stop(now + 0.12);
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.start(now); osc.stop(now + 0.12);
     } catch (e) {}
   };
 
-  // Create Sound Toggle Button in Header
+  // Header Sound Toggle Button
   const headerBar = document.querySelector('.header-bar');
   if (headerBar) {
     const soundBtn = document.createElement('button');
@@ -134,20 +115,152 @@ document.addEventListener('DOMContentLoaded', () => {
       soundEnabled = !soundEnabled;
       localStorage.setItem('sd_sound_enabled', soundEnabled);
       updateSoundBtn();
-      if (soundEnabled) {
-        window.playTempleChime(432, 2.0);
-      }
+      if (soundEnabled) window.playTempleChime(432, 2.0);
     });
 
     headerBar.insertBefore(soundBtn, headerBar.querySelector('.nav-toggle') || headerBar.lastChild);
   }
 
-  // Play chime on first user click anywhere to initialize audio context
   document.addEventListener('click', () => { initAudio(); }, { once: true });
   document.addEventListener('touchstart', () => { initAudio(); }, { once: true });
 
   // ══════════════════════════════════════════════════════════
-  // 2. READING PROGRESS BAR
+  // 2. GOLDEN CLICK / TOUCH RIPPLE EFFECT
+  // ══════════════════════════════════════════════════════════
+  function createRipple(x, y) {
+    const ripple = document.createElement('div');
+    ripple.className = 'click-ripple';
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
+    document.body.appendChild(ripple);
+    setTimeout(() => { ripple.remove(); }, 750);
+  }
+
+  document.addEventListener('click', e => {
+    // Avoid creating double ripple on inputs or toggle buttons
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+    createRipple(e.clientX, e.clientY);
+  });
+
+  document.addEventListener('touchstart', e => {
+    if (e.touches.length > 0) {
+      createRipple(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
+
+  // ══════════════════════════════════════════════════════════
+  // 3. 3D CARD TILT & SPOTLIGHT GLARE TRACKER
+  // ══════════════════════════════════════════════════════════
+  const interactiveCards = document.querySelectorAll('.step-card, .myth-card, .shloka-block, .analogy-box');
+
+  interactiveCards.forEach(card => {
+    // Inject glare element
+    if (!card.querySelector('.card-glare')) {
+      const glare = document.createElement('div');
+      glare.className = 'card-glare';
+      card.appendChild(glare);
+    }
+
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+      card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+
+      // 3D tilt calculation
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = -((y - centerY) / centerY) * 4; // Max 4 deg tilt
+      const rotateY = ((x - centerX) / centerX) * 4;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(4px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+    });
+
+    card.addEventListener('touchmove', e => {
+      if (e.touches.length > 0) {
+        const rect = card.getBoundingClientRect();
+        const x = e.touches[0].clientX - rect.left;
+        const y = e.touches[0].clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+        card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+      }
+    }, { passive: true });
+  });
+
+  // ══════════════════════════════════════════════════════════
+  // 4. INTERACTIVE SHLOKA PLAYER (Click Shloka to Chant)
+  // ══════════════════════════════════════════════════════════
+  const shlokas = document.querySelectorAll('.shloka-block');
+  shlokas.forEach(shloka => {
+    shloka.style.cursor = 'pointer';
+    shloka.title = 'Click/Tap to play sacred mantra chime';
+
+    shloka.addEventListener('click', () => {
+      window.playTempleChime(432, 3.2);
+      shloka.classList.add('playing-shloka');
+      setTimeout(() => { shloka.classList.remove('playing-shloka'); }, 3200);
+    });
+  });
+
+  // ══════════════════════════════════════════════════════════
+  // 5. AMBIENT GOLD SPARK CANVAS (For Subpages)
+  // ══════════════════════════════════════════════════════════
+  if (!document.getElementById('canvas') && !document.getElementById('ambient-canvas')) {
+    const ambientCanvas = document.createElement('canvas');
+    ambientCanvas.id = 'ambient-canvas';
+    document.body.prepend(ambientCanvas);
+
+    const actx = ambientCanvas.getContext('2d');
+    let aW, aH, aParticles = [];
+
+    function aResize() {
+      aW = ambientCanvas.width = window.innerWidth;
+      aH = ambientCanvas.height = window.innerHeight;
+    }
+    aResize();
+    window.addEventListener('resize', aResize);
+
+    class AmbientParticle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * aW;
+        this.y = Math.random() * aH;
+        this.vy = -(Math.random() * 0.3 + 0.1);
+        this.vx = (Math.random() - 0.5) * 0.2;
+        this.r = Math.random() * 1.5 + 0.5;
+        this.alpha = Math.random() * 0.4 + 0.1;
+      }
+      update() {
+        this.y += this.vy;
+        this.x += this.vx;
+        if (this.y < 0) this.reset();
+      }
+      draw() {
+        actx.fillStyle = `rgba(242, 193, 78, ${this.alpha})`;
+        actx.beginPath();
+        actx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        actx.fill();
+      }
+    }
+
+    for (let i = 0; i < 40; i++) aParticles.push(new AmbientParticle());
+
+    function aLoop() {
+      actx.clearRect(0, 0, aW, aH);
+      aParticles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(aLoop);
+    }
+    aLoop();
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 6. READING PROGRESS BAR
   // ══════════════════════════════════════════════════════════
   const progressBar = document.getElementById('progress');
   window.addEventListener('scroll', () => {
@@ -157,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   // ══════════════════════════════════════════════════════════
-  // 3. HAMBURGER MENU TOGGLE (Mobile Overlay)
+  // 7. HAMBURGER MENU TOGGLE (Mobile Overlay)
   // ══════════════════════════════════════════════════════════
   const toggle   = document.querySelector('.nav-toggle');
   const navLinks = document.querySelector('.nav-links');
@@ -202,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ══════════════════════════════════════════════════════════
-  // 4. MYTH VS FACT ACCORDION TOGGLES
+  // 8. MYTH ACCORDIONS
   // ══════════════════════════════════════════════════════════
   const mythHeaders = document.querySelectorAll('.myth-header');
   mythHeaders.forEach(header => {
@@ -233,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ══════════════════════════════════════════════════════════
-  // 5. INTERACTIVE BEGINNER QUIZ
+  // 9. INTERACTIVE BEGINNER QUIZ
   // ══════════════════════════════════════════════════════════
   const quizBtns   = document.querySelectorAll('.quiz-btn');
   const quizResult = document.getElementById('quizResult');
@@ -275,13 +388,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ══════════════════════════════════════════════════════════
-  // 6. PROFESSIONAL SCROLL UNBLUR & FADE ANIMATION (IntersectionObserver)
+  // 10. SCROLL UNBLUR & SLIDE-UP ANIMATION
   // ══════════════════════════════════════════════════════════
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -40px 0px'
-  };
-
+  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -40px 0px' };
   const scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
