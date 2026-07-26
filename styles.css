@@ -1070,13 +1070,15 @@ footer p {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.92);
-  z-index: 2000;
+  background: rgba(10, 7, 5, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 100000 !important;
   flex-direction: column;
 }
 
 .pdf-modal-overlay.open {
-  display: flex;
+  display: flex !important;
 }
 
 .pdf-modal-header {
