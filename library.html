@@ -492,67 +492,67 @@
     </div>
   </div>
 
-  <!-- PDF Viewer Modal -->
+  <!-- PDF / Book Viewer Modal -->
   <div class="pdf-modal-overlay" id="pdfModal">
     <div class="pdf-modal-header">
-      <div class="pdf-modal-title" id="pdfModalTitle">Loading...</div>
+      <div class="pdf-modal-title" id="pdfModalTitle">Scripture Reader</div>
       <div style="display: flex; gap: 12px; align-items: center;">
-        <a id="pdfModalDownload" href="#" download style="font-family: var(--mono); font-size: 12px; color: var(--muted); text-decoration: none;">⬇ Download</a>
-        <button class="pdf-modal-close" onclick="closeReader()">✕ Close Viewer</button>
+        <a id="pdfModalDownload" href="https://archive.org" target="_blank" style="font-family: var(--mono); font-size: 12px; color: var(--gold-bright); text-decoration: none;">🌐 Archive.org Text</a>
+        <button class="pdf-modal-close" onclick="closeReader()">✕ Close Reader</button>
       </div>
     </div>
-    <iframe class="pdf-modal-frame" id="pdfFrame" src="" title="PDF Viewer"></iframe>
+    <div class="pdf-modal-body" id="readerContent" style="padding: 28px; overflow-y: auto; max-height: calc(100vh - 80px); color: var(--ivory); font-family: var(--serif-body); line-height: 1.8; max-width: 960px; margin: 0 auto;"></div>
   </div>
 
   <footer>
     <div class="om">ॐ</div>
     <p><strong>Sanātana Dharma Guide — Primary Source Library</strong></p>
     <p style="margin-top: 6px; font-size: 14px; color: var(--muted-2);">20 original scripture books · 16,000+ pages · Open access for fact-verification</p>
-    <p style="margin-top: 14px;"><a href="index" style="font-family: var(--mono); font-size: 13px;">← Back to Curriculum Hub</a></p>
+    <p style="margin-top: 14px;"><a href="curriculum" style="font-family: var(--mono); font-size: 13px;">← Back to Curriculum Hub</a></p>
   </footer>
 
   <script src="library_data.js"></script>
   <script src="app.js"></script>
   <script>
-    // 📖 Instant In-Browser Book Reader Modal using LIBRARY_DB
+    // 📖 Direct DOM In-Browser Book Reader Modal using LIBRARY_DB
     function openReader(title, filename) {
       if (typeof window.playTempleChime === 'function') window.playTempleChime(432, 2.5);
 
       const modalTitle = document.getElementById('pdfModalTitle');
-      const frame = document.getElementById('pdfFrame');
+      const readerContent = document.getElementById('readerContent');
 
       modalTitle.textContent = title;
       
       // Look up book in LIBRARY_DB
-      const bookData = window.LIBRARY_DB ? (window.LIBRARY_DB[filename] || window.LIBRARY_DB[filename.replace('Leads/', '')]) : null;
-
-      // Find matching key in LIBRARY_DB if exact key fails
-      let matchedData = bookData;
-      if (!matchedData && window.LIBRARY_DB) {
-        const keys = Object.keys(window.LIBRARY_DB);
-        const matchKey = keys.find(k => k.toLowerCase().includes(title.toLowerCase().split(' ')[0]) || title.toLowerCase().includes(k.toLowerCase().split('.')[0]));
-        if (matchKey) matchedData = window.LIBRARY_DB[matchKey];
+      let matchedData = null;
+      if (window.LIBRARY_DB) {
+        matchedData = window.LIBRARY_DB[filename] || window.LIBRARY_DB[filename.replace('Leads/', '')];
+        if (!matchedData) {
+          const keys = Object.keys(window.LIBRARY_DB);
+          const firstWord = title.toLowerCase().split(' ')[0];
+          const matchKey = keys.find(k => k.toLowerCase().includes(firstWord) || title.toLowerCase().includes(k.toLowerCase().split('.')[0]));
+          if (matchKey) matchedData = window.LIBRARY_DB[matchKey];
+        }
       }
 
-      // Build rich HTML view inside modal
+      // Build rich HTML view directly in DOM
       let viewerHtml = `
-        <div style="padding: 24px; color: var(--ivory); font-family: var(--serif-body); max-width: 900px; margin: 0 auto; line-height: 1.8;">
-          <div style="background: rgba(212,160,23,0.1); border: 1px solid var(--line-strong); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
-            <h2 style="font-family: var(--serif-display); font-size: 28px; color: var(--gold-bright); margin-bottom: 8px;">📖 ${title}</h2>
-            <div style="font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; gap: 16px;">
-              <span>📄 Total Pages: ${matchedData ? matchedData.pages : 'Original Text'}</span>
-              <span>⚡ Status: Verified Primary Scripture</span>
-            </div>
+        <div style="background: rgba(212,160,23,0.1); border: 1px solid var(--line-strong); border-radius: 16px; padding: 24px; margin-bottom: 28px;">
+          <h2 style="font-family: var(--serif-display); font-size: clamp(26px, 4.5vw, 36px); color: var(--gold-bright); margin-bottom: 8px;">📖 ${title}</h2>
+          <div style="font-family: var(--mono); font-size: 13px; color: var(--muted); display: flex; gap: 20px; flex-wrap: wrap;">
+            <span>📄 Total Pages: ${matchedData ? matchedData.pages : 'Original Scripture'}</span>
+            <span>⚡ Status: Verified Primary Text</span>
           </div>
+        </div>
       `;
 
       if (matchedData && matchedData.passages && matchedData.passages.length > 0) {
-        viewerHtml += `<h3 style="font-family: var(--serif-display); font-size: 24px; color: var(--gold-bright); margin-bottom: 16px;">Key Scriptural Passages &amp; Shlokas from this Book:</h3>`;
+        viewerHtml += `<h3 style="font-family: var(--serif-display); font-size: 26px; color: var(--gold-bright); margin-bottom: 18px;">Key Scriptural Passages &amp; Shlokas from this Book:</h3>`;
         matchedData.passages.forEach((p, idx) => {
           viewerHtml += `
-            <div class="shloka-block" style="margin-bottom: 20px;">
+            <div class="shloka-block" style="margin-bottom: 22px;">
               <div style="font-family: var(--mono); font-size: 11px; color: var(--vermillion); margin-bottom: 6px;">Passage ${idx + 1} · Page ${p.page}</div>
-              <div class="shloka-translation">${p.content}</div>
+              <div class="shloka-translation" style="font-size: 17px; line-height: 1.8; font-style: normal;">${p.content}</div>
             </div>
           `;
         });
@@ -560,34 +560,19 @@
 
       if (matchedData && matchedData.excerpt) {
         viewerHtml += `
-          <h3 style="font-family: var(--serif-display); font-size: 24px; color: var(--gold-bright); margin: 28px 0 14px;">Original Text Excerpt:</h3>
-          <div style="background: var(--bg-panel); border: 1px solid var(--line); border-radius: 12px; padding: 20px; font-size: 15px; color: var(--muted); white-space: pre-wrap; font-family: var(--serif-body); max-height: 350px; overflow-y: auto;">${matchedData.excerpt}</div>
+          <h3 style="font-family: var(--serif-display); font-size: 26px; color: var(--gold-bright); margin: 32px 0 14px;">Original Text Excerpt:</h3>
+          <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 24px; font-size: 16px; color: var(--ivory); white-space: pre-wrap; font-family: var(--serif-body); line-height: 1.8; max-height: 400px; overflow-y: auto;">${matchedData.excerpt}</div>
         `;
       }
 
       viewerHtml += `
-        <div style="margin-top: 32px; text-align: center; border-top: 1px solid var(--line); padding-top: 20px;">
-          <a href="https://archive.org" target="_blank" class="verify-link" style="font-size: 13px; padding: 8px 20px;">🌐 Search Original Scanned Manuscripts on Archive.org →</a>
+        <div style="margin-top: 36px; text-align: center; border-top: 1px solid var(--line); padding-top: 24px;">
+          <p style="color: var(--muted); margin-bottom: 12px; font-size: 15px;">Want to inspect the raw scanned manuscript pages?</p>
+          <a href="https://archive.org" target="_blank" class="verify-link" style="font-size: 14px; padding: 10px 24px;">🌐 Search Original Scanned Manuscripts on Archive.org →</a>
         </div>
-      </div>`;
+      `;
 
-      // Render inside modal frame
-      const frameDoc = frame.contentDocument || frame.contentWindow.document;
-      frameDoc.open();
-      frameDoc.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lora&family=Noto+Serif+Devanagari&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
-          <link rel="stylesheet" href="styles.css">
-          <style>body { background: #120e0b; padding: 10px; }</style>
-        </head>
-        <body>${viewerHtml}</body>
-        </html>
-      `);
-      frameDoc.close();
-
-      document.getElementById('pdfModalDownload').href = path;
+      readerContent.innerHTML = viewerHtml;
       document.getElementById('pdfModal').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -595,7 +580,7 @@
     function closeReader() {
       if (typeof window.playClickChime === 'function') window.playClickChime();
       document.getElementById('pdfModal').classList.remove('open');
-      document.getElementById('pdfFrame').src = 'about:blank';
+      document.getElementById('readerContent').innerHTML = '';
       document.body.style.overflow = '';
     }
 
