@@ -1002,3 +1002,35 @@ footer p {
   }
   .verify-link { display: inline-flex; }
 }
+
+/* ══════════════════════════════════════════════
+   PROFESSIONAL BLUR & GLASSMORPHISM ANIMATIONS
+══════════════════════════════════════════════ */
+.unblur-init {
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(8px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.unblur-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Glassmorphism Panel & Card Enhancement */
+.step-card, .analogy-box, .shloka-block, .myth-card, .beginner-hero {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+.sound-toggle-btn:hover {
+  background: rgba(212, 160, 23, 0.25) !important;
+  color: #ffffff !important;
+}
+

@@ -558,10 +558,14 @@ window.addEventListener('touchmove', e => {
 // ── PAGE TRANSITION (Works for touch and click) ─────────────
 function navigateToMain(e) {
   e.preventDefault();
+  // Play sacred 432Hz temple chime sound
+  if (typeof playTempleChime === 'function') {
+    playTempleChime(432, 2.5);
+  }
   const btn = document.getElementById('begin-btn');
-  const dest = btn.getAttribute('href') || 'index.html';
+  const dest = btn.getAttribute('href') || 'curriculum.html';
   document.getElementById('cover').classList.add('active');
-  setTimeout(() => { window.location.href = dest; }, 500);
+  setTimeout(() => { window.location.href = dest; }, 600);
 }
 
 const beginBtn = document.getElementById('begin-btn');
