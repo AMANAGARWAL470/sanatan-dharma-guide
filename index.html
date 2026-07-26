@@ -2,314 +2,580 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sanātana Dharma Guide — Beginner's Learning Portal</title>
-  <meta name="description" content="A structured, beginner-first learning portal for Sanatan Dharma backed by 20 primary book citations (Vedas, Upanishads, Gita, Epics, Puranas, Darshanas).">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sanātana Dharma Guide — Your Beginner's Path</title>
+  <meta name="description" content="Your beginner-friendly guide to Sanātana Dharma — the world's oldest living wisdom tradition. Fact-checked, simple English, 20 primary source books.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+Devanagari:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Noto+Serif+Devanagari:wght@300;400;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
   <style>
-    body { animation: pageEnter 0.8s cubic-bezier(0.16,1,0.3,1) both; }
-    @keyframes pageEnter {
-      from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
-      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --bg: #0a0705;
+      --gold: #d4a017;
+      --gold-bright: #f2c14e;
+      --gold-dim: #8a6510;
+      --vermillion: #c0392b;
+      --ivory: #f5efe6;
+      --muted: #a08f78;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --deva: 'Noto Serif Devanagari', serif;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: var(--bg);
+      font-family: var(--serif);
+      -webkit-font-smoothing: antialiased;
+      color: var(--ivory);
+    }
+
+    /* Desktop overflow hidden, mobile scrollable if viewport too small */
+    @media (min-height: 700px) and (min-width: 601px) {
+      html, body { overflow: hidden; height: 100vh; }
+    }
+    @media (max-width: 600px), (max-height: 699px) {
+      html, body { overflow-y: auto; overflow-x: hidden; }
+    }
+
+    /* ── CANVAS (particles + sacred geometry) ── */
+    #canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── MAIN WRAPPER ── */
+    #intro {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    /* ── FLOATING SANSKRIT WORDS (background layer) ── */
+    .float-word {
+      position: fixed;
+      font-family: var(--deva);
+      color: rgba(212, 160, 23, 0.06);
+      font-size: clamp(16px, 3vw, 42px);
+      font-weight: 400;
+      pointer-events: none;
+      animation: floatDrift linear infinite;
+      z-index: 1;
+      white-space: nowrap;
+      user-select: none;
+    }
+    @keyframes floatDrift {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      5%   { opacity: 1; }
+      95%  { opacity: 1; }
+      100% { transform: translateY(-20vh) rotate(8deg); opacity: 0; }
+    }
+
+    /* ── OM SYMBOL ── */
+    #om-wrap {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeScaleIn 1.4s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+      flex-shrink: 0;
+    }
+    #om-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1.5px solid rgba(212,160,23,0.3);
+      animation: ringPulse 4s ease-in-out infinite;
+    }
+    #om-ring-2 {
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      border: 1px solid rgba(212,160,23,0.12);
+      animation: ringPulse 4s ease-in-out 1s infinite;
+    }
+    #om-ring-3 {
+      position: absolute;
+      inset: -24px;
+      border-radius: 50%;
+      border: 0.5px solid rgba(212,160,23,0.06);
+      animation: ringPulse 4s ease-in-out 2s infinite;
+    }
+    @keyframes ringPulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50%       { transform: scale(1.06); opacity: 1; }
+    }
+    #om-glow {
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,160,23,0.14) 0%, transparent 70%);
+      animation: glowBreath 4s ease-in-out infinite;
+    }
+    @keyframes glowBreath {
+      0%,100% { opacity: 0.6; transform: scale(1); }
+      50%     { opacity: 1;   transform: scale(1.15); }
+    }
+    #om-symbol {
+      font-family: var(--deva);
+      font-size: 76px;
+      color: var(--gold-bright);
+      line-height: 1;
+      text-shadow:
+        0 0 30px rgba(242,193,78,0.8),
+        0 0 60px rgba(242,193,78,0.4),
+        0 0 100px rgba(212,160,23,0.3);
+      animation: omPulse 4s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
+    }
+    @keyframes omPulse {
+      0%,100% { text-shadow: 0 0 30px rgba(242,193,78,0.8), 0 0 60px rgba(242,193,78,0.4); }
+      50%     { text-shadow: 0 0 50px rgba(242,193,78,1),   0 0 90px rgba(242,193,78,0.6); }
+    }
+
+    /* ── TAGLINE ABOVE TITLE ── */
+    #pre-title {
+      font-family: 'Lora', Georgia, serif;
+      font-size: clamp(11px, 1.4vw, 15px);
+      color: var(--vermillion);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.8s forwards;
+      margin-bottom: 8px;
+    }
+
+    /* ── MAIN TITLE ── */
+    #main-title {
+      font-family: var(--serif);
+      font-size: clamp(38px, 6.5vw, 84px);
+      font-weight: 300;
+      color: var(--ivory);
+      letter-spacing: -0.01em;
+      line-height: 1.05;
+      text-align: center;
+      opacity: 0;
+      animation: titleReveal 1.4s cubic-bezier(0.16,1,0.3,1) 1.1s forwards;
+      margin-bottom: 6px;
+    }
+    #main-title span {
+      color: var(--gold-bright);
+      font-style: italic;
+    }
+
+    /* ── TITLE UNDERLINE ── */
+    #title-line {
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 12px auto 16px;
+      animation: lineExpand 1.2s ease 1.8s forwards;
+      max-width: 400px;
+    }
+    @keyframes lineExpand {
+      to { width: 90%; max-width: 400px; }
+    }
+
+    /* ── SANSKRIT SUBTITLE ── */
+    #sanskrit-sub {
+      font-family: var(--deva);
+      font-size: clamp(16px, 2vw, 24px);
+      color: rgba(242,193,78,0.8);
+      letter-spacing: 0.05em;
+      opacity: 0;
+      animation: fadeUp 1s ease 2.1s forwards;
+      margin-bottom: 4px;
+    }
+    #english-sub {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(13px, 1.5vw, 17px);
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 1s ease 2.4s forwards;
+      margin-bottom: 24px;
+      max-width: 520px;
+      line-height: 1.5;
+    }
+
+    /* ── QUOTE ── */
+    #quote-block {
+      border-left: 2px solid rgba(212,160,23,0.5);
+      padding: 8px 18px;
+      max-width: 480px;
+      text-align: left;
+      opacity: 0;
+      animation: fadeUp 1s ease 2.7s forwards;
+      margin-bottom: 28px;
+      background: rgba(212,160,23,0.03);
+      border-radius: 0 8px 8px 0;
+    }
+    #quote-deva {
+      font-family: var(--deva);
+      font-size: clamp(13px, 1.4vw, 16px);
+      color: rgba(242,193,78,0.85);
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+    #quote-en {
+      font-family: 'Lora', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(12px, 1.2vw, 14px);
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    #quote-src {
+      font-size: 10px;
+      color: rgba(160,143,120,0.6);
+      margin-top: 4px;
+      font-family: monospace;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── CTA BUTTON ── */
+    #cta-wrap {
+      opacity: 0;
+      animation: fadeUp 1s ease 3.1s forwards;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 360px;
+    }
+    #begin-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 32px;
+      font-family: var(--serif);
+      font-size: clamp(16px, 1.8vw, 20px);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #0a0705;
+      background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold) 60%, #b8860b 100%);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      overflow: hidden;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 0 25px rgba(212,160,23,0.4), 0 6px 20px rgba(0,0,0,0.5);
+      min-height: 52px;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    #begin-btn:hover, #begin-btn:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 0 45px rgba(212,160,23,0.7), 0 10px 30px rgba(0,0,0,0.6);
+    }
+    #begin-btn:active {
+      transform: translateY(1px);
+    }
+    .btn-arrow {
+      font-size: 20px;
+      transition: transform 0.2s;
+    }
+    #begin-btn:hover .btn-arrow { transform: translateX(4px); }
+
+    #scroll-hint {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(160,143,120,0.6);
+      animation: hintBlink 3s ease-in-out 3.8s infinite;
+      text-align: center;
+      line-height: 1.4;
+    }
+    @keyframes hintBlink {
+      0%,100% { opacity: 0.5; } 50% { opacity: 0.9; }
+    }
+
+    /* ── MANDALA RING ── */
+    #mandala {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(85vw, 85vh);
+      height: min(85vw, 85vh);
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeIn 3s ease 0.4s forwards;
+    }
+    @keyframes fadeIn { to { opacity: 0.07; } }
+    #mandala svg {
+      width: 100%;
+      height: 100%;
+      animation: mandalaRotate 120s linear infinite;
+    }
+    @keyframes mandalaRotate { to { transform: rotate(360deg); } }
+
+    /* ── CORNER DECORATIONS ── */
+    .corner-deco {
+      position: fixed;
+      font-family: var(--deva);
+      font-size: 12px;
+      color: rgba(212,160,23,0.25);
+      letter-spacing: 0.1em;
+      opacity: 0;
+      animation: fadeUp 1.5s ease 3.2s forwards;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .corner-deco.tl { top: 16px; left: 20px; }
+    .corner-deco.tr { top: 16px; right: 20px; text-align: right; }
+    .corner-deco.bl { bottom: 16px; left: 20px; }
+    .corner-deco.br { bottom: 16px; right: 20px; text-align: right; }
+
+    /* Hide corner text on small screens to avoid clutter */
+    @media (max-width: 640px) {
+      .corner-deco { display: none !important; }
+    }
+
+    /* ── PAGE EXIT ANIMATION ── */
+    #cover {
+      position: fixed;
+      inset: 0;
+      background: #0a0705;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    #cover.active { opacity: 1; pointer-events: all; }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeScaleIn {
+      from { opacity: 0; transform: scale(0.7); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes titleReveal {
+      from { opacity: 0; transform: translateY(24px); filter: blur(6px); }
+      to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    /* ── MOBILE OPTIMIZATIONS ── */
+    @media (max-width: 600px) {
+      #intro { padding: 30px 16px 40px; justify-content: center; }
+      #om-wrap { width: 100px; height: 100px; margin-bottom: 16px; }
+      #om-symbol { font-size: 56px; }
+      #begin-btn { padding: 14px 28px; font-size: 17px; }
+      #quote-block { padding: 8px 12px; margin-bottom: 20px; }
+      #english-sub { margin-bottom: 18px; }
+      #pre-title { letter-spacing: 0.18em; font-size: 11px; }
     }
   </style>
 </head>
 <body>
 
-  <div id="progress"></div>
+<!-- Dark cover for page transition -->
+<div id="cover"></div>
 
-  <!-- Header Bar -->
-  <header class="header-bar">
-    <a href="index.html" class="brand-title">
-      <span class="om">ॐ</span>
-      <span>Sanātana Dharma <em>Guide</em><span class="brand-sub">Your Beginner's Path</span></span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="landing.html" style="color:var(--gold-bright);">✨ Intro</a></li>
-      <li><a href="index.html" class="active">🏠 Home</a></li>
-      <li><a href="modules/01-foundations/what-is-sanatan-dharma.html">Foundations</a></li>
-      <li><a href="modules/02-scriptures/vedas.html">Scriptures</a></li>
-      <li><a href="modules/03-deities-symbols/trimurti-gods.html">Deities</a></li>
-      <li><a href="modules/04-lifestyle-rites/daily-practices.html">Lifestyle</a></li>
-      <li><a href="modules/05-myths-faq/myths-busted.html">Myths</a></li>
-      <li><a href="modules/06-epics/ramayana.html">Epics</a></li>
-      <li><a href="modules/07-darsanas/samkhya-yoga.html">Philosophy</a></li>
-      <li class="lib-link"><a href="library.html" style="color: var(--gold-bright); font-weight: 700;">📚 Library</a></li>
-    </ul>
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </header>
+<!-- Particle canvas -->
+<canvas id="canvas"></canvas>
 
-  <!-- Hero Section -->
-  <section class="beginner-hero">
-    <div class="hero-tag">🙏 Made for Absolute Beginners &nbsp;·&nbsp; 9 Modules &nbsp;·&nbsp; 17 Lessons &nbsp;·&nbsp; 20 Primary Source Books</div>
-    <h1>Don't know your <em>roots</em>? Start here.</h1>
-    <p>
-      You're Hindu or curious about Sanātana Dharma — but no one ever explained it simply. This guide does exactly that: <strong>plain English, real Sanskrit shlokas, zero propaganda.</strong> Everything is backed by original scriptures that you can read in our library.
-    </p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;">
-      <a href="modules/01-foundations/what-is-sanatan-dharma.html" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,#d4a017,#b8860b);color:#0a0705;font-family:var(--serif-display);font-size:18px;font-weight:700;border-radius:4px;text-decoration:none;transition:all 0.2s;">
-        🚀 Start Lesson 1.1 →
-      </a>
-      <a href="library.html" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:rgba(212,160,23,0.1);color:var(--gold-bright);font-family:var(--serif-display);font-size:18px;border:1px solid rgba(212,160,23,0.3);border-radius:4px;text-decoration:none;transition:all 0.2s;">
-        📚 Browse 20 Source Books (18,982 Pages)
-      </a>
-    </div>
-  </section>
+<!-- Mandala geometry -->
+<div id="mandala">
+  <svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="400" cy="400" r="390" stroke="#d4a017" stroke-width="0.5"/>
+    <circle cx="400" cy="400" r="350" stroke="#d4a017" stroke-width="0.3"/>
+    <circle cx="400" cy="400" r="300" stroke="#d4a017" stroke-width="0.5"/>
+    <g stroke="#d4a017" stroke-width="0.4">
+      <line x1="400" y1="10" x2="400" y2="790"/>
+      <line x1="10" y1="400" x2="790" y2="400"/>
+      <line x1="67" y1="67" x2="733" y2="733"/>
+      <line x1="733" y1="67" x2="67" y2="733"/>
+      <polygon points="400,50 650,450 150,450" fill="none" stroke="#d4a017" stroke-width="0.4" opacity="0.5"/>
+      <polygon points="400,750 650,350 150,350" fill="none" stroke="#d4a017" stroke-width="0.4" opacity="0.5"/>
+    </g>
+  </svg>
+</div>
 
-  <!-- Curriculum Grid -->
-  <div style="max-width: 1200px; margin: 0 auto; padding: 40px 24px;">
-    
-    <div style="text-align: center; margin-bottom: 40px;">
-      <h2 style="font-family: var(--serif-display); font-size: 38px; color: var(--gold-bright); margin-bottom: 10px;">
-        Structured Learning Modules (9 Modules · 17 Lessons)
-      </h2>
-      <p style="color: var(--muted); font-size: 18px;">Click any lesson to start learning in simple, clear steps:</p>
-    </div>
+<!-- Floating Sanskrit words -->
+<div class="float-word" style="left:5%;animation-duration:22s;animation-delay:0s;font-size:24px;">सत्यम्</div>
+<div class="float-word" style="left:20%;animation-duration:28s;animation-delay:3s;font-size:18px;">अहिंसा</div>
+<div class="float-word" style="left:35%;animation-duration:19s;animation-delay:7s;font-size:32px;">धर्म</div>
+<div class="float-word" style="left:50%;animation-duration:25s;animation-delay:1s;font-size:20px;">ब्रह्म</div>
+<div class="float-word" style="left:65%;animation-duration:32s;animation-delay:5s;font-size:26px;">कर्म</div>
+<div class="float-word" style="left:80%;animation-duration:21s;animation-delay:9s;font-size:18px;">मोक्ष</div>
 
-    <!-- Module 1 -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
-        Module 01 · Essential Foundations
-      </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
-        1. Foundations of Sanātana Dharma
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: repeat(2, 1fr);">
-        <div class="step-card">
-          <span class="step-num">Lesson 1.1</span>
-          <h3><a href="modules/01-foundations/what-is-sanatan-dharma.html">What is Sanātana Dharma? →</a></h3>
-          <p>Meaning of eternal law, difference from organized religions, and the famous Rig Veda verse (Ekam Sat Vipra Bahudha Vadanti).</p>
-          <div class="source-badge">📖 Sources: Rig Veda Complete (1,636 pp) · Katha Upanishad</div>
-        </div>
-        <div class="step-card">
-          <span class="step-num">Lesson 1.2</span>
-          <h3><a href="modules/01-foundations/core-beliefs.html">The 5 Core Principles →</a></h3>
-          <p>Brahman, Atman, Karma, Maya, Moksha explained simply with analogies and real Upanishad shlokas.</p>
-          <div class="source-badge">📖 Sources: 108 Upanishads (908 pp) · Brihadaranyaka</div>
-        </div>
-      </div>
-    </div>
+<!-- Corner decorations -->
+<div class="corner-deco tl">ॐ &nbsp; सर्वे भवन्तु सुखिनः</div>
+<div class="corner-deco tr">असतो मा सद्गमय &nbsp; ॐ</div>
+<div class="corner-deco bl">sanatan dharma guide</div>
+<div class="corner-deco br">सत्यमेव जयते</div>
 
-    <!-- Module 2 -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
-        Module 02 · Sacred Scriptures
-      </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
-        2. The Primary Scriptures Explained Simply
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: repeat(3, 1fr);">
-        <div class="step-card">
-          <span class="step-num">Lesson 2.1</span>
-          <h3><a href="modules/02-scriptures/vedas.html">The 4 Vedas →</a></h3>
-          <p>Rig, Yajur, Sama, Atharva Vedas explained simply. First ever mantra of Rig Veda 1.1.1 and Bhumi Sukta.</p>
-          <div class="source-badge">📖 Sources: Rig Veda · Atharva Veda</div>
-        </div>
-        <div class="step-card">
-          <span class="step-num">Lesson 2.2</span>
-          <h3><a href="modules/02-scriptures/upanishads.html">The Upanishads →</a></h3>
-          <p>The 4 Mahavakyas (Aham Brahmasmi, Tat Tvam Asi), Nachiketas story from Katha Upanishad.</p>
-          <div class="source-badge">📖 Sources: 108 Upanishads · Katha</div>
-        </div>
-        <div class="step-card">
-          <span class="step-num">Lesson 2.3</span>
-          <h3><a href="modules/02-scriptures/bhagavad-gita.html">Bhagavad Gītā →</a></h3>
-          <p>Karma Yoga, BG 2.47, BG 18.66, 3 paths to God (Karma, Jnana, Bhakti Yoga).</p>
-          <div class="source-badge">📖 Source: Gita Sadhak Sanjivani (2,159 pp)</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Module 3 -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
-        Module 03 · Deities &amp; Sacred Geometry
-      </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
-        3. Deities, Trimūrti &amp; Sacred Symbols
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: repeat(2, 1fr);">
-        <div class="step-card">
-          <span class="step-num">Lesson 3.1</span>
-          <h3><a href="modules/03-deities-symbols/trimurti-gods.html">Why Many Gods? Trimūrti →</a></h3>
-          <p>Brahma, Vishnu, Shiva as 3 cosmic functions. The 10 Avatars (Dashavatara) as biological evolution.</p>
-          <div class="source-badge">📖 Sources: Vishnu Purana · Shiv Puran</div>
-        </div>
-        <div class="step-card">
-          <span class="step-num">Lesson 3.2</span>
-          <h3><a href="modules/03-deities-symbols/sacred-symbols.html">Sacred Symbols Decoded →</a></h3>
-          <p>AUM (Mandukya Upanishad), Swastika (Rig Veda Svasti Mantra), Lotus (Gita 5.10), Trishula.</p>
-          <div class="source-badge">📖 Sources: Mandukya · Shiv Puran</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Module 4 -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
-        Module 04 · Lifestyle &amp; Rites of Passage
-      </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
-        4. Daily Living, Yoga &amp; The 16 Sacraments
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: repeat(2, 1fr);">
-        <div class="step-card">
-          <span class="step-num">Lesson 4.1</span>
-          <h3><a href="modules/04-lifestyle-rites/daily-practices.html">Daily Habits &amp; Yoga →</a></h3>
-          <p>Yoga Sutra 1.2 definition of Yoga, 8 Limbs of Yoga (Astanga), daily morning/evening practice.</p>
-          <div class="source-badge">📖 Source: Raja Yoga (Vivekananda — 230 pp)</div>
-        </div>
-        <div class="step-card">
-          <span class="step-num">Lesson 4.2</span>
-          <h3><a href="modules/04-lifestyle-rites/16-samskaras.html">The 16 Life Sacraments →</a></h3>
-          <p>From Garbhadhana to Upanayana, Vivaha, and Antyeshti — 16 Samskaras from womb to cremation.</p>
-          <div class="source-badge">📖 Sources: Dharmashastras (8232.pdf, 8254.pdf)</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Module 5 -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
-        Module 05 · Myths &amp; Fact-Checking
-      </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
-        5. 18 Myths Busted with Primary Source Proof
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: 1fr;">
-        <div class="step-card">
-          <span class="step-num">Lesson 5.1</span>
-          <h3><a href="modules/05-myths-faq/myths-busted.html">18 Misconceptions Busted with Scriptural Citations →</a></h3>
-          <p>Caste system, 330M gods, idol worship, women's status, Swastika origin, Yoga definition, animals, science &amp; logic, world enjoyment, Manusmriti, Kama — all 18 busted with exact shlokas from Rig Veda, Gita, and Upanishads.</p>
-          <div class="source-badge">📖 Sources: Rig Veda · Gita Sadhak Sanjivani · Brihadaranyaka · Taittiriya · Vaisheshika</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Module 6 (NEW) -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
-        Module 06 · Epics (Itihāsa)
-      </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
-        6. Epics — History, Heroism &amp; Conduct
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: repeat(2, 1fr);">
-        <div class="step-card">
-          <span class="step-num">Lesson 6.1</span>
-          <h3><a href="modules/06-epics/ramayana.html">Vālmīki Rāmāyaṇa →</a></h3>
-          <p>The 7 Kandas, 16 noble virtues of Sri Rama, ideal conduct in relationships, Janani Janmabhumischa verse.</p>
-          <div class="source-badge">📖 Source: Valmiki Ramayana Complete (1,626 pp)</div>
-        </div>
-        <div class="step-card">
-          <span class="step-num">Lesson 6.2</span>
-          <h3><a href="modules/06-epics/mahabharata.html">Mahābhārata →</a></h3>
-          <p>The 18 Parvas, Kurukshetra war, Yado Ilasti verse, Dharmo Rakshati Rakshitah shloka.</p>
-          <div class="source-badge">📖 Source: The Mahabharata Set (10 Volumes)</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Module 7 (NEW) -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
-        Module 07 · Philosophy (Darśanas)
-      </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
-        7. The 6 Classical Systems of Indian Philosophy
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: repeat(3, 1fr);">
-        <div class="step-card">
-          <span class="step-num">Lesson 7.1</span>
-          <h3><a href="modules/07-darsanas/samkhya-yoga.html">Sāṃkhya &amp; Yoga →</a></h3>
-          <p>Purusha, Prakriti, 25 Tattvas, Samkhya Karika Verse 3, 3 Gunas (Sattva, Rajas, Tamas).</p>
-          <div class="source-badge">📖 Source: Samkhya Philosophy (206 pp)</div>
-        </div>
-        <div class="step-card">
-          <span class="step-num">Lesson 7.2</span>
-          <h3><a href="modules/07-darsanas/nyaya-vaisesika.html">Nyāya &amp; Vaiśeṣika →</a></h3>
-          <p>Kanada's atomic theory (Paramanuvada), Vaisheshika Sutra 4.1.1, Nyaya rules of logic.</p>
-          <div class="source-badge">📖 Source: Vaisheshika Sutras (380 pp)</div>
-        </div>
-        <div class="step-card">
-          <span class="step-num">Lesson 7.3</span>
-          <h3><a href="modules/07-darsanas/vedanta-brahmasutra.html">Mīmāṃsā &amp; Vedānta →</a></h3>
-          <p>Brahma Sutras by Badarayana, Sutra 1.1.1 (Athato Brahma Jijnasa), Shankara's Advaita Vedanta.</p>
-          <div class="source-badge">📖 Source: Brahma Sutras (941 pp)</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Module 8 (NEW) -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
-        Module 08 · Cosmology &amp; Purāṇas
-      </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
-        8. The 18 Mahāpurāṇas &amp; The 4 Yugas
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: 1fr;">
-        <div class="step-card">
-          <span class="step-num">Lesson 8.1</span>
-          <h3><a href="modules/08-puranas-yugas/yugas-cosmology.html">The 4 Yugas &amp; Cosmic Time Cycles →</a></h3>
-          <p>Satya, Treta, Dvapara, Kali Yugas. Cyclical cosmic time, Bhagavata Purana 12.3.51 shloka on Kali Yuga privilege.</p>
-          <div class="source-badge">📖 Sources: Bhagavata Purana (1,590 pp) · Shiv Puran (1,240 pp)</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Module 9 (NEW) -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
-        Module 09 · Mantras &amp; Chanting
-      </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
-        9. Essential Mantras Every Sanātani Should Know
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: 1fr;">
-        <div class="step-card">
-          <span class="step-num">Lesson 9.1</span>
-          <h3><a href="modules/09-mantras/essential-mantras.html">Essential Mantras (Gayatri, Mahamrityunjaya, Shanti) →</a></h3>
-          <p>Gayatri Mantra (Rig Veda 3.62.10), Mahamrityunjaya (Rig Veda 7.59.12), Asato Ma Sadgamaya with Sanskrit, IAST, and word-by-word breakdown.</p>
-          <div class="source-badge">📖 Sources: Rig Veda Complete · Brihadaranyaka Upanishad</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Interactive Beginner Quiz -->
-    <div style="background: var(--bg-card); border: 1px solid var(--line); border-radius: 16px; padding: 36px; text-align: center; margin-top: 40px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
-        Beginner Self-Discovery
-      </div>
-      <h3 style="font-family: var(--serif-display); font-size: 32px; color: var(--gold-bright); margin-bottom: 16px;">
-        Which Path (Yoga) Suits Your Nature?
-      </h3>
-      <p style="color: var(--muted); max-width: 600px; margin: 0 auto 24px;">
-        Sanātana Dharma offers different spiritual paths based on individual personality. Click what resonates most with you:
-      </p>
-
-      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-        <button class="quiz-btn" data-type="action">🔨 I connect through action &amp; work</button>
-        <button class="quiz-btn" data-type="devotion">❤️ I connect through love &amp; prayer</button>
-        <button class="quiz-btn" data-type="wisdom">🧠 I connect through logic &amp; asking why</button>
-        <button class="quiz-btn" data-type="mind">🧘 I connect through quiet stillness &amp; breath</button>
-      </div>
-
-      <div id="quizResult" style="display: none; margin-top: 24px; padding: 20px; background: rgba(212, 160, 23, 0.08); border-radius: 10px; border: 1px solid var(--line-strong);"></div>
-    </div>
-
+<!-- MAIN INTRO CONTENT -->
+<div id="intro">
+  <!-- OM SYMBOL -->
+  <div id="om-wrap">
+    <div id="om-ring"></div>
+    <div id="om-ring-2"></div>
+    <div id="om-ring-3"></div>
+    <div id="om-glow"></div>
+    <span id="om-symbol">ॐ</span>
   </div>
 
-  <footer>
-    <div class="om">ॐ</div>
-    <p>Sanātana Dharma Guide · <a href="library.html">📚 Verify All Sources in Library</a></p>
-  </footer>
+  <!-- Labels -->
+  <div id="pre-title">The Eternal Way of Life — For Beginners</div>
+  <h1 id="main-title">Sanātana <span>Dharma</span></h1>
+  <div id="title-line"></div>
+  <div id="sanskrit-sub">सनातन धर्म — ज्ञान मार्ग</div>
+  <div id="english-sub">Understand your roots — in simple English, backed by 20 primary source books</div>
 
-  <script src="app.js"></script>
+  <!-- Shloka quote -->
+  <div id="quote-block">
+    <div id="quote-deva">एकं सद्विप्रा बहुधा वदन्ति</div>
+    <div id="quote-en">"Truth is One — the wise call it by many names."</div>
+    <div id="quote-src">— Rig Veda 1.164.46</div>
+  </div>
+
+  <!-- CTA -->
+  <div id="cta-wrap">
+    <a id="begin-btn" href="curriculum.html">
+      Begin Your Journey <span class="btn-arrow">→</span>
+    </a>
+    <div id="scroll-hint">9 modules &middot; 17 lessons &middot; 20 primary source books &middot; Simple English</div>
+  </div>
+</div>
+
+<script>
+// ── PARTICLE SYSTEM ──────────────────────────────────────────
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [], mouse = {x: -999, y: -999};
+
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function rand(min, max) { return Math.random() * (max - min) + min; }
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x  = rand(0, W);
+    this.y  = rand(0, H);
+    this.vx = rand(-0.15, 0.15);
+    this.vy = rand(-0.25, -0.05);
+    this.r  = rand(0.5, 2.0);
+    this.alpha = rand(0.1, 0.6);
+    this.life  = rand(0, 1);
+    this.speed = rand(0.003, 0.008);
+    const hues = ['242,193,78','212,160,23','192,130,43','255,215,100'];
+    this.color = hues[Math.floor(Math.random() * hues.length)];
+  }
+  update() {
+    this.life += this.speed;
+    const cx = W/2, cy = H/2;
+    const dx = cx - this.x, dy = cy - this.y;
+    const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+    this.vx += (dx / dist) * 0.002;
+    this.vy += (dy / dist) * 0.002;
+
+    const mdx = this.x - mouse.x, mdy = this.y - mouse.y;
+    const mdist = Math.sqrt(mdx*mdx + mdy*mdy) || 1;
+    if (mdist < 100) {
+      this.vx += (mdx / mdist) * 0.3;
+      this.vy += (mdy / mdist) * 0.3;
+    }
+    this.vx *= 0.98;
+    this.vy *= 0.98;
+    this.x += this.vx;
+    this.y += this.vy;
+
+    const t = this.life % 1;
+    this.currentAlpha = this.alpha * Math.sin(t * Math.PI);
+    if (this.life > 2) this.reset();
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.currentAlpha;
+    ctx.fillStyle = `rgba(${this.color}, 1)`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+const PARTICLE_COUNT = Math.min(80, Math.floor(window.innerWidth / 10));
+for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+function loop() {
+  ctx.clearRect(0, 0, W, H);
+  const grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W,H)/1.2);
+  grad.addColorStop(0,   'rgba(22,12,6,0.98)');
+  grad.addColorStop(0.5, 'rgba(12,7,3,0.99)');
+  grad.addColorStop(1,   'rgba(5,3,1,1)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(loop);
+}
+loop();
+
+window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+window.addEventListener('touchmove', e => {
+  if (e.touches.length > 0) {
+    mouse.x = e.touches[0].clientX;
+    mouse.y = e.touches[0].clientY;
+  }
+}, {passive: true});
+
+// ── PAGE TRANSITION (Works for touch and click) ─────────────
+function navigateToMain(e) {
+  e.preventDefault();
+  const btn = document.getElementById('begin-btn');
+  const dest = btn.getAttribute('href') || 'index.html';
+  document.getElementById('cover').classList.add('active');
+  setTimeout(() => { window.location.href = dest; }, 500);
+}
+
+const beginBtn = document.getElementById('begin-btn');
+beginBtn.addEventListener('click', navigateToMain);
+beginBtn.addEventListener('touchstart', function(e) {
+  e.preventDefault();
+  navigateToMain(e);
+}, {passive: false});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    navigateToMain(e);
+  }
+});
+</script>
 </body>
 </html>
