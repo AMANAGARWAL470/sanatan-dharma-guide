@@ -372,6 +372,81 @@ a:hover {
     font-size: clamp(22px, 5vw, 32px) !important;
   }
 }
+
+/* ══════════════════════════════════════════════
+   PC DESKTOP PRESERVATION RULES (screens > 768px)
+══════════════════════════════════════════════ */
+@media (min-width: 769px) {
+  body {
+    padding-bottom: 0 !important;
+  }
+  .mobile-bottom-dock {
+    display: none !important;
+  }
+  .nav-toggle {
+    display: none !important;
+  }
+  .nav-links {
+    display: flex !important;
+    position: static !important;
+    flex-direction: row !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    margin-left: auto !important;
+    gap: 4px !important;
+    height: auto !important;
+    width: auto !important;
+    border: none !important;
+  }
+  .nav-links li {
+    width: auto !important;
+    max-width: none !important;
+  }
+  .sound-toggle-btn {
+    margin-left: 12px !important;
+    margin-right: 0 !important;
+  }
+  .subpage-grid {
+    display: grid !important;
+    grid-template-columns: 280px 1fr !important;
+    gap: 40px !important;
+  }
+  .roadmap-grid {
+    display: grid !important;
+    gap: 24px !important;
+  }
+  .library-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+    gap: 24px !important;
+  }
+  .quiz-btn {
+    width: auto !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+  }
+  .book-actions {
+    flex-direction: row !important;
+    gap: 12px !important;
+  }
+  .btn-read, .btn-download {
+    width: auto !important;
+    display: inline-flex !important;
+  }
+  .lesson-nav {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+  }
+  .lesson-nav a {
+    width: auto !important;
+  }
+  .filter-bar, .category-tabs, .topic-filter-bar {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+  }
+}
   .nav-links.open li {
     animation: mobileNavItemFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
