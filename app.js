@@ -1,7 +1,62 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ══════════════════════════════════════════════════════════
-  // 1. WEB AUDIO API — Sacred Temple Bell / Singing Bowl Chime
+  // 1. CINEMATIC PAGE-TO-PAGE TRANSITION ENGINE
+  // ══════════════════════════════════════════════════════════
+  let curtain = document.getElementById('page-curtain');
+  if (!curtain) {
+    curtain = document.createElement('div');
+    curtain.id = 'page-curtain';
+    curtain.innerHTML = `
+      <div id="curtain-om">ॐ</div>
+      <div id="curtain-title">Sanātana Dharma Guide</div>
+    `;
+    document.body.prepend(curtain);
+  }
+
+  // Smooth entrance: lift curtain on page load
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      curtain.classList.add('curtain-enter');
+    }, 80);
+  });
+
+  // Handle browser back/forward cache
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      curtain.classList.remove('curtain-exit');
+      curtain.classList.add('curtain-enter');
+    }
+  });
+
+  // Smooth exit: intercept all internal links for attractive transition
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target === '_blank') {
+      return;
+    }
+
+    // If button inside landing page intro, let custom handler run
+    if (link.id === 'begin-btn') return;
+
+    e.preventDefault();
+    if (typeof window.playClickChime === 'function') {
+      window.playClickChime();
+    }
+
+    curtain.classList.remove('curtain-enter');
+    curtain.classList.add('curtain-exit');
+
+    setTimeout(() => {
+      window.location.href = href;
+    }, 420);
+  });
+
+  // ══════════════════════════════════════════════════════════
+  // 2. WEB AUDIO API — Sacred Temple Bell / Singing Bowl Chime
   // ══════════════════════════════════════════════════════════
   let audioCtx = null;
   let soundEnabled = localStorage.getItem('sd_sound_enabled') !== 'false';
@@ -125,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('touchstart', () => { initAudio(); }, { once: true });
 
   // ══════════════════════════════════════════════════════════
-  // 2. GOLDEN CLICK / TOUCH RIPPLE EFFECT
+  // 3. GOLDEN CLICK / TOUCH RIPPLE EFFECT
   // ══════════════════════════════════════════════════════════
   function createRipple(x, y) {
     const ripple = document.createElement('div');
@@ -137,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.addEventListener('click', e => {
-    // Avoid creating double ripple on inputs or toggle buttons
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
     createRipple(e.clientX, e.clientY);
   });
@@ -149,12 +203,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   // ══════════════════════════════════════════════════════════
-  // 3. 3D CARD TILT & SPOTLIGHT GLARE TRACKER
+  // 4. 3D CARD TILT & SPOTLIGHT GLARE TRACKER
   // ══════════════════════════════════════════════════════════
   const interactiveCards = document.querySelectorAll('.step-card, .myth-card, .shloka-block, .analogy-box');
 
   interactiveCards.forEach(card => {
-    // Inject glare element
     if (!card.querySelector('.card-glare')) {
       const glare = document.createElement('div');
       glare.className = 'card-glare';
@@ -169,10 +222,9 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
       card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
 
-      // 3D tilt calculation
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      const rotateX = -((y - centerY) / centerY) * 4; // Max 4 deg tilt
+      const rotateX = -((y - centerY) / centerY) * 4;
       const rotateY = ((x - centerX) / centerX) * 4;
 
       card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(4px)`;
@@ -194,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ══════════════════════════════════════════════════════════
-  // 4. INTERACTIVE SHLOKA PLAYER (Click Shloka to Chant)
+  // 5. INTERACTIVE SHLOKA PLAYER
   // ══════════════════════════════════════════════════════════
   const shlokas = document.querySelectorAll('.shloka-block');
   shlokas.forEach(shloka => {
@@ -209,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ══════════════════════════════════════════════════════════
-  // 5. AMBIENT GOLD SPARK CANVAS (For Subpages)
+  // 6. AMBIENT GOLD SPARK CANVAS (For Subpages)
   // ══════════════════════════════════════════════════════════
   if (!document.getElementById('canvas') && !document.getElementById('ambient-canvas')) {
     const ambientCanvas = document.createElement('canvas');
@@ -260,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ══════════════════════════════════════════════════════════
-  // 6. READING PROGRESS BAR
+  // 7. READING PROGRESS BAR
   // ══════════════════════════════════════════════════════════
   const progressBar = document.getElementById('progress');
   window.addEventListener('scroll', () => {
@@ -270,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   // ══════════════════════════════════════════════════════════
-  // 7. HAMBURGER MENU TOGGLE (Mobile Overlay)
+  // 8. HAMBURGER MENU TOGGLE (Mobile Overlay)
   // ══════════════════════════════════════════════════════════
   const toggle   = document.querySelector('.nav-toggle');
   const navLinks = document.querySelector('.nav-links');
@@ -315,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ══════════════════════════════════════════════════════════
-  // 8. MYTH ACCORDIONS
+  // 9. MYTH ACCORDIONS
   // ══════════════════════════════════════════════════════════
   const mythHeaders = document.querySelectorAll('.myth-header');
   mythHeaders.forEach(header => {
@@ -346,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ══════════════════════════════════════════════════════════
-  // 9. INTERACTIVE BEGINNER QUIZ
+  // 10. INTERACTIVE BEGINNER QUIZ
   // ══════════════════════════════════════════════════════════
   const quizBtns   = document.querySelectorAll('.quiz-btn');
   const quizResult = document.getElementById('quizResult');
@@ -354,19 +406,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const quizAnswers = {
     'action': {
       title: '🌿 Your Path: Karma Yoga (Selfless Duty & Action)',
-      desc: 'You love making a real-world difference through action, service, and duty. You grow spiritually by giving your best without stressing about the outcome.<br><br>👉 <strong>Recommended First Lesson:</strong> <a href="modules/02-scriptures/bhagavad-gita.html" style="color:var(--gold-bright);text-decoration:underline;">Lesson 2.3 — Bhagavad Gītā</a>.'
+      desc: 'You love making a real-world difference through action, service, and duty. You grow spiritually by giving your best without stressing about the outcome.<br><br>👉 <strong>Recommended First Lesson:</strong> <a href="modules/02-scriptures/bhagavad-gita" style="color:var(--gold-bright);text-decoration:underline;">Lesson 2.3 — Bhagavad Gītā</a>.'
     },
     'devotion': {
       title: '❤️ Your Path: Bhakti Yoga (Loving Devotion & Gratitude)',
-      desc: 'You connect deeply through heart, love, music, and gratitude. You see the divine in relationships and all living beings.<br><br>👉 <strong>Recommended First Lesson:</strong> <a href="modules/03-deities-symbols/trimurti-gods.html" style="color:var(--gold-bright);text-decoration:underline;">Lesson 3.1 — Deities & Trimūrti</a>.'
+      desc: 'You connect deeply through heart, love, music, and gratitude. You see the divine in relationships and all living beings.<br><br>👉 <strong>Recommended First Lesson:</strong> <a href="modules/03-deities-symbols/trimurti-gods" style="color:var(--gold-bright);text-decoration:underline;">Lesson 3.1 — Deities & Trimūrti</a>.'
     },
     'wisdom': {
       title: '🧠 Your Path: Jñāna Yoga (Self-Inquiry & Philosophy)',
-      desc: 'You love big questions: "Who am I?", "What is reality?". You connect through deep reading, logic, and self-inquiry.<br><br>👉 <strong>Recommended First Lesson:</strong> <a href="modules/02-scriptures/upanishads.html" style="color:var(--gold-bright);text-decoration:underline;">Lesson 2.2 — The Upanishads</a>.'
+      desc: 'You love big questions: "Who am I?", "What is reality?". You connect through deep reading, logic, and self-inquiry.<br><br>👉 <strong>Recommended First Lesson:</strong> <a href="modules/02-scriptures/upanishads" style="color:var(--gold-bright);text-decoration:underline;">Lesson 2.2 — The Upanishads</a>.'
     },
     'mind': {
       title: '🧘 Your Path: Rāja Yoga (Meditation & Stillness)',
-      desc: 'You seek inner quiet, focus, and breath awareness. You thrive through meditation and self-discipline.<br><br>👉 <strong>Recommended First Lesson:</strong> <a href="modules/04-lifestyle-rites/daily-practices.html" style="color:var(--gold-bright);text-decoration:underline;">Lesson 4.1 — Daily Habits & Yoga</a>.'
+      desc: 'You seek inner quiet, focus, and breath awareness. You thrive through meditation and self-discipline.<br><br>👉 <strong>Recommended First Lesson:</strong> <a href="modules/04-lifestyle-rites/daily-practices" style="color:var(--gold-bright);text-decoration:underline;">Lesson 4.1 — Daily Habits & Yoga</a>.'
     }
   };
 
@@ -388,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ══════════════════════════════════════════════════════════
-  // 10. SCROLL UNBLUR & SLIDE-UP ANIMATION
+  // 11. SCROLL UNBLUR & SLIDE-UP ANIMATION
   // ══════════════════════════════════════════════════════════
   const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -40px 0px' };
   const scrollObserver = new IntersectionObserver((entries) => {

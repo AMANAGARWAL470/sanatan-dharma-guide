@@ -1112,4 +1112,64 @@ body {
   to   { box-shadow: 0 0 35px rgba(242, 193, 78, 0.5); }
 }
 
+/* ══════════════════════════════════════════════
+   CINEMATIC PAGE TRANSITION CURTAIN
+══════════════════════════════════════════════ */
+#page-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: radial-gradient(circle at center, #1a120b 0%, #0a0705 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s ease;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+#page-curtain.curtain-exit {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  pointer-events: all !important;
+  filter: blur(0px) !important;
+}
+
+#page-curtain.curtain-enter {
+  opacity: 0 !important;
+  transform: translateY(-100%) !important;
+  filter: blur(12px) !important;
+  pointer-events: none !important;
+}
+
+#curtain-om {
+  font-family: var(--deva);
+  font-size: 56px;
+  color: var(--gold-bright);
+  text-shadow: 0 0 30px rgba(242, 193, 78, 0.8), 0 0 60px rgba(212, 160, 23, 0.4);
+  animation: omSpinPulse 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes omSpinPulse {
+  from { transform: scale(0.95); opacity: 0.7; }
+  to   { transform: scale(1.08); opacity: 1; text-shadow: 0 0 45px rgba(242, 193, 78, 1); }
+}
+
+#curtain-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  margin-top: 10px;
+  opacity: 0.7;
+}
+
+
 
