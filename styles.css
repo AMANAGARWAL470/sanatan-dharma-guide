@@ -318,6 +318,51 @@ a:hover {
     padding: 22px 18px !important;
   }
 
+  /* Mobile Button & Layout Alignment Fixes */
+  .quiz-btn {
+    width: 100% !important;
+    margin: 6px 0 !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    justify-content: center !important;
+    font-size: 15px !important;
+    padding: 14px 18px !important;
+  }
+
+  .book-actions {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 10px !important;
+  }
+
+  .btn-read, .btn-download {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    justify-content: center !important;
+    display: inline-flex !important;
+  }
+
+  .lesson-nav {
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  .lesson-nav a {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+  }
+
+  .filter-bar, .category-tabs, .topic-filter-bar {
+    padding: 8px 16px 14px !important;
+    margin-left: -16px !important;
+    margin-right: -16px !important;
+    width: calc(100% + 32px) !important;
+    box-sizing: border-box !important;
+  }
+
   h1 {
     font-size: clamp(28px, 6.5vw, 42px) !important;
     line-height: 1.25 !important;
