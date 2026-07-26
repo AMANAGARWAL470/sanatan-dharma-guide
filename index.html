@@ -556,30 +556,59 @@ window.addEventListener('touchmove', e => {
 }, {passive: true});
 
 // ── PAGE TRANSITION (Works for touch and click) ─────────────
+let isNavigating = false;
 function navigateToMain(e) {
-  e.preventDefault();
+  if (e) e.preventDefault();
+  if (isNavigating) return;
+  isNavigating = true;
+
   // Play sacred 432Hz temple chime sound
   if (typeof playTempleChime === 'function') {
-    playTempleChime(432, 2.5);
+    playTempleChime(432, 2.8);
   }
+
   const btn = document.getElementById('begin-btn');
-  const dest = btn.getAttribute('href') || 'curriculum.html';
-  document.getElementById('cover').classList.add('active');
-  setTimeout(() => { window.location.href = dest; }, 600);
+  const dest = btn ? (btn.getAttribute('href') || 'curriculum') : 'curriculum';
+  
+  // Smooth visual response: scale OM and fade intro
+  const om = document.getElementById('om-symbol');
+  if (om) {
+    om.style.transition = 'transform 0.45s cubic-bezier(0.16,1,0.3,1), filter 0.45s ease';
+    om.style.transform = 'scale(1.3)';
+    om.style.filter = 'blur(4px)';
+  }
+
+  const intro = document.getElementById('intro');
+  if (intro) {
+    intro.style.transition = 'opacity 0.45s cubic-bezier(0.16,1,0.3,1), transform 0.45s cubic-bezier(0.16,1,0.3,1), filter 0.45s ease';
+    intro.style.opacity = '0';
+    intro.style.transform = 'scale(1.04)';
+    intro.style.filter = 'blur(8px)';
+  }
+
+  const cover = document.getElementById('cover');
+  if (cover) cover.classList.add('active');
+
+  setTimeout(() => {
+    window.location.href = dest;
+  }, 420);
 }
 
 const beginBtn = document.getElementById('begin-btn');
-beginBtn.addEventListener('click', navigateToMain);
-beginBtn.addEventListener('touchstart', function(e) {
-  e.preventDefault();
-  navigateToMain(e);
-}, {passive: false});
+if (beginBtn) {
+  beginBtn.addEventListener('click', navigateToMain);
+  beginBtn.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    navigateToMain(e);
+  }, {passive: false});
+}
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' || e.key === ' ') {
     navigateToMain(e);
   }
 });
+
 </script>
 </body>
 </html>
