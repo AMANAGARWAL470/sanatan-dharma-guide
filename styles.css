@@ -316,14 +316,15 @@ a:hover {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    gap: 10px !important;
-    z-index: 9995 !important;
-    padding: 24px 16px !important;
+    gap: 12px !important;
+    z-index: 99999 !important;
+    padding: 30px 20px !important;
     overflow-y: auto !important;
   }
 
   .nav-links.open {
     display: flex !important;
+    flex-direction: column !important;
     animation: navSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
 
@@ -1339,18 +1340,11 @@ footer p {
   .sidebar-menu a { font-size: 14px; padding: 10px 12px; }
 }
 
-/* ── Ensure all touch targets are at least 44px ── */
+/* ── Touch target accessibility ── */
 @media (max-width: 860px) {
-  a, button, .quiz-btn, .nav-toggle, .myth-header {
+  .quiz-btn, .nav-toggle, .myth-header, .sidebar-menu a, .lesson-nav a, .verify-link {
     min-height: 44px;
-    display: inline-flex;
-    align-items: center;
   }
-  .sidebar-menu a, .lesson-nav a, .verify-link {
-    min-height: 44px;
-    justify-content: center;
-  }
-  .verify-link { display: inline-flex; }
 }
 
 /* ══════════════════════════════════════════════
