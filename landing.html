@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Sanātana Dharma Guide — Your Beginner's Path</title>
   <meta name="description" content="Your beginner-friendly guide to Sanātana Dharma — the world's oldest living wisdom tradition. Fact-checked, simple English, 20 primary source books.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,11 +24,21 @@
     }
 
     html, body {
-      width: 100%; height: 100%;
-      overflow: hidden;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
       background: var(--bg);
       font-family: var(--serif);
       -webkit-font-smoothing: antialiased;
+      color: var(--ivory);
+    }
+
+    /* Desktop overflow hidden, mobile scrollable if viewport too small */
+    @media (min-height: 700px) and (min-width: 601px) {
+      html, body { overflow: hidden; height: 100vh; }
+    }
+    @media (max-width: 600px), (max-height: 699px) {
+      html, body { overflow-y: auto; overflow-x: hidden; }
     }
 
     /* ── CANVAS (particles + sacred geometry) ── */
@@ -36,19 +46,22 @@
       position: fixed;
       inset: 0;
       z-index: 0;
+      pointer-events: none;
     }
 
     /* ── MAIN WRAPPER ── */
     #intro {
       position: relative;
       z-index: 10;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0;
+      padding: 40px 20px;
+      text-align: center;
     }
 
     /* ── FLOATING SANSKRIT WORDS (background layer) ── */
@@ -56,7 +69,7 @@
       position: fixed;
       font-family: var(--deva);
       color: rgba(212, 160, 23, 0.06);
-      font-size: clamp(18px, 3vw, 42px);
+      font-size: clamp(16px, 3vw, 42px);
       font-weight: 400;
       pointer-events: none;
       animation: floatDrift linear infinite;
@@ -74,14 +87,15 @@
     /* ── OM SYMBOL ── */
     #om-wrap {
       position: relative;
-      width: 180px;
-      height: 180px;
+      width: 140px;
+      height: 140px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
       opacity: 0;
-      animation: fadeScaleIn 1.4s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+      animation: fadeScaleIn 1.4s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+      flex-shrink: 0;
     }
     #om-ring {
       position: absolute;
@@ -92,14 +106,14 @@
     }
     #om-ring-2 {
       position: absolute;
-      inset: -16px;
+      inset: -12px;
       border-radius: 50%;
       border: 1px solid rgba(212,160,23,0.12);
       animation: ringPulse 4s ease-in-out 1s infinite;
     }
     #om-ring-3 {
       position: absolute;
-      inset: -36px;
+      inset: -24px;
       border-radius: 50%;
       border: 0.5px solid rgba(212,160,23,0.06);
       animation: ringPulse 4s ease-in-out 2s infinite;
@@ -110,7 +124,7 @@
     }
     #om-glow {
       position: absolute;
-      inset: -30px;
+      inset: -20px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(212,160,23,0.14) 0%, transparent 70%);
       animation: glowBreath 4s ease-in-out infinite;
@@ -121,45 +135,45 @@
     }
     #om-symbol {
       font-family: var(--deva);
-      font-size: 96px;
+      font-size: 76px;
       color: var(--gold-bright);
       line-height: 1;
       text-shadow:
-        0 0 40px rgba(242,193,78,0.8),
-        0 0 80px rgba(242,193,78,0.4),
-        0 0 140px rgba(212,160,23,0.3);
+        0 0 30px rgba(242,193,78,0.8),
+        0 0 60px rgba(242,193,78,0.4),
+        0 0 100px rgba(212,160,23,0.3);
       animation: omPulse 4s ease-in-out infinite;
       position: relative;
       z-index: 2;
     }
     @keyframes omPulse {
-      0%,100% { text-shadow: 0 0 40px rgba(242,193,78,0.8), 0 0 80px rgba(242,193,78,0.4), 0 0 140px rgba(212,160,23,0.3); }
-      50%     { text-shadow: 0 0 60px rgba(242,193,78,1),   0 0 120px rgba(242,193,78,0.6), 0 0 200px rgba(212,160,23,0.5); }
+      0%,100% { text-shadow: 0 0 30px rgba(242,193,78,0.8), 0 0 60px rgba(242,193,78,0.4); }
+      50%     { text-shadow: 0 0 50px rgba(242,193,78,1),   0 0 90px rgba(242,193,78,0.6); }
     }
 
     /* ── TAGLINE ABOVE TITLE ── */
     #pre-title {
       font-family: 'Lora', Georgia, serif;
-      font-size: clamp(12px, 1.4vw, 16px);
+      font-size: clamp(11px, 1.4vw, 15px);
       color: var(--vermillion);
-      letter-spacing: 0.35em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       opacity: 0;
-      animation: fadeUp 1s ease 1.2s forwards;
-      margin-bottom: 12px;
+      animation: fadeUp 1s ease 0.8s forwards;
+      margin-bottom: 8px;
     }
 
     /* ── MAIN TITLE ── */
     #main-title {
       font-family: var(--serif);
-      font-size: clamp(48px, 7vw, 96px);
+      font-size: clamp(38px, 6.5vw, 84px);
       font-weight: 300;
       color: var(--ivory);
       letter-spacing: -0.01em;
-      line-height: 1;
+      line-height: 1.05;
       text-align: center;
       opacity: 0;
-      animation: titleReveal 1.6s cubic-bezier(0.16,1,0.3,1) 1.5s forwards;
+      animation: titleReveal 1.4s cubic-bezier(0.16,1,0.3,1) 1.1s forwards;
       margin-bottom: 6px;
     }
     #main-title span {
@@ -172,153 +186,145 @@
       width: 0;
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 16px auto 20px;
-      animation: lineExpand 1.2s ease 2.4s forwards;
-      max-width: 500px;
+      margin: 12px auto 16px;
+      animation: lineExpand 1.2s ease 1.8s forwards;
+      max-width: 400px;
     }
     @keyframes lineExpand {
-      to { width: 500px; }
+      to { width: 90%; max-width: 400px; }
     }
 
     /* ── SANSKRIT SUBTITLE ── */
     #sanskrit-sub {
       font-family: var(--deva);
-      font-size: clamp(18px, 2.2vw, 28px);
-      color: rgba(242,193,78,0.7);
-      letter-spacing: 0.06em;
+      font-size: clamp(16px, 2vw, 24px);
+      color: rgba(242,193,78,0.8);
+      letter-spacing: 0.05em;
       opacity: 0;
-      animation: fadeUp 1s ease 2.8s forwards;
-      margin-bottom: 6px;
+      animation: fadeUp 1s ease 2.1s forwards;
+      margin-bottom: 4px;
     }
     #english-sub {
       font-family: 'Lora', Georgia, serif;
       font-style: italic;
-      font-size: clamp(14px, 1.6vw, 18px);
+      font-size: clamp(13px, 1.5vw, 17px);
       color: var(--muted);
       opacity: 0;
-      animation: fadeUp 1s ease 3.1s forwards;
-      margin-bottom: 48px;
+      animation: fadeUp 1s ease 2.4s forwards;
+      margin-bottom: 24px;
+      max-width: 520px;
+      line-height: 1.5;
     }
 
     /* ── QUOTE ── */
     #quote-block {
-      border-left: 2px solid rgba(212,160,23,0.4);
-      padding: 10px 24px;
-      max-width: 560px;
+      border-left: 2px solid rgba(212,160,23,0.5);
+      padding: 8px 18px;
+      max-width: 480px;
       text-align: left;
       opacity: 0;
-      animation: fadeUp 1s ease 3.5s forwards;
-      margin-bottom: 52px;
+      animation: fadeUp 1s ease 2.7s forwards;
+      margin-bottom: 28px;
+      background: rgba(212,160,23,0.03);
+      border-radius: 0 8px 8px 0;
     }
     #quote-deva {
       font-family: var(--deva);
-      font-size: clamp(14px, 1.5vw, 17px);
-      color: rgba(242,193,78,0.6);
-      margin-bottom: 6px;
-      line-height: 1.6;
+      font-size: clamp(13px, 1.4vw, 16px);
+      color: rgba(242,193,78,0.85);
+      margin-bottom: 4px;
+      line-height: 1.5;
     }
     #quote-en {
       font-family: 'Lora', Georgia, serif;
       font-style: italic;
-      font-size: clamp(13px, 1.3vw, 15px);
+      font-size: clamp(12px, 1.2vw, 14px);
       color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.6;
     }
     #quote-src {
-      font-size: 11px;
-      color: rgba(160,143,120,0.5);
-      margin-top: 6px;
+      font-size: 10px;
+      color: rgba(160,143,120,0.6);
+      margin-top: 4px;
       font-family: monospace;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
     }
 
     /* ── CTA BUTTON ── */
     #cta-wrap {
       opacity: 0;
-      animation: fadeUp 1s ease 4s forwards;
+      animation: fadeUp 1s ease 3.1s forwards;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
+      width: 100%;
+      max-width: 360px;
     }
     #begin-btn {
       position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      padding: 18px 52px;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 32px;
       font-family: var(--serif);
       font-size: clamp(16px, 1.8vw, 20px);
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.04em;
-      color: var(--bg);
+      color: #0a0705;
       background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold) 60%, #b8860b 100%);
       border: none;
-      border-radius: 3px;
+      border-radius: 6px;
       cursor: pointer;
       overflow: hidden;
       text-decoration: none;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 0 30px rgba(212,160,23,0.35), 0 8px 24px rgba(0,0,0,0.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 0 25px rgba(212,160,23,0.4), 0 6px 20px rgba(0,0,0,0.5);
+      min-height: 52px;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
-    #begin-btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.3s;
+    #begin-btn:hover, #begin-btn:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 0 45px rgba(212,160,23,0.7), 0 10px 30px rgba(0,0,0,0.6);
     }
-    #begin-btn:hover::before { opacity: 1; }
-    #begin-btn:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 0 60px rgba(212,160,23,0.6), 0 16px 40px rgba(0,0,0,0.5);
+    #begin-btn:active {
+      transform: translateY(1px);
     }
-    #begin-btn:active { transform: translateY(0) scale(0.99); }
     .btn-arrow {
       font-size: 20px;
-      transition: transform 0.3s;
+      transition: transform 0.2s;
     }
     #begin-btn:hover .btn-arrow { transform: translateX(4px); }
 
-    /* Button ring animation */
-    #begin-btn::after {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 6px;
-      border: 1px solid rgba(242,193,78,0.4);
-      animation: btnRing 3s ease-in-out 4.5s infinite;
-    }
-    @keyframes btnRing {
-      0%,100% { opacity: 0; transform: scale(1); }
-      50%     { opacity: 1; transform: scale(1.04); }
-    }
-
     #scroll-hint {
       font-family: 'Lora', Georgia, serif;
-      font-size: 12px;
-      letter-spacing: 0.2em;
+      font-size: 11px;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: rgba(160,143,120,0.4);
-      animation: hintBlink 3s ease-in-out 5s infinite;
+      color: rgba(160,143,120,0.6);
+      animation: hintBlink 3s ease-in-out 3.8s infinite;
+      text-align: center;
+      line-height: 1.4;
     }
     @keyframes hintBlink {
-      0%,100% { opacity: 0.4; } 50% { opacity: 0.8; }
+      0%,100% { opacity: 0.5; } 50% { opacity: 0.9; }
     }
 
-    /* ── MANDALA RING (decorative, behind content) ── */
+    /* ── MANDALA RING ── */
     #mandala {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: min(90vw, 90vh);
-      height: min(90vw, 90vh);
+      width: min(85vw, 85vh);
+      height: min(85vw, 85vh);
       z-index: 2;
       pointer-events: none;
       opacity: 0;
-      animation: fadeIn 3s ease 0.5s forwards;
+      animation: fadeIn 3s ease 0.4s forwards;
     }
     @keyframes fadeIn { to { opacity: 0.07; } }
     #mandala svg {
@@ -327,46 +333,30 @@
       animation: mandalaRotate 120s linear infinite;
     }
     @keyframes mandalaRotate { to { transform: rotate(360deg); } }
-    #mandala-inner svg {
-      animation: mandalaRotate 80s linear infinite reverse;
-    }
-    #mandala-inner {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: min(60vw, 60vh);
-      height: min(60vw, 60vh);
-      z-index: 2;
-      pointer-events: none;
-      opacity: 0;
-      animation: fadeIn2 3s ease 1s forwards;
-    }
-    @keyframes fadeIn2 { to { opacity: 0.05; } }
 
     /* ── CORNER DECORATIONS ── */
     .corner-deco {
       position: fixed;
       font-family: var(--deva);
-      font-size: 14px;
-      color: rgba(212,160,23,0.2);
-      letter-spacing: 0.15em;
-      animation: fadeUp 2s ease 4s forwards;
+      font-size: 12px;
+      color: rgba(212,160,23,0.25);
+      letter-spacing: 0.1em;
       opacity: 0;
+      animation: fadeUp 1.5s ease 3.2s forwards;
+      pointer-events: none;
+      z-index: 5;
     }
-    .corner-deco.tl { top: 28px; left: 32px; }
-    .corner-deco.tr { top: 28px; right: 32px; text-align: right; }
-    .corner-deco.bl { bottom: 28px; left: 32px; }
-    .corner-deco.br { bottom: 28px; right: 32px; text-align: right; }
+    .corner-deco.tl { top: 16px; left: 20px; }
+    .corner-deco.tr { top: 16px; right: 20px; text-align: right; }
+    .corner-deco.bl { bottom: 16px; left: 20px; }
+    .corner-deco.br { bottom: 16px; right: 20px; text-align: right; }
+
+    /* Hide corner text on small screens to avoid clutter */
+    @media (max-width: 640px) {
+      .corner-deco { display: none !important; }
+    }
 
     /* ── PAGE EXIT ANIMATION ── */
-    .page-exit {
-      animation: exitFade 0.8s cubic-bezier(0.7,0,1,1) forwards !important;
-    }
-    @keyframes exitFade {
-      0%   { opacity: 1; transform: scale(1); filter: blur(0); }
-      100% { opacity: 0; transform: scale(1.08); filter: blur(8px); }
-    }
     #cover {
       position: fixed;
       inset: 0;
@@ -374,7 +364,7 @@
       z-index: 9999;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.7s ease;
+      transition: opacity 0.5s ease;
     }
     #cover.active { opacity: 1; pointer-events: all; }
 
@@ -384,20 +374,23 @@
       to   { opacity: 1; transform: scale(1); }
     }
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
     @keyframes titleReveal {
-      from { opacity: 0; transform: translateY(40px) skewY(2deg); filter: blur(8px); }
-      to   { opacity: 1; transform: translateY(0) skewY(0); filter: blur(0); }
+      from { opacity: 0; transform: translateY(24px); filter: blur(6px); }
+      to   { opacity: 1; transform: translateY(0); filter: blur(0); }
     }
 
-    /* ── RESPONSIVE ── */
+    /* ── MOBILE OPTIMIZATIONS ── */
     @media (max-width: 600px) {
-      #om-symbol { font-size: 72px; }
-      #om-wrap { width: 130px; height: 130px; margin-bottom: 20px; }
-      #begin-btn { padding: 14px 36px; }
-      #quote-block { padding: 10px 16px; }
+      #intro { padding: 30px 16px 40px; justify-content: center; }
+      #om-wrap { width: 100px; height: 100px; margin-bottom: 16px; }
+      #om-symbol { font-size: 56px; }
+      #begin-btn { padding: 14px 28px; font-size: 17px; }
+      #quote-block { padding: 8px 12px; margin-bottom: 20px; }
+      #english-sub { margin-bottom: 18px; }
+      #pre-title { letter-spacing: 0.18em; font-size: 11px; }
     }
   </style>
 </head>
@@ -409,84 +402,40 @@
 <!-- Particle canvas -->
 <canvas id="canvas"></canvas>
 
-<!-- Mandala geometry (outer ring) -->
+<!-- Mandala geometry -->
 <div id="mandala">
   <svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="400" cy="400" r="390" stroke="#d4a017" stroke-width="0.5"/>
     <circle cx="400" cy="400" r="350" stroke="#d4a017" stroke-width="0.3"/>
     <circle cx="400" cy="400" r="300" stroke="#d4a017" stroke-width="0.5"/>
-    <!-- 12 petals -->
     <g stroke="#d4a017" stroke-width="0.4">
       <line x1="400" y1="10" x2="400" y2="790"/>
       <line x1="10" y1="400" x2="790" y2="400"/>
       <line x1="67" y1="67" x2="733" y2="733"/>
       <line x1="733" y1="67" x2="67" y2="733"/>
-      <line x1="400" y1="10" x2="600" y2="346"/>
-      <line x1="600" y1="346" x2="600" y2="454"/>
-      <line x1="600" y1="454" x2="400" y2="790"/>
-      <line x1="400" y1="790" x2="200" y2="454"/>
-      <line x1="200" y1="454" x2="200" y2="346"/>
-      <line x1="200" y1="346" x2="400" y2="10"/>
-      <!-- Star of David style inner -->
       <polygon points="400,50 650,450 150,450" fill="none" stroke="#d4a017" stroke-width="0.4" opacity="0.5"/>
       <polygon points="400,750 650,350 150,350" fill="none" stroke="#d4a017" stroke-width="0.4" opacity="0.5"/>
     </g>
-    <!-- Dots at 12 positions -->
-    <g fill="#d4a017" opacity="0.6">
-      <circle cx="400" cy="10" r="3"/>
-      <circle cx="400" cy="790" r="3"/>
-      <circle cx="10" cy="400" r="3"/>
-      <circle cx="790" cy="400" r="3"/>
-      <circle cx="67" cy="67" r="3"/>
-      <circle cx="733" cy="67" r="3"/>
-      <circle cx="67" cy="733" r="3"/>
-      <circle cx="733" cy="733" r="3"/>
-    </g>
-    <!-- Flower of life circles -->
-    <circle cx="400" cy="250" r="150" stroke="#d4a017" stroke-width="0.25" opacity="0.4"/>
-    <circle cx="400" cy="550" r="150" stroke="#d4a017" stroke-width="0.25" opacity="0.4"/>
-    <circle cx="270" cy="325" r="150" stroke="#d4a017" stroke-width="0.25" opacity="0.4"/>
-    <circle cx="530" cy="325" r="150" stroke="#d4a017" stroke-width="0.25" opacity="0.4"/>
-    <circle cx="270" cy="475" r="150" stroke="#d4a017" stroke-width="0.25" opacity="0.4"/>
-    <circle cx="530" cy="475" r="150" stroke="#d4a017" stroke-width="0.25" opacity="0.4"/>
-  </svg>
-</div>
-
-<!-- Inner mandala ring (rotates reverse) -->
-<div id="mandala-inner">
-  <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="250" cy="250" r="240" stroke="#f2c14e" stroke-width="0.4"/>
-    <circle cx="250" cy="250" r="180" stroke="#f2c14e" stroke-width="0.3"/>
-    <!-- 8-pointed star -->
-    <polygon points="250,10 290,210 490,250 290,290 250,490 210,290 10,250 210,210" fill="none" stroke="#f2c14e" stroke-width="0.5" opacity="0.6"/>
-    <!-- Inner 4-point -->
-    <polygon points="250,70 430,250 250,430 70,250" fill="none" stroke="#f2c14e" stroke-width="0.4" opacity="0.4"/>
-    <circle cx="250" cy="250" r="80" stroke="#f2c14e" stroke-width="0.4" opacity="0.5"/>
-    <circle cx="250" cy="250" r="40" stroke="#f2c14e" stroke-width="0.6" opacity="0.6"/>
   </svg>
 </div>
 
 <!-- Floating Sanskrit words -->
-<div class="float-word" style="left:5%;animation-duration:22s;animation-delay:0s;font-size:28px;">सत्यम्</div>
-<div class="float-word" style="left:15%;animation-duration:28s;animation-delay:3s;font-size:20px;">अहिंसा</div>
-<div class="float-word" style="left:30%;animation-duration:19s;animation-delay:7s;font-size:36px;">धर्म</div>
-<div class="float-word" style="left:45%;animation-duration:25s;animation-delay:1s;font-size:22px;">ब्रह्म</div>
-<div class="float-word" style="left:60%;animation-duration:32s;animation-delay:5s;font-size:30px;">कर्म</div>
-<div class="float-word" style="left:72%;animation-duration:21s;animation-delay:9s;font-size:18px;">मोक्ष</div>
-<div class="float-word" style="left:83%;animation-duration:27s;animation-delay:2s;font-size:24px;">शान्ति</div>
-<div class="float-word" style="left:92%;animation-duration:24s;animation-delay:6s;font-size:20px;">आत्मा</div>
-<div class="float-word" style="left:8%;animation-duration:30s;animation-delay:14s;font-size:32px;">विद्या</div>
-<div class="float-word" style="left:55%;animation-duration:18s;animation-delay:11s;font-size:16px;">योग</div>
+<div class="float-word" style="left:5%;animation-duration:22s;animation-delay:0s;font-size:24px;">सत्यम्</div>
+<div class="float-word" style="left:20%;animation-duration:28s;animation-delay:3s;font-size:18px;">अहिंसा</div>
+<div class="float-word" style="left:35%;animation-duration:19s;animation-delay:7s;font-size:32px;">धर्म</div>
+<div class="float-word" style="left:50%;animation-duration:25s;animation-delay:1s;font-size:20px;">ब्रह्म</div>
+<div class="float-word" style="left:65%;animation-duration:32s;animation-delay:5s;font-size:26px;">कर्म</div>
+<div class="float-word" style="left:80%;animation-duration:21s;animation-delay:9s;font-size:18px;">मोक्ष</div>
 
 <!-- Corner decorations -->
-    <div class="corner-deco tl">ॐ &nbsp; सर्वे भवन्तु सुखिनः</div>
-    <div class="corner-deco tr">असतो मा सद्गमय &nbsp; ॐ</div>
-    <div class="corner-deco bl">sanatan dharma guide</div>
-    <div class="corner-deco br">सत्यमेव जयते</div>
+<div class="corner-deco tl">ॐ &nbsp; सर्वे भवन्तु सुखिनः</div>
+<div class="corner-deco tr">असतो मा सद्गमय &nbsp; ॐ</div>
+<div class="corner-deco bl">sanatan dharma guide</div>
+<div class="corner-deco br">सत्यमेव जयते</div>
 
 <!-- MAIN INTRO CONTENT -->
 <div id="intro">
-  <!-- OM -->
+  <!-- OM SYMBOL -->
   <div id="om-wrap">
     <div id="om-ring"></div>
     <div id="om-ring-2"></div>
@@ -514,7 +463,7 @@
     <a id="begin-btn" href="index.html">
       Begin Your Journey <span class="btn-arrow">→</span>
     </a>
-    <div id="scroll-hint">12 lessons &middot; 20 primary source books &middot; Absolutely free &middot; Simple English</div>
+    <div id="scroll-hint">9 modules &middot; 17 lessons &middot; 20 primary source books &middot; Simple English</div>
   </div>
 </div>
 
@@ -540,35 +489,32 @@ class Particle {
     this.y  = rand(0, H);
     this.vx = rand(-0.15, 0.15);
     this.vy = rand(-0.25, -0.05);
-    this.r  = rand(0.5, 2.2);
+    this.r  = rand(0.5, 2.0);
     this.alpha = rand(0.1, 0.6);
     this.life  = rand(0, 1);
     this.speed = rand(0.003, 0.008);
-    // gold hue variants
     const hues = ['242,193,78','212,160,23','192,130,43','255,215,100'];
     this.color = hues[Math.floor(Math.random() * hues.length)];
   }
   update() {
     this.life += this.speed;
-    // drift toward center gently
     const cx = W/2, cy = H/2;
     const dx = cx - this.x, dy = cy - this.y;
-    const dist = Math.sqrt(dx*dx + dy*dy);
-    this.vx += (dx / dist) * 0.003;
-    this.vy += (dy / dist) * 0.003;
-    // mouse repel
+    const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+    this.vx += (dx / dist) * 0.002;
+    this.vy += (dy / dist) * 0.002;
+
     const mdx = this.x - mouse.x, mdy = this.y - mouse.y;
-    const mdist = Math.sqrt(mdx*mdx + mdy*mdy);
-    if (mdist < 120) {
-      this.vx += (mdx / mdist) * 0.4;
-      this.vy += (mdy / mdist) * 0.4;
+    const mdist = Math.sqrt(mdx*mdx + mdy*mdy) || 1;
+    if (mdist < 100) {
+      this.vx += (mdx / mdist) * 0.3;
+      this.vy += (mdy / mdist) * 0.3;
     }
-    // dampen
     this.vx *= 0.98;
     this.vy *= 0.98;
     this.x += this.vx;
     this.y += this.vy;
-    // opacity pulse
+
     const t = this.life % 1;
     this.currentAlpha = this.alpha * Math.sin(t * Math.PI);
     if (this.life > 2) this.reset();
@@ -577,8 +523,6 @@ class Particle {
     ctx.save();
     ctx.globalAlpha = this.currentAlpha;
     ctx.fillStyle = `rgba(${this.color}, 1)`;
-    ctx.shadowColor = `rgba(${this.color}, 0.8)`;
-    ctx.shadowBlur = this.r * 4;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
     ctx.fill();
@@ -586,34 +530,11 @@ class Particle {
   }
 }
 
-// Connection lines between nearby particles
-function drawConnections() {
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i + 1; j < particles.length; j++) {
-      const dx = particles[i].x - particles[j].x;
-      const dy = particles[i].y - particles[j].y;
-      const d  = Math.sqrt(dx*dx + dy*dy);
-      if (d < 90) {
-        const alpha = (1 - d / 90) * 0.08;
-        ctx.beginPath();
-        ctx.strokeStyle = `rgba(212,160,23,${alpha})`;
-        ctx.lineWidth = 0.5;
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.stroke();
-      }
-    }
-  }
-}
-
-// Init particles
-const PARTICLE_COUNT = 120;
+const PARTICLE_COUNT = Math.min(80, Math.floor(window.innerWidth / 10));
 for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
 
 function loop() {
   ctx.clearRect(0, 0, W, H);
-
-  // Dark gradient background
   const grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W,H)/1.2);
   grad.addColorStop(0,   'rgba(22,12,6,0.98)');
   grad.addColorStop(0.5, 'rgba(12,7,3,0.99)');
@@ -621,33 +542,38 @@ function loop() {
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
 
-  drawConnections();
   particles.forEach(p => { p.update(); p.draw(); });
   requestAnimationFrame(loop);
 }
 loop();
 
-// Track mouse
 window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-window.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+window.addEventListener('touchmove', e => {
+  if (e.touches.length > 0) {
+    mouse.x = e.touches[0].clientX;
+    mouse.y = e.touches[0].clientY;
+  }
+}, {passive: true});
 
-// ── PAGE TRANSITION ─────────────────────────────────────────
-document.getElementById('begin-btn').addEventListener('click', function(e) {
+// ── PAGE TRANSITION (Works for touch and click) ─────────────
+function navigateToMain(e) {
   e.preventDefault();
-  const dest = this.href;
-  // Fade intro out
-  document.getElementById('intro').style.animation = 'exitFade 0.7s cubic-bezier(0.7,0,1,1) forwards';
-  // Bring in dark cover
-  const cover = document.getElementById('cover');
-  cover.classList.add('active');
-  // Navigate after animation
-  setTimeout(() => { window.location.href = dest; }, 900);
-});
+  const btn = document.getElementById('begin-btn');
+  const dest = btn.getAttribute('href') || 'index.html';
+  document.getElementById('cover').classList.add('active');
+  setTimeout(() => { window.location.href = dest; }, 500);
+}
 
-// ── KEYBOARD support ────────────────────────────────────────
+const beginBtn = document.getElementById('begin-btn');
+beginBtn.addEventListener('click', navigateToMain);
+beginBtn.addEventListener('touchstart', function(e) {
+  e.preventDefault();
+  navigateToMain(e);
+}, {passive: false});
+
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' || e.key === ' ') {
-    document.getElementById('begin-btn').click();
+    navigateToMain(e);
   }
 });
 </script>
