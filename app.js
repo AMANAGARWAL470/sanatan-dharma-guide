@@ -21,6 +21,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 80);
   });
 
+  // ══════════════════════════════════════════════════════════
+  // NATIVE MOBILE BOTTOM NAVIGATION DOCK (App-like Dock)
+  // ══════════════════════════════════════════════════════════
+  if (!document.querySelector('.mobile-bottom-dock')) {
+    const dock = document.createElement('nav');
+    dock.className = 'mobile-bottom-dock';
+
+    const path = window.location.pathname.toLowerCase();
+    const isCurriculum = path.includes('curriculum') || path === '/' || path.endsWith('/index');
+    const isOneHour = path.includes('one-hour-guide');
+    const isVerses = path.includes('verses-library');
+    const isLibrary = path.includes('library') && !isVerses;
+
+    let basePrefix = '';
+    if (path.includes('/modules/06-epics/ramayana/') || path.includes('/modules/06-epics/mahabharata/')) {
+      basePrefix = '../../../';
+    } else if (path.includes('/modules/')) {
+      basePrefix = '../../';
+    }
+
+    dock.innerHTML = `
+      <a href="${basePrefix}curriculum" class="dock-item ${isCurriculum ? 'active' : ''}">
+        <span class="dock-icon">🏠</span>
+        <span>Hub</span>
+      </a>
+      <a href="${basePrefix}one-hour-guide" class="dock-item ${isOneHour ? 'active' : ''}">
+        <span class="dock-icon">⚡</span>
+        <span>1-Hour</span>
+      </a>
+      <a href="${basePrefix}verses-library" class="dock-item ${isVerses ? 'active' : ''}">
+        <span class="dock-icon">📜</span>
+        <span>Quotes</span>
+      </a>
+      <a href="${basePrefix}library" class="dock-item ${isLibrary ? 'active' : ''}">
+        <span class="dock-icon">📚</span>
+        <span>Library</span>
+      </a>
+    `;
+
+    document.body.appendChild(dock);
+  }
+
   // Handle browser back/forward cache
   window.addEventListener('pageshow', (event) => {
     if (event.persisted) {
