@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Scriptural Verses &amp; Quotes Library (8,058 Passages) | Sanātana Dharma Guide</title>
+  <meta name="description" content="Explore 8,000+ original quotes, shlokas, and translations extracted across 18,982 pages of all 20 primary books of Sanatan Dharma with search and topic filters.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+Devanagari:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { animation: pageEnter 0.8s cubic-bezier(0.16,1,0.3,1) both; }
+    @keyframes pageEnter {
+      from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    /* Search & Filter Container */
+    .search-box-wrap {
+      max-width: 720px;
+      margin: 0 auto 30px;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      padding: 16px 24px 16px 52px;
+      background: var(--bg-panel);
+      border: 1px solid var(--line-strong);
+      border-radius: 40px;
+      color: var(--ivory);
+      font-family: var(--serif-body);
+      font-size: 18px;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .search-input:focus {
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 25px rgba(242,193,78,0.3);
+    }
+    .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: var(--gold-bright);
+      pointer-events: none;
+    }
+
+    .topic-filter-bar {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 10px 0 20px;
+      margin-bottom: 30px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .topic-filter-bar::-webkit-scrollbar { display: none; }
+
+    .topic-btn {
+      background: rgba(212, 160, 23, 0.08);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      padding: 8px 18px;
+      border-radius: 24px;
+      font-family: var(--serif-body);
+      font-size: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.25s;
+      flex-shrink: 0;
+    }
+    .topic-btn:hover, .topic-btn.active {
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+      color: #0a0705;
+      font-weight: 700;
+      border-color: var(--gold-bright);
+      box-shadow: 0 4px 15px rgba(212, 160, 23, 0.3);
+    }
+
+    .verse-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--gold-bright);
+      border-radius: 0 16px 16px 0;
+      padding: 24px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+      transition: all 0.25s ease;
+    }
+    .verse-card:hover {
+      border-color: var(--gold-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(212,160,23,0.15);
+    }
+    .verse-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .verse-book {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--gold-bright);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .verse-page {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted-2);
+    }
+    .verse-text {
+      font-family: var(--serif-body);
+      font-size: 17px;
+      color: var(--ivory);
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+    .verse-topics {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .topic-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--teal);
+      background: rgba(22, 160, 133, 0.12);
+      border: 1px solid rgba(22, 160, 133, 0.3);
+      padding: 2px 10px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress"></div>
+
+  <!-- Header Bar -->
+  <header class="header-bar">
+    <a href="curriculum" class="brand-title">
+      <span class="om">ॐ</span>
+      <span>Sanātana Dharma <em>Guide</em><span class="brand-sub">Your Beginner's Path</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="curriculum">🏠 Hub</a></li>
+      <li><a href="verses-library" class="active">📜 8,000+ Verses</a></li>
+      <li class="lib-link"><a href="library" style="color: var(--gold-bright); font-weight:700;">📚 Library</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Hero -->
+  <section class="beginner-hero" style="padding: 56px 24px 36px;">
+    <div class="hero-tag">📖 Exhaustive Scriptural Database &nbsp;·&nbsp; 8,058 Original Quotes &nbsp;·&nbsp; 20 Primary Source Books</div>
+    <h1 style="font-size: clamp(32px, 5vw, 60px);">Master Verse &amp; <em>Quote Library</em></h1>
+    <p style="max-width: 780px; margin: 16px auto 0; font-size: 18px; line-height: 1.8; color: var(--ivory);">
+      Search over <strong>8,000+ original quotes, shlokas, and translations</strong> extracted across 18,982 pages of the Vedas, Upanishads, Bhagavad Gītā, Mahābhārata, Rāmāyaṇa, and Purāṇas. Every single quote includes the exact book name and page citation.
+    </p>
+  </section>
+
+  <!-- Search & Filters Container -->
+  <div style="max-width: 1100px; margin: 0 auto; padding: 20px 24px 60px;">
+
+    <!-- Instant Search Box -->
+    <div class="search-box-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="verseSearch" class="search-input" placeholder="Search 8,000+ quotes by keyword (e.g. truth, karma, soul, dharma, om)..." oninput="onSearchInput()">
+    </div>
+
+    <!-- Topic Filter Bar -->
+    <div class="topic-filter-bar" id="topicBar">
+      <button class="topic-btn active" onclick="filterByTopic('all', this)">✨ All Verses (8,058)</button>
+      <button class="topic-btn" onclick="filterByTopic('Dharma & Duty', this)">⚖️ Dharma &amp; Duty</button>
+      <button class="topic-btn" onclick="filterByTopic('Brahman & Ultimate Reality', this)">🌌 Brahman &amp; Reality</button>
+      <button class="topic-btn" onclick="filterByTopic('Atman & Soul', this)">💫 Ātman &amp; Soul</button>
+      <button class="topic-btn" onclick="filterByTopic('Karma & Action', this)">⚙️ Karma &amp; Action</button>
+      <button class="topic-btn" onclick="filterByTopic('Moksha & Freedom', this)">🕊️ Mokṣa &amp; Freedom</button>
+      <button class="topic-btn" onclick="filterByTopic('Yoga & Meditation', this)">🧘 Yoga &amp; Meditation</button>
+      <button class="topic-btn" onclick="filterByTopic('Bhakti & Devotion', this)">❤️ Bhakti &amp; Devotion</button>
+      <button class="topic-btn" onclick="filterByTopic('Avatars & Incarnations', this)">🐚 Avatars</button>
+      <button class="topic-btn" onclick="filterByTopic('Vedas & Śruti Wisdom', this)">📜 Vedas &amp; Śruti</button>
+      <button class="topic-btn" onclick="filterByTopic('Epics & Statecraft', this)">🏹 Epics &amp; Statecraft</button>
+      <button class="topic-btn" onclick="filterByTopic('Creation & Cosmology', this)">🌍 Cosmology</button>
+      <button class="topic-btn" onclick="filterByTopic('Truth & Non-Violence', this)">🕊️ Truth &amp; Ahiṃsā</button>
+    </div>
+
+    <!-- Active Count Indicator -->
+    <div style="font-family: var(--mono); font-size: 13px; color: var(--gold-bright); margin-bottom: 20px; display: flex; justify-content: space-between;">
+      <span id="verseCount">Showing 30 of 8,058 verses</span>
+      <span>📖 Fact-Checked Primary Passages</span>
+    </div>
+
+    <!-- Verse Cards Container -->
+    <div id="versesContainer"></div>
+
+    <!-- Load More Button -->
+    <div style="text-align: center; margin-top: 36px;">
+      <button id="loadMoreBtn" onclick="loadMoreVerses()" style="background: rgba(212,160,23,0.12); color: var(--gold-bright); border: 1px solid var(--line-strong); padding: 14px 36px; border-radius: 30px; font-family: var(--serif-display); font-size: 18px; font-weight: 700; cursor: pointer; transition: all 0.2s;">
+        📜 Load Next 30 Verses →
+      </button>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="om">ॐ</div>
+    <p>Sanātana Dharma Guide · <a href="library">📚 Verify All Sources in Library</a></p>
+  </footer>
+
+  <script src="master_verses_data.js"></script>
+  <script src="app.js"></script>
+  <script>
+    let currentFiltered = [];
+    let displayLimit = 30;
+    let activeTopic = 'all';
+    let searchQuery = '';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.MASTER_VERSES) {
+        currentFiltered = window.MASTER_VERSES;
+        renderVerses();
+      }
+    });
+
+    function filterByTopic(topic, btn) {
+      if (typeof window.playClickChime === 'function') window.playClickChime();
+      document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      activeTopic = topic;
+      displayLimit = 30;
+      applyFilters();
+    }
+
+    function onSearchInput() {
+      searchQuery = document.getElementById('verseSearch').value.toLowerCase().trim();
+      displayLimit = 30;
+      applyFilters();
+    }
+
+    function applyFilters() {
+      if (!window.MASTER_VERSES) return;
+
+      currentFiltered = window.MASTER_VERSES.filter(v => {
+        const matchesTopic = (activeTopic === 'all') || (v.topics && v.topics.includes(activeTopic));
+        const matchesSearch = !searchQuery || 
+          v.content.toLowerCase().includes(searchQuery) || 
+          v.book.toLowerCase().includes(searchQuery);
+
+        return matchesTopic && matchesSearch;
+      });
+
+      renderVerses();
+    }
+
+    function renderVerses() {
+      const container = document.getElementById('versesContainer');
+      const countLabel = document.getElementById('verseCount');
+      const loadBtn = document.getElementById('loadMoreBtn');
+
+      const total = currentFiltered.length;
+      const visible = Math.min(displayLimit, total);
+
+      countLabel.textContent = `Showing ${visible} of ${total.toLocaleString()} matching verses`;
+      loadBtn.style.display = visible < total ? 'inline-block' : 'none';
+
+      if (total === 0) {
+        container.innerHTML = `
+          <div style="text-align:center;padding:60px 20px;background:var(--bg-panel);border:1px solid var(--line);border-radius:16px;">
+            <div style="font-size:40px;margin-bottom:12px;">🔍</div>
+            <h3 style="font-family:var(--serif-display);font-size:24px;color:var(--gold-bright);">No matching scriptural quotes found</h3>
+            <p style="color:var(--muted);margin-top:6px;">Try searching for terms like "dharma", "karma", "soul", "om", "truth", or "gita".</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      const slice = currentFiltered.slice(0, visible);
+
+      slice.forEach((v, idx) => {
+        const topicBadges = (v.topics || []).map(t => `<span class="topic-tag">${t}</span>`).join(' ');
+        html += `
+          <div class="verse-card">
+            <div class="verse-meta">
+              <span class="verse-book">📖 ${v.book}</span>
+              <span class="verse-page">Page ${v.page} &nbsp;·&nbsp; <a href="library" style="color:var(--teal);text-decoration:underline;">Verify in Library →</a></span>
+            </div>
+            <div class="verse-text">"${v.content}"</div>
+            <div class="verse-topics">${topicBadges}</div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function loadMoreVerses() {
+      if (typeof window.playClickChime === 'function') window.playClickChime();
+      displayLimit += 30;
+      renderVerses();
+    }
+  </script>
+</body>
+</html>
