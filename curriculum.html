@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sanātana Dharma Guide — Beginner's Learning Portal</title>
-  <meta name="description" content="A structured, beginner-first learning portal for Sanatan Dharma backed by 20 primary book citations (Vedas, Upanishads, Gita, Epics, Puranas, Darshanas).">
+  <title>Curriculum Hub (9 Modules · 23 Lessons) | Sanātana Dharma Guide</title>
+  <meta name="description" content="Structured learning portal for Sanatan Dharma — 9 Modules, 23 Lessons, backed by 20 primary book citations (Vedas, Upanishads, Gita, Epics, Puranas, Darshanas).">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+Devanagari:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -14,6 +14,47 @@
     @keyframes pageEnter {
       from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
       to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    /* Category Filter Tabs Bar */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 12px 0 20px;
+      margin-bottom: 30px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+
+    .filter-btn {
+      background: rgba(212, 160, 23, 0.08);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-family: var(--serif-body);
+      font-size: 15px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
+      flex-shrink: 0;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+      color: #0a0705;
+      font-weight: 700;
+      border-color: var(--gold-bright);
+      box-shadow: 0 4px 18px rgba(212, 160, 23, 0.3);
+    }
+
+    .module-wrapper {
+      margin-bottom: 48px;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .module-wrapper.hidden {
+      display: none;
     }
   </style>
 </head>
@@ -44,142 +85,173 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="beginner-hero">
-    <div class="hero-tag">🙏 Made for Absolute Beginners &nbsp;·&nbsp; 9 Modules &nbsp;·&nbsp; 17 Lessons &nbsp;·&nbsp; 20 Primary Source Books</div>
-    <h1>Don't know your <em>roots</em>? Start here.</h1>
-    <p>
-      You're Hindu or curious about Sanātana Dharma — but no one ever explained it simply. This guide does exactly that: <strong>plain English, real Sanskrit shlokas, zero propaganda.</strong> Everything is backed by original scriptures that you can read in our library.
+  <section class="beginner-hero" style="padding: 56px 24px 40px;">
+    <div class="hero-tag">🙏 Beginner-First Curriculum &nbsp;·&nbsp; 9 Modules &nbsp;·&nbsp; 23 Dense Lessons &nbsp;·&nbsp; 20 Primary Source Books</div>
+    <h1 style="font-size: clamp(34px, 5.5vw, 64px);">Curriculum Hub — <em>Understand Your Roots</em></h1>
+    <p style="max-width: 780px; margin: 16px auto 0; font-size: 19px; line-height: 1.8; color: var(--ivory);">
+      Everything you need to know about Sanātana Dharma in plain English, backed by 20 original scriptures. No fluff, no propaganda — just clear, structured knowledge with library verification links.
     </p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;">
-      <a href="modules/01-foundations/what-is-sanatan-dharma" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,#d4a017,#b8860b);color:#0a0705;font-family:var(--serif-display);font-size:18px;font-weight:700;border-radius:4px;text-decoration:none;transition:all 0.2s;">
-        🚀 Start Lesson 1.1 →
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px;">
+      <a href="modules/01-foundations/what-is-sanatan-dharma" style="display:inline-flex;align-items:center;gap:10px;padding:16px 36px;background:linear-gradient(135deg,#d4a017,#b8860b);color:#0a0705;font-family:var(--serif-display);font-size:19px;font-weight:700;border-radius:6px;text-decoration:none;box-shadow:0 4px 20px rgba(212,160,23,0.35);">
+        🚀 Begin Lesson 1.1 →
       </a>
-      <a href="library" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:rgba(212,160,23,0.1);color:var(--gold-bright);font-family:var(--serif-display);font-size:18px;border:1px solid rgba(212,160,23,0.3);border-radius:4px;text-decoration:none;transition:all 0.2s;">
-        📚 Browse 20 Source Books (18,982 Pages)
+      <a href="library" style="display:inline-flex;align-items:center;gap:10px;padding:16px 36px;background:rgba(212,160,23,0.08);color:var(--gold-bright);font-family:var(--serif-display);font-size:19px;border:1px solid rgba(212,160,23,0.3);border-radius:6px;text-decoration:none;">
+        📚 Source Library (20 Books)
       </a>
     </div>
   </section>
 
-  <!-- Curriculum Grid -->
-  <div style="max-width: 1200px; margin: 0 auto; padding: 40px 24px;">
+  <!-- Main Container -->
+  <div style="max-width: 1240px; margin: 0 auto; padding: 20px 24px 60px;">
     
-    <div style="text-align: center; margin-bottom: 40px;">
-      <h2 style="font-family: var(--serif-display); font-size: 38px; color: var(--gold-bright); margin-bottom: 10px;">
-        Structured Learning Modules (9 Modules · 17 Lessons)
-      </h2>
-      <p style="color: var(--muted); font-size: 18px;">Click any lesson to start learning in simple, clear steps:</p>
+    <!-- Interactive Category Filter Bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-cat="all">✨ All Modules (9)</button>
+      <button class="filter-btn" data-cat="foundations">🏛️ 01. Foundations</button>
+      <button class="filter-btn" data-cat="scriptures">📜 02. Scriptures</button>
+      <button class="filter-btn" data-cat="deities">🕉️ 03. Deities &amp; Symbols</button>
+      <button class="filter-btn" data-cat="lifestyle">🌿 04. Lifestyle &amp; Rites</button>
+      <button class="filter-btn" data-cat="myths">❓ 05. Myth Busted</button>
+      <button class="filter-btn" data-cat="epics">🏹 06. Epics (Itihāsa)</button>
+      <button class="filter-btn" data-cat="philosophy">🧠 07. Philosophy</button>
+      <button class="filter-btn" data-cat="cosmology">🌌 08. Cosmology</button>
+      <button class="filter-btn" data-cat="mantras">🔔 09. Mantras</button>
     </div>
 
-    <!-- Module 1 -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
+    <!-- MODULE 01 -->
+    <div class="module-wrapper" data-category="foundations" style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 20px; padding: 36px;">
+      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;">
         Module 01 · Essential Foundations
       </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
+      <h2 style="font-family: var(--serif-display); font-size: 34px; color: var(--gold-bright); margin-bottom: 20px;">
         1. Foundations of Sanātana Dharma
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: repeat(2, 1fr);">
+      </h2>
+      <div class="roadmap-grid" style="grid-template-columns: repeat(3, 1fr);">
         <div class="step-card">
           <span class="step-num">Lesson 1.1</span>
           <h3><a href="modules/01-foundations/what-is-sanatan-dharma">What is Sanātana Dharma? →</a></h3>
-          <p>Meaning of eternal law, difference from organized religions, and the famous Rig Veda verse (Ekam Sat Vipra Bahudha Vadanti).</p>
-          <div class="source-badge">📖 Sources: Rig Veda Complete (1,636 pp) · Katha Upanishad</div>
+          <p>Eternal law, difference from organized religions, and the Rig Veda verse (Ekam Sat Vipra Bahudha Vadanti).</p>
+          <div class="source-badge">📖 Sources: Rig Veda Complete · Katha Upanishad</div>
         </div>
         <div class="step-card">
           <span class="step-num">Lesson 1.2</span>
           <h3><a href="modules/01-foundations/core-beliefs">The 5 Core Principles →</a></h3>
-          <p>Brahman, Atman, Karma, Maya, Moksha explained simply with analogies and real Upanishad shlokas.</p>
-          <div class="source-badge">📖 Sources: 108 Upanishads (908 pp) · Brihadaranyaka</div>
+          <p>Brahman, Atman, Karma, Maya, Moksha explained simply with real Upanishad shlokas and analogies.</p>
+          <div class="source-badge">📖 Sources: 108 Upanishads · Brihadaranyaka</div>
+        </div>
+        <div class="step-card">
+          <span class="step-num">Lesson 1.3</span>
+          <h3><a href="modules/01-foundations/dharma-artha-kama-moksha">The 4 Puruṣārthas →</a></h3>
+          <p>The 4 goals of human life: Dharma, Artha (ethical wealth), Kama (love/joy), Moksha (freedom).</p>
+          <div class="source-badge">📖 Sources: Manusmriti (8232.pdf) · Bhagavad Gita</div>
         </div>
       </div>
     </div>
 
-    <!-- Module 2 -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
+    <!-- MODULE 02 -->
+    <div class="module-wrapper" data-category="scriptures" style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 20px; padding: 36px;">
+      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;">
         Module 02 · Sacred Scriptures
       </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
+      <h2 style="font-family: var(--serif-display); font-size: 34px; color: var(--gold-bright); margin-bottom: 20px;">
         2. The Primary Scriptures Explained Simply
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: repeat(3, 1fr);">
+      </h2>
+      <div class="roadmap-grid" style="grid-template-columns: repeat(4, 1fr);">
         <div class="step-card">
           <span class="step-num">Lesson 2.1</span>
           <h3><a href="modules/02-scriptures/vedas">The 4 Vedas →</a></h3>
-          <p>Rig, Yajur, Sama, Atharva Vedas explained simply. First ever mantra of Rig Veda 1.1.1 and Bhumi Sukta.</p>
+          <p>Rig, Yajur, Sama, Atharva Vedas. Rig Veda 1.1.1 and Atharva Veda Bhumi Sukta.</p>
           <div class="source-badge">📖 Sources: Rig Veda · Atharva Veda</div>
         </div>
         <div class="step-card">
           <span class="step-num">Lesson 2.2</span>
           <h3><a href="modules/02-scriptures/upanishads">The Upanishads →</a></h3>
-          <p>The 4 Mahavakyas (Aham Brahmasmi, Tat Tvam Asi), Nachiketas story from Katha Upanishad.</p>
+          <p>The 4 Mahavakyas (Aham Brahmasmi, Tat Tvam Asi), Nachiketas dialogue.</p>
           <div class="source-badge">📖 Sources: 108 Upanishads · Katha</div>
         </div>
         <div class="step-card">
           <span class="step-num">Lesson 2.3</span>
           <h3><a href="modules/02-scriptures/bhagavad-gita">Bhagavad Gītā →</a></h3>
-          <p>Karma Yoga, BG 2.47, BG 18.66, 3 paths to God (Karma, Jnana, Bhakti Yoga).</p>
-          <div class="source-badge">📖 Source: Gita Sadhak Sanjivani (2,159 pp)</div>
+          <p>Karma Yoga, BG 2.47, BG 18.66, 3 paths to God (Karma, Jnana, Bhakti).</p>
+          <div class="source-badge">📖 Source: Gita Sadhak Sanjivani</div>
+        </div>
+        <div class="step-card">
+          <span class="step-num">Lesson 2.4</span>
+          <h3><a href="modules/02-scriptures/shrutis-smritis-structure">Śruti vs Smṛti Tree →</a></h3>
+          <p>Taxonomy of Veda layers (Samhita, Brahmana, Aranyaka, Upanishad) &amp; Smriti books.</p>
+          <div class="source-badge">📖 Sources: Manusmriti 2.10 · Rig Veda</div>
         </div>
       </div>
     </div>
 
-    <!-- Module 3 -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
-        Module 03 · Deities &amp; Sacred Geometry
+    <!-- MODULE 03 -->
+    <div class="module-wrapper" data-category="deities" style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 20px; padding: 36px;">
+      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;">
+        Module 03 · Deities &amp; Sacred Symbols
       </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
-        3. Deities, Trimūrti &amp; Sacred Symbols
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: repeat(2, 1fr);">
+      <h2 style="font-family: var(--serif-display); font-size: 34px; color: var(--gold-bright); margin-bottom: 20px;">
+        3. Deities, Trimūrti &amp; Sacred Geometry
+      </h2>
+      <div class="roadmap-grid" style="grid-template-columns: repeat(3, 1fr);">
         <div class="step-card">
           <span class="step-num">Lesson 3.1</span>
           <h3><a href="modules/03-deities-symbols/trimurti-gods">Why Many Gods? Trimūrti →</a></h3>
-          <p>Brahma, Vishnu, Shiva as 3 cosmic functions. The 10 Avatars (Dashavatara) as biological evolution.</p>
+          <p>Brahma, Vishnu, Shiva as 3 cosmic functions. Monotheistic underlying reality.</p>
           <div class="source-badge">📖 Sources: Vishnu Purana · Shiv Puran</div>
         </div>
         <div class="step-card">
           <span class="step-num">Lesson 3.2</span>
           <h3><a href="modules/03-deities-symbols/sacred-symbols">Sacred Symbols Decoded →</a></h3>
-          <p>AUM (Mandukya Upanishad), Swastika (Rig Veda Svasti Mantra), Lotus (Gita 5.10), Trishula.</p>
+          <p>AUM (Mandukya), Swastika (Rig Veda Svasti Mantra), Lotus (Gita 5.10), Trishula.</p>
           <div class="source-badge">📖 Sources: Mandukya · Shiv Puran</div>
+        </div>
+        <div class="step-card">
+          <span class="step-num">Lesson 3.3</span>
+          <h3><a href="modules/03-deities-symbols/dashavatara-deep-dive">Daśāvatāra (10 Avatars) →</a></h3>
+          <p>Matsya to Kalki: cosmic biological evolution parallels &amp; Gita 4.7–8 purpose.</p>
+          <div class="source-badge">📖 Sources: Bhagavata Purana · Gita</div>
         </div>
       </div>
     </div>
 
-    <!-- Module 4 -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
+    <!-- MODULE 04 -->
+    <div class="module-wrapper" data-category="lifestyle" style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 20px; padding: 36px;">
+      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;">
         Module 04 · Lifestyle &amp; Rites of Passage
       </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
+      <h2 style="font-family: var(--serif-display); font-size: 34px; color: var(--gold-bright); margin-bottom: 20px;">
         4. Daily Living, Yoga &amp; The 16 Sacraments
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: repeat(2, 1fr);">
+      </h2>
+      <div class="roadmap-grid" style="grid-template-columns: repeat(3, 1fr);">
         <div class="step-card">
           <span class="step-num">Lesson 4.1</span>
           <h3><a href="modules/04-lifestyle-rites/daily-practices">Daily Habits &amp; Yoga →</a></h3>
-          <p>Yoga Sutra 1.2 definition of Yoga, 8 Limbs of Yoga (Astanga), daily morning/evening practice.</p>
-          <div class="source-badge">📖 Source: Raja Yoga (Vivekananda — 230 pp)</div>
+          <p>Yoga Sutra 1.2 definition of Yoga, 8 Limbs (Astanga), daily morning/evening practice.</p>
+          <div class="source-badge">📖 Source: Raja Yoga (Vivekananda)</div>
         </div>
         <div class="step-card">
           <span class="step-num">Lesson 4.2</span>
           <h3><a href="modules/04-lifestyle-rites/16-samskaras">The 16 Life Sacraments →</a></h3>
-          <p>From Garbhadhana to Upanayana, Vivaha, and Antyeshti — 16 Samskaras from womb to cremation.</p>
-          <div class="source-badge">📖 Sources: Dharmashastras (8232.pdf, 8254.pdf)</div>
+          <p>Garbhadhana to Upanayana, Vivaha, and Antyeshti — 16 Samskaras from womb to cremation.</p>
+          <div class="source-badge">📖 Sources: Dharmashastras (8232, 8254)</div>
+        </div>
+        <div class="step-card">
+          <span class="step-num">Lesson 4.3</span>
+          <h3><a href="modules/04-lifestyle-rites/four-ashramas-life">The 4 Stages (Āśramas) →</a></h3>
+          <p>Brahmacharya (Student), Grihastha (Householder), Vanaprastha (Retirement), Sannyasa (Freedom).</p>
+          <div class="source-badge">📖 Sources: Manusmriti · Jabala Upanishad</div>
         </div>
       </div>
     </div>
 
-    <!-- Module 5 -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
+    <!-- MODULE 05 -->
+    <div class="module-wrapper" data-category="myths" style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 20px; padding: 36px;">
+      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;">
         Module 05 · Myths &amp; Fact-Checking
       </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
+      <h2 style="font-family: var(--serif-display); font-size: 34px; color: var(--gold-bright); margin-bottom: 20px;">
         5. 18 Myths Busted with Primary Source Proof
-      </h3>
+      </h2>
       <div class="roadmap-grid" style="grid-template-columns: 1fr;">
         <div class="step-card">
           <span class="step-num">Lesson 5.1</span>
@@ -190,68 +262,74 @@
       </div>
     </div>
 
-    <!-- Module 6 (NEW) -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
+    <!-- MODULE 06 -->
+    <div class="module-wrapper" data-category="epics" style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 20px; padding: 36px;">
+      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;">
         Module 06 · Epics (Itihāsa)
       </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
-        6. Epics — History, Heroism &amp; Conduct
-      </h3>
+      <h2 style="font-family: var(--serif-display); font-size: 34px; color: var(--gold-bright); margin-bottom: 20px;">
+        6. Epics — History, Heroism &amp; Conduct (8 Subpages)
+      </h2>
       <div class="roadmap-grid" style="grid-template-columns: repeat(2, 1fr);">
         <div class="step-card">
           <span class="step-num">Lesson 6.1</span>
-          <h3><a href="modules/06-epics/ramayana">Vālmīki Rāmāyaṇa →</a></h3>
+          <h3><a href="modules/06-epics/ramayana">Vālmīki Rāmāyaṇa Overview →</a></h3>
           <p>The 7 Kandas, 16 noble virtues of Sri Rama, ideal conduct in relationships, Janani Janmabhumischa verse.</p>
-          <div class="source-badge">📖 Source: Valmiki Ramayana Complete (1,626 pp)</div>
+          <div class="source-badge">📖 Subpages: <a href="modules/06-epics/ramayana/kandas-detail">7 Kandas</a> · <a href="modules/06-epics/ramayana/characters-dharma">Characters</a> · <a href="modules/06-epics/ramayana/ramrajya-philosophy">Ramarajya</a></div>
         </div>
         <div class="step-card">
           <span class="step-num">Lesson 6.2</span>
-          <h3><a href="modules/06-epics/mahabharata">Mahābhārata →</a></h3>
+          <h3><a href="modules/06-epics/mahabharata">Mahābhārata Overview →</a></h3>
           <p>The 18 Parvas, Kurukshetra war, Yado Ilasti verse, Dharmo Rakshati Rakshitah shloka.</p>
-          <div class="source-badge">📖 Source: The Mahabharata Set (10 Volumes)</div>
+          <div class="source-badge">📖 Subpages: <a href="modules/06-epics/mahabharata/parvas-detail">18 Parvas</a> · <a href="modules/06-epics/mahabharata/yaksha-prashna">Yaksha Prashna</a> · <a href="modules/06-epics/mahabharata/santi-parva-governance">Santi Parva</a></div>
         </div>
       </div>
     </div>
 
-    <!-- Module 7 (NEW) -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
+    <!-- MODULE 07 -->
+    <div class="module-wrapper" data-category="philosophy" style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 20px; padding: 36px;">
+      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;">
         Module 07 · Philosophy (Darśanas)
       </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
+      <h2 style="font-family: var(--serif-display); font-size: 34px; color: var(--gold-bright); margin-bottom: 20px;">
         7. The 6 Classical Systems of Indian Philosophy
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: repeat(3, 1fr);">
+      </h2>
+      <div class="roadmap-grid" style="grid-template-columns: repeat(4, 1fr);">
         <div class="step-card">
           <span class="step-num">Lesson 7.1</span>
           <h3><a href="modules/07-darsanas/samkhya-yoga">Sāṃkhya &amp; Yoga →</a></h3>
-          <p>Purusha, Prakriti, 25 Tattvas, Samkhya Karika Verse 3, 3 Gunas (Sattva, Rajas, Tamas).</p>
-          <div class="source-badge">📖 Source: Samkhya Philosophy (206 pp)</div>
+          <p>Purusha, Prakriti, 25 Tattvas, Samkhya Karika, 3 Gunas (Sattva, Rajas, Tamas).</p>
+          <div class="source-badge">📖 Source: Samkhya Philosophy</div>
         </div>
         <div class="step-card">
           <span class="step-num">Lesson 7.2</span>
           <h3><a href="modules/07-darsanas/nyaya-vaisesika">Nyāya &amp; Vaiśeṣika →</a></h3>
-          <p>Kanada's atomic theory (Paramanuvada), Vaisheshika Sutra 4.1.1, Nyaya rules of logic.</p>
-          <div class="source-badge">📖 Source: Vaisheshika Sutras (380 pp)</div>
+          <p>Kanada's atomic theory (Paramanuvada), Vaisheshika Sutra 4.1.1, rules of logic.</p>
+          <div class="source-badge">📖 Source: Vaisheshika Sutras</div>
         </div>
         <div class="step-card">
           <span class="step-num">Lesson 7.3</span>
-          <h3><a href="modules/07-darsanas/vedanta-brahmasutra">Mīmāṃsā &amp; Vedānta →</a></h3>
-          <p>Brahma Sutras by Badarayana, Sutra 1.1.1 (Athato Brahma Jijnasa), Shankara's Advaita Vedanta.</p>
+          <h3><a href="modules/07-darsanas/vedanta-brahmasutra">Vedānta &amp; Brahma Sūtras →</a></h3>
+          <p>Brahma Sutras by Badarayana, Sutra 1.1.1 (Athato Brahma Jijnasa).</p>
           <div class="source-badge">📖 Source: Brahma Sutras (941 pp)</div>
+        </div>
+        <div class="step-card">
+          <span class="step-num">Lesson 7.4</span>
+          <h3><a href="modules/07-darsanas/advaita-vashistadvaita-dvaita">3 Vedānta Schools →</a></h3>
+          <p>Advaita (Shankara), Vishishtadvaita (Ramanuja), Dvaita (Madhva) comparative analysis.</p>
+          <div class="source-badge">📖 Source: Prasthanatrayi</div>
         </div>
       </div>
     </div>
 
-    <!-- Module 8 (NEW) -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
+    <!-- MODULE 08 -->
+    <div class="module-wrapper" data-category="cosmology" style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 20px; padding: 36px;">
+      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;">
         Module 08 · Cosmology &amp; Purāṇas
       </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
+      <h2 style="font-family: var(--serif-display); font-size: 34px; color: var(--gold-bright); margin-bottom: 20px;">
         8. The 18 Mahāpurāṇas &amp; The 4 Yugas
-      </h3>
+      </h2>
       <div class="roadmap-grid" style="grid-template-columns: 1fr;">
         <div class="step-card">
           <span class="step-num">Lesson 8.1</span>
@@ -262,26 +340,32 @@
       </div>
     </div>
 
-    <!-- Module 9 (NEW) -->
-    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 16px; padding: 30px; margin-bottom: 30px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
-        Module 09 · Mantras &amp; Chanting
+    <!-- MODULE 09 -->
+    <div class="module-wrapper" data-category="mantras" style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 20px; padding: 36px;">
+      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;">
+        Module 09 · Mantras &amp; Pronunciation
       </div>
-      <h3 style="font-family: var(--serif-display); font-size: 30px; color: var(--gold-bright); margin-bottom: 16px;">
-        9. Essential Mantras Every Sanātani Should Know
-      </h3>
-      <div class="roadmap-grid" style="grid-template-columns: 1fr;">
+      <h2 style="font-family: var(--serif-display); font-size: 34px; color: var(--gold-bright); margin-bottom: 20px;">
+        9. Essential Mantras &amp; Sanskrit Pronunciation
+      </h2>
+      <div class="roadmap-grid" style="grid-template-columns: repeat(2, 1fr);">
         <div class="step-card">
           <span class="step-num">Lesson 9.1</span>
-          <h3><a href="modules/09-mantras/essential-mantras">Essential Mantras (Gayatri, Mahamrityunjaya, Shanti) →</a></h3>
-          <p>Gayatri Mantra (Rig Veda 3.62.10), Mahamrityunjaya (Rig Veda 7.59.12), Asato Ma Sadgamaya with Sanskrit, IAST, and word-by-word breakdown.</p>
-          <div class="source-badge">📖 Sources: Rig Veda Complete · Brihadaranyaka Upanishad</div>
+          <h3><a href="modules/09-mantras/essential-mantras">Essential Mantras →</a></h3>
+          <p>Gayatri Mantra (Rig Veda 3.62.10), Mahamrityunjaya (Rig Veda 7.59.12), Asato Ma Sadgamaya.</p>
+          <div class="source-badge">📖 Sources: Rig Veda Complete · Brihadaranyaka</div>
+        </div>
+        <div class="step-card">
+          <span class="step-num">Lesson 9.2</span>
+          <h3><a href="modules/09-mantras/sanskrit-pronunciation-guide">Sanskrit Pronunciation Guide →</a></h3>
+          <p>5 Vocal Organs (Stana), Vowels, Consonants, Vedic Accents (Udatta, Anudatta, Svarita).</p>
+          <div class="source-badge">📖 Sources: Panini Shiksha · Taittiriya Pratisakhya</div>
         </div>
       </div>
     </div>
 
     <!-- Interactive Beginner Quiz -->
-    <div style="background: var(--bg-card); border: 1px solid var(--line); border-radius: 16px; padding: 36px; text-align: center; margin-top: 40px;">
+    <div style="background: var(--bg-card); border: 1px solid var(--line); border-radius: 20px; padding: 40px; text-align: center; margin-top: 40px;">
       <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
         Beginner Self-Discovery
       </div>
@@ -310,5 +394,37 @@
   </footer>
 
   <script src="app.js"></script>
+  <script>
+    // Category Filter Functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const moduleWrappers = document.querySelectorAll('.module-wrapper');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (typeof window.playClickChime === 'function') window.playClickChime();
+
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const cat = btn.getAttribute('data-cat');
+          moduleWrappers.forEach(wrap => {
+            const wrapCat = wrap.getAttribute('data-category');
+            if (cat === 'all' || wrapCat === cat) {
+              wrap.classList.remove('hidden');
+              wrap.style.opacity = '0';
+              wrap.style.transform = 'translateY(16px)';
+              setTimeout(() => {
+                wrap.style.opacity = '1';
+                wrap.style.transform = 'translateY(0)';
+              }, 50);
+            } else {
+              wrap.classList.add('hidden');
+            }
+          });
+        });
+      });
+    });
+  </script>
 </body>
 </html>
