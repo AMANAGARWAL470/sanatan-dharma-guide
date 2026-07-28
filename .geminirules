@@ -1,0 +1,7 @@
+# Antigravity Rules for Sanātana Dharma Project
+
+## Project Dump & Cache Directory Location
+- ALL scratch scripts, extraction scripts, temporary JSON outputs, logs, line analysis dumps, cache, and intermediate files for this project MUST be created and stored EXCLUSIVELY in:
+  `D:\Sanatan Dharam project\Dumps\`
+- NEVER write scratch, dump, or cache files to the project root directory or any folder other than `D:\Sanatan Dharam project\Dumps\`.
+- Always set temporary output paths, Python script dumps, and cache storage to `D:\Sanatan Dharam project\Dumps\` across all operations.

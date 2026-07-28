@@ -1,6 +1,10 @@
 # Large raw PDF files (users can download/read via original sources or library links)
 Leads/*.pdf
 
+# Project Dumps & Cache Directory
+Dumps/
+scratch/
+
 # Node & Python caches
 node_modules/
 __pycache__/
@@ -11,7 +15,3 @@ __pycache__/
 Thumbs.db
 *.tmp
 *.log
-
-# Large temporary scratch extraction dumps if needed (keep json summary indexes)
-scratch/line_analysis/
-scratch/word_by_word_analysis/
