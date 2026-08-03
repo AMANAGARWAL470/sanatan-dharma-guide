@@ -41,14 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
       basePrefix = '../../';
     }
 
+    const isEncyclopedia = path.includes('encyclopedia');
+
     dock.innerHTML = `
       <a href="${basePrefix}curriculum" class="dock-item ${isCurriculum ? 'active' : ''}">
         <span class="dock-icon">🏠</span>
         <span>Hub</span>
       </a>
-      <a href="${basePrefix}one-hour-guide" class="dock-item ${isOneHour ? 'active' : ''}">
-        <span class="dock-icon">⚡</span>
-        <span>1-Hour</span>
+      <a href="${basePrefix}encyclopedia" class="dock-item ${isEncyclopedia ? 'active' : ''}">
+        <span class="dock-icon">📖</span>
+        <span>Wiki</span>
       </a>
       <a href="${basePrefix}verses-library" class="dock-item ${isVerses ? 'active' : ''}">
         <span class="dock-icon">📜</span>
