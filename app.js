@@ -24,46 +24,166 @@ document.addEventListener('DOMContentLoaded', () => {
   // ══════════════════════════════════════════════════════════
   // NATIVE MOBILE BOTTOM NAVIGATION DOCK (App-like Dock)
   // ══════════════════════════════════════════════════════════
+  // ── UNIFIED MOBILE BOTTOM DOCK (5 Tabs) ──────────────────────────────
   if (!document.querySelector('.mobile-bottom-dock')) {
     const dock = document.createElement('nav');
     dock.className = 'mobile-bottom-dock';
+    dock.setAttribute('aria-label', 'Main navigation');
 
     const path = window.location.pathname.toLowerCase();
     const isCurriculum = path.includes('curriculum') || path === '/' || path.endsWith('/index');
-    const isOneHour = path.includes('one-hour-guide');
+    const isLearnPage = path.includes('/modules/');
     const isVerses = path.includes('verses-library');
     const isLibrary = path.includes('library') && !isVerses;
+    const isEncyclopedia = path.includes('encyclopedia');
 
     let basePrefix = '';
     if (path.includes('/modules/06-epics/ramayana/') || path.includes('/modules/06-epics/mahabharata/')) {
       basePrefix = '../../../';
     } else if (path.includes('/modules/')) {
       basePrefix = '../../';
+    } else if (path.includes('/pages/')) {
+      basePrefix = '../';
     }
-
-    const isEncyclopedia = path.includes('encyclopedia');
 
     dock.innerHTML = `
       <a href="${basePrefix}curriculum" class="dock-item ${isCurriculum ? 'active' : ''}">
         <span class="dock-icon">🏠</span>
         <span>Hub</span>
       </a>
+      <a href="${basePrefix}curriculum#modules" class="dock-item ${isLearnPage ? 'active' : ''}">
+        <span class="dock-icon">📚</span>
+        <span>Learn</span>
+      </a>
       <a href="${basePrefix}encyclopedia" class="dock-item ${isEncyclopedia ? 'active' : ''}">
-        <span class="dock-icon">📖</span>
+        <span class="dock-icon">🌌</span>
         <span>Wiki</span>
       </a>
       <a href="${basePrefix}verses-library" class="dock-item ${isVerses ? 'active' : ''}">
         <span class="dock-icon">📜</span>
-        <span>Quotes</span>
+        <span>Verses</span>
       </a>
       <a href="${basePrefix}library" class="dock-item ${isLibrary ? 'active' : ''}">
-        <span class="dock-icon">📚</span>
+        <span class="dock-icon">📖</span>
         <span>Library</span>
       </a>
     `;
 
     document.body.appendChild(dock);
   }
+
+  // ══════════════════════════════════════════════════════════
+  // UNIFIED NAVIGATION STANDARDISER
+  // Ensures every page has the exact same 6-item nav bar.
+  // Runs after DOM ready so it cleanly replaces any inline nav.
+  // ══════════════════════════════════════════════════════════
+  (function standardiseNav() {
+    const navLinks = document.querySelector('.nav-links');
+    if (!navLinks) return;
+
+    const path = window.location.pathname.toLowerCase();
+
+    // Calculate correct relative base path
+    let base = '';
+    if (path.includes('/modules/06-epics/ramayana/') || path.includes('/modules/06-epics/mahabharata/')) {
+      base = '../../../';
+    } else if (path.includes('/modules/')) {
+      base = '../../';
+    } else if (path.includes('/pages/')) {
+      base = '../';
+    }
+
+    // Detect active section
+    const isHub      = path.includes('curriculum') || path === '/' || path.endsWith('/index') || path.endsWith('index.html');
+    const isLearn    = path.includes('/modules/');
+    const isEnc      = path.includes('encyclopedia');
+    const isVer      = path.includes('verses-library');
+    const isLib      = path.includes('library') && !path.includes('verses-library');
+    const isOneHour  = path.includes('one-hour-guide');
+
+    navLinks.innerHTML = `
+      <li><a href="${base}curriculum" ${isHub ? 'class="active"' : ''}>🏠 Hub</a></li>
+      <li class="nav-has-dropdown">
+        <a href="${base}curriculum#modules" ${isLearn ? 'class="active"' : ''}>📚 Learn <span class="nav-arrow">▾</span></a>
+        <ul class="nav-dropdown">
+          <li><a href="${base}modules/01-foundations/what-is-sanatan-dharma">01 · Foundations</a></li>
+          <li><a href="${base}modules/02-scriptures/vedas">02 · Scriptures</a></li>
+          <li><a href="${base}modules/03-deities-symbols/trimurti-gods">03 · Deities &amp; Symbols</a></li>
+          <li><a href="${base}modules/04-lifestyle-rites/daily-practices">04 · Lifestyle &amp; Rites</a></li>
+          <li><a href="${base}modules/05-myths-faq/myths-busted">05 · Myths Busted</a></li>
+          <li><a href="${base}modules/06-epics/ramayana">06 · Epics (Rāmāyaṇa)</a></li>
+          <li><a href="${base}modules/07-darsanas/samkhya-yoga">07 · Philosophy</a></li>
+          <li><a href="${base}modules/08-puranas-yugas/yugas-cosmology">08 · Cosmology &amp; Yugas</a></li>
+          <li><a href="${base}modules/09-mantras/essential-mantras">09 · Mantras</a></li>
+        </ul>
+      </li>
+      <li><a href="${base}encyclopedia" ${isEnc ? 'class="active"' : ''}>🌌 Encyclopedia</a></li>
+      <li><a href="${base}verses-library" ${isVer ? 'class="active"' : ''}>📜 Verses</a></li>
+      <li><a href="${base}library" ${isLib ? 'class="active"' : ''}>📖 Library</a></li>
+      <li><a href="javascript:void(0)" onclick="if(window.SearchEngine)window.SearchEngine.openCommandPalette();" class="nav-search-btn" title="Press Ctrl+K to search">🔍 Search</a></li>
+    `;
+
+    // Re-attach hamburger toggle to new nav-links element
+    const newNavLinks = document.querySelector('.nav-links');
+    const toggle = document.querySelector('.nav-toggle');
+    if (toggle && newNavLinks) {
+      toggle.addEventListener('click', () => {
+        const isOpen = newNavLinks.classList.toggle('open');
+        toggle.classList.toggle('open', isOpen);
+        toggle.setAttribute('aria-expanded', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+      newNavLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          newNavLinks.classList.remove('open');
+          toggle.classList.remove('open');
+          toggle.setAttribute('aria-expanded', false);
+          document.body.style.overflow = '';
+        });
+      });
+    }
+
+    // Auto-inject breadcrumb on module pages
+    if (isLearn) {
+      const parts = path.split('/modules/');
+      if (parts.length > 1) {
+        const segments = parts[1].split('/').filter(Boolean);
+        const moduleNames = {
+          '01-foundations': 'Foundations',
+          '02-scriptures': 'Scriptures',
+          '03-deities-symbols': 'Deities & Symbols',
+          '04-lifestyle-rites': 'Lifestyle & Rites',
+          '05-myths-faq': 'Myths Busted',
+          '06-epics': 'Epics (Itihāsa)',
+          '07-darsanas': 'Philosophy (Darśanas)',
+          '08-puranas-yugas': 'Purāṇas & Cosmology',
+          '09-mantras': 'Mantras & Sanskrit'
+        };
+        const modKey = segments[0] || '';
+        const modLabel = moduleNames[modKey] || modKey;
+        const lessonSlug = segments[segments.length - 1] || '';
+        const lessonLabel = lessonSlug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+        const breadcrumb = document.createElement('nav');
+        breadcrumb.className = 'auto-breadcrumb';
+        breadcrumb.setAttribute('aria-label', 'Breadcrumb');
+        breadcrumb.innerHTML = `
+          <div class="auto-breadcrumb-inner">
+            <a href="${base}curriculum">🏠 Hub</a>
+            <span class="bc-sep">›</span>
+            <a href="${base}curriculum#modules">${modLabel}</a>
+            <span class="bc-sep">›</span>
+            <span class="bc-current">${lessonLabel}</span>
+          </div>
+        `;
+
+        const header = document.querySelector('.header-bar');
+        if (header && !document.querySelector('.auto-breadcrumb')) {
+          header.insertAdjacentElement('afterend', breadcrumb);
+        }
+      }
+    }
+  })();
 
   // Handle browser back/forward cache
   window.addEventListener('pageshow', (event) => {
@@ -395,49 +515,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   // ══════════════════════════════════════════════════════════
-  // 8. HAMBURGER MENU TOGGLE (Mobile Overlay)
+  // 8. HAMBURGER MENU — Close on Outside Click & Escape Key
+  // (Open/close is handled by standardiseNav above)
   // ══════════════════════════════════════════════════════════
-  const toggle   = document.querySelector('.nav-toggle');
-  const navLinks = document.querySelector('.nav-links');
+  document.addEventListener('click', e => {
+    const nl = document.querySelector('.nav-links');
+    const tg = document.querySelector('.nav-toggle');
+    if (nl && tg && nl.classList.contains('open') &&
+        !nl.contains(e.target) && !tg.contains(e.target)) {
+      nl.classList.remove('open');
+      tg.classList.remove('open');
+      tg.setAttribute('aria-expanded', false);
+      document.body.style.overflow = '';
+    }
+  });
 
-  if (toggle && navLinks) {
-    toggle.addEventListener('click', () => {
-      window.playClickChime();
-      const isOpen = navLinks.classList.toggle('open');
-      toggle.classList.toggle('open', isOpen);
-      toggle.setAttribute('aria-expanded', isOpen);
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    });
-
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        toggle.classList.remove('open');
-        toggle.setAttribute('aria-expanded', false);
-        document.body.style.overflow = '';
-      });
-    });
-
-    document.addEventListener('click', e => {
-      if (navLinks.classList.contains('open') &&
-          !navLinks.contains(e.target) &&
-          !toggle.contains(e.target)) {
-        navLinks.classList.remove('open');
-        toggle.classList.remove('open');
-        toggle.setAttribute('aria-expanded', false);
-        document.body.style.overflow = '';
-      }
-    });
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && navLinks.classList.contains('open')) {
-        navLinks.classList.remove('open');
-        toggle.classList.remove('open');
-        toggle.setAttribute('aria-expanded', false);
-        document.body.style.overflow = '';
-      }
-    });
-  }
+  document.addEventListener('keydown', e => {
+    const nl = document.querySelector('.nav-links');
+    const tg = document.querySelector('.nav-toggle');
+    if (e.key === 'Escape' && nl && nl.classList.contains('open')) {
+      nl.classList.remove('open');
+      tg && tg.classList.remove('open');
+      tg && tg.setAttribute('aria-expanded', false);
+      document.body.style.overflow = '';
+    }
+  });
 
   // ══════════════════════════════════════════════════════════
   // 9. MYTH ACCORDIONS
