@@ -512,9 +512,10 @@
   </footer>
 
   <script src="library_data.js"></script>
+  <script src="master_skills_data.js"></script>
   <script src="app.js"></script>
   <script>
-    // 📖 Direct DOM In-Browser Book Reader Modal using LIBRARY_DB
+    // 📖 Direct DOM In-Browser Book Reader Modal using LIBRARY_DB & MASTER_SKILLS
     function openReader(title, filename) {
       if (typeof window.playTempleChime === 'function') window.playTempleChime(432, 2.5);
 
@@ -523,7 +524,7 @@
 
       modalTitle.textContent = title;
       
-      // Look up book in LIBRARY_DB
+      // Look up book in LIBRARY_DB & MASTER_SKILLS
       let matchedData = null;
       if (window.LIBRARY_DB) {
         matchedData = window.LIBRARY_DB[filename] || window.LIBRARY_DB[filename.replace('Leads/', '')];
@@ -538,15 +539,36 @@
         }
       }
 
-      // Build rich HTML view directly in DOM
+      // Look up skill
+      let skillData = null;
+      if (window.MASTER_SKILLS) {
+        const cleanTitle = title.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const skillKey = Object.keys(window.MASTER_SKILLS).find(k => {
+          const cleanK = k.replace(/[^a-z0-9]/g, '');
+          return cleanTitle.includes(cleanK) || cleanK.includes(cleanTitle.slice(0, 8));
+        });
+        if (skillKey) skillData = window.MASTER_SKILLS[skillKey];
+      }
+
+      // Build rich HTML view with mode tabs
       let viewerHtml = `
-        <div style="background: rgba(212,160,23,0.1); border: 1px solid var(--line-strong); border-radius: 16px; padding: 24px; margin-bottom: 28px;">
+        <div style="background: rgba(212,160,23,0.1); border: 1px solid var(--line-strong); border-radius: 16px; padding: 24px; margin-bottom: 24px;">
           <h2 style="font-family: var(--serif-display); font-size: clamp(24px, 4.5vw, 36px); color: var(--gold-bright); margin-bottom: 8px;">📖 ${title}</h2>
           <div style="font-family: var(--mono); font-size: 13px; color: var(--muted); display: flex; gap: 20px; flex-wrap: wrap;">
             <span>📄 Total Pages: ${matchedData && matchedData.pages ? matchedData.pages : '1,000+ Pages'}</span>
             <span>⚡ Status: Verified Primary Sacred Text</span>
+            <span>🛠 Agent Skill: Generated</span>
           </div>
         </div>
+
+        ${skillData ? `
+          <div style="display:flex; gap:12px; margin-bottom:24px; border-bottom: 1px solid var(--line); padding-bottom: 14px;">
+            <button onclick="document.getElementById('mode-reader').style.display='block';document.getElementById('mode-skill').style.display='none';" class="cat-tab active" style="font-size:13px; padding:8px 16px;">📖 Reader Mode</button>
+            <button onclick="document.getElementById('mode-reader').style.display='none';document.getElementById('mode-skill').style.display='block';" class="cat-tab" style="font-size:13px; padding:8px 16px; background:rgba(212,160,23,0.15); border-color:var(--gold-bright);">⚡ Agent Skill View (SKILL.md)</button>
+          </div>
+        ` : ''}
+
+        <div id="mode-reader">
       `;
 
       if (matchedData && matchedData.passages && matchedData.passages.length > 0) {
@@ -582,7 +604,31 @@
           <p style="color: var(--muted); margin-bottom: 12px; font-size: 15px;">Want to inspect the raw scanned manuscript pages?</p>
           <a href="https://archive.org/search?query=${encodeURIComponent(title)}" target="_blank" class="verify-link" style="font-size: 14px; padding: 10px 24px;">🌐 Search ${title} Original Scanned Manuscripts on Archive.org →</a>
         </div>
+        </div>
       `;
+
+      if (skillData) {
+        viewerHtml += `
+          <div id="mode-skill" style="display:none;">
+            <div class="analogy-box" style="margin-bottom:20px;">
+              <div class="title">⚡ Agent Skill Bundle — ${skillData.title}</div>
+              <p>This skill package structures all <strong>${skillData.pages} pages</strong> into high-level mental models, patterns, cheatsheet decision tables, and glossaries for fast AI reasoning without context bloat.</p>
+            </div>
+            
+            <h3 style="font-family: var(--serif-display); font-size: 22px; color: var(--gold-bright); margin: 20px 0 10px;">📄 SKILL.md Structure:</h3>
+            <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 20px; font-size: 14px; color: var(--ivory); white-space: pre-wrap; font-family: var(--mono); line-height: 1.6; max-height: 300px; overflow-y: auto;">${skillData.skill_md}</div>
+
+            <h3 style="font-family: var(--serif-display); font-size: 22px; color: var(--gold-bright); margin: 24px 0 10px;">🧩 Patterns &amp; Principles (patterns.md):</h3>
+            <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 20px; font-size: 14px; color: var(--ivory); white-space: pre-wrap; font-family: var(--mono); line-height: 1.6;">${skillData.patterns_md}</div>
+
+            <h3 style="font-family: var(--serif-display); font-size: 22px; color: var(--gold-bright); margin: 24px 0 10px;">📊 Cheatsheet &amp; Rules (cheatsheet.md):</h3>
+            <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 20px; font-size: 14px; color: var(--ivory); white-space: pre-wrap; font-family: var(--mono); line-height: 1.6;">${skillData.cheatsheet_md}</div>
+
+            <h3 style="font-family: var(--serif-display); font-size: 22px; color: var(--gold-bright); margin: 24px 0 10px;">📖 Glossary &amp; Terms (glossary.md):</h3>
+            <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 20px; font-size: 14px; color: var(--ivory); white-space: pre-wrap; font-family: var(--mono); line-height: 1.6;">${skillData.glossary_md}</div>
+          </div>
+        `;
+      }
 
       readerContent.innerHTML = viewerHtml;
       document.getElementById('pdfModal').classList.add('open');
