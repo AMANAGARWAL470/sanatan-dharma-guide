@@ -153,8 +153,10 @@
     </a>
     <ul class="nav-links">
       <li><a href="curriculum">🏠 Hub</a></li>
-      <li><a href="verses-library" class="active">📜 23,800+ Verses</a></li>
-      <li class="lib-link"><a href="library" style="color: var(--gold-bright); font-weight:700;">📚 Library</a></li>
+      <li><a href="modules/01-foundations/what-is-sanatan-dharma">Learn</a></li>
+      <li><a href="encyclopedia">📖 Encyclopedia</a></li>
+      <li><a href="verses-library" class="active">📜 Verses</a></li>
+      <li class="lib-link"><a href="library">📚 Library</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -173,10 +175,15 @@
   <!-- Search & Filters Container -->
   <div style="max-width: 1100px; margin: 0 auto; padding: 20px 24px 60px;">
 
-    <!-- Instant Search Box -->
-    <div class="search-box-wrap">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="verseSearch" class="search-input" placeholder="Search 23,800+ quotes by keyword (e.g. truth, karma, soul, dharma, om)..." oninput="onSearchInput()">
+    <!-- Instant Search Box & Random Generator -->
+    <div style="display: flex; gap: 12px; max-width: 850px; margin: 0 auto 30px; flex-wrap: wrap; align-items: center;">
+      <div class="search-box-wrap" style="flex: 1; min-width: 280px; margin: 0;">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="verseSearch" class="search-input" placeholder="Search 23,800+ quotes by keyword (e.g. truth, karma, soul, dharma, om)..." oninput="onSearchInput()">
+      </div>
+      <button onclick="pickRandomVerse()" style="background: linear-gradient(135deg, var(--gold-bright), var(--gold)); color: #0a0705; border: none; padding: 0 24px; border-radius: 40px; font-family: var(--serif-display); font-weight: 700; font-size: 16px; cursor: pointer; white-space: nowrap; height: 56px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(212,160,23,0.3);">
+        🎲 Surprise Me!
+      </button>
     </div>
 
     <!-- Topic Filter Bar -->
@@ -249,6 +256,19 @@
       applyFilters();
     }
 
+    function pickRandomVerse() {
+      if (typeof window.playTempleChime === 'function') window.playTempleChime(528, 2.0);
+      if (window.MASTER_VERSES && window.MASTER_VERSES.length > 0) {
+        const randomIdx = Math.floor(Math.random() * window.MASTER_VERSES.length);
+        currentFiltered = [window.MASTER_VERSES[randomIdx]];
+        displayLimit = 1;
+        document.getElementById('verseSearch').value = '';
+        renderVerses();
+        const container = document.getElementById('versesContainer');
+        if (container) container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
     function onSearchInput() {
       searchQuery = document.getElementById('verseSearch').value.toLowerCase().trim();
       displayLimit = 30;
@@ -318,5 +338,40 @@
       renderVerses();
     }
   </script>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo"><span class="om">ॐ</span> Sanātana Dharma <em>Guide</em></div>
+        <p class="footer-tagline">23,800+ original shlokas and translations extracted from 20 primary source books — every verse cited with book and page.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">9 Modules</div>
+        <ul>
+          <li><a href="modules/01-foundations/what-is-sanatan-dharma">01 · Foundations</a></li>
+          <li><a href="modules/02-scriptures/vedas">02 · Scriptures</a></li>
+          <li><a href="modules/03-deities-symbols/trimurti-gods">03 · Deities &amp; Symbols</a></li>
+          <li><a href="modules/04-lifestyle-rites/daily-practices">04 · Lifestyle &amp; Rites</a></li>
+          <li><a href="modules/05-myths-faq/myths-busted">05 · Myths Busted</a></li>
+          <li><a href="modules/06-epics/ramayana">06 · Epics (Itihāsa)</a></li>
+          <li><a href="modules/07-darsanas/samkhya-yoga">07 · Philosophy</a></li>
+          <li><a href="modules/08-puranas-yugas/yugas-cosmology">08 · Cosmology &amp; Purāṇas</a></li>
+          <li><a href="modules/09-mantras/essential-mantras">09 · Mantras</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Resources</div>
+        <ul>
+          <li><a href="library">📚 Source Library (20 Books)</a></li>
+          <li><a href="verses-library">📜 Verses Library (23,800+)</a></li>
+          <li><a href="encyclopedia">📖 Encyclopedia</a></li>
+          <li><a href="curriculum">🏠 Curriculum Hub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>सत्यमेव जयते — Truth Alone Triumphs</span>
+      <span>Sanātana Dharma Guide · All facts verified in primary sources</span>
+    </div>
+  </footer>
 </body>
 </html>

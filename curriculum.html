@@ -56,6 +56,150 @@
     .module-wrapper.hidden {
       display: none;
     }
+
+    /* ── STYLING FOR DYNAMIC ENGAGEMENT MODULES ── */
+    .timeline-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin: 20px 0 40px;
+    }
+    .timeline-node {
+      background: rgba(212,160,23,0.06);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .timeline-node:hover {
+      border-color: var(--gold-bright);
+      background: rgba(212,160,23,0.12);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(242, 193, 78, 0.15);
+    }
+    .timeline-node.active {
+      background: rgba(212,160,23,0.18);
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 20px rgba(242,193,78,0.25);
+    }
+    .timeline-node .node-title {
+      font-family: var(--serif-display);
+      font-size: 20px;
+      color: var(--gold-bright);
+      margin-bottom: 6px;
+    }
+    .timeline-node .node-era {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--vermillion);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .wisdom-card {
+      background: linear-gradient(135deg, rgba(20,15,10,0.95) 0%, rgba(35,25,15,0.9) 100%);
+      border: 1px solid var(--gold-bright);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .wisdom-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(242,193,78,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .soundboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .sound-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.25s ease;
+    }
+    .sound-card:hover {
+      border-color: var(--teal);
+      background: rgba(22,160,133,0.08);
+      transform: translateY(-2px);
+    }
+    .sound-play-btn {
+      background: var(--teal);
+      color: #0a0705;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 12px;
+      transition: all 0.2s ease;
+    }
+    .sound-play-btn:hover {
+      background: #1abc9c;
+      box-shadow: 0 0 15px rgba(26,188,156,0.5);
+    }
+
+    /* ── WISDOM QUEST TRIVIA GAME ── */
+    .quest-option {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--serif-body);
+      font-size: 16px;
+      color: var(--ivory);
+      transition: all 0.25s ease;
+      width: 100%;
+      outline: none;
+    }
+    .quest-option:hover {
+      background: rgba(212,160,23,0.08);
+      border-color: var(--gold-bright);
+    }
+    .quest-option.correct {
+      background: rgba(46, 204, 113, 0.15) !important;
+      border-color: #2ecc71 !important;
+      color: #2ecc71 !important;
+    }
+    .quest-option.wrong {
+      background: rgba(231, 76, 60, 0.15) !important;
+      border-color: #e74c3c !important;
+      color: #e74c3c !important;
+    }
+    .progress-bar-wrap {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+      width: 0%;
+      transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
   </style>
 </head>
 <body>
@@ -70,14 +214,10 @@
     </a>
     <ul class="nav-links">
       <li><a href="curriculum" class="active">🏠 Hub</a></li>
-      <li><a href="modules/01-foundations/what-is-sanatan-dharma">Foundations</a></li>
-      <li><a href="modules/02-scriptures/vedas">Scriptures</a></li>
-      <li><a href="modules/03-deities-symbols/trimurti-gods">Deities</a></li>
-      <li><a href="modules/04-lifestyle-rites/daily-practices">Lifestyle</a></li>
-      <li><a href="modules/05-myths-faq/myths-busted">Myths</a></li>
-      <li><a href="modules/06-epics/ramayana">Epics</a></li>
-      <li><a href="modules/07-darsanas/samkhya-yoga">Philosophy</a></li>
-      <li class="lib-link"><a href="library" style="color: var(--gold-bright); font-weight: 700;">📚 Library</a></li>
+      <li><a href="modules/01-foundations/what-is-sanatan-dharma">Learn</a></li>
+      <li><a href="encyclopedia">📖 Encyclopedia</a></li>
+      <li><a href="verses-library">📜 Verses</a></li>
+      <li class="lib-link"><a href="library">📚 Library</a></li>
     </ul>
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -103,6 +243,73 @@
       </a>
     </div>
   </section>
+
+  <!-- Oracle of Wisdom (Dynamic Daily Shloka) & Interactive Timeline -->
+  <div style="max-width: 1240px; margin: 0 auto 30px; padding: 0 24px;">
+    <div style="display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 24px; margin-bottom: 24px;" id="engagementPanel">
+      
+      <!-- Oracle Card -->
+      <div class="wisdom-card" id="oracleCard">
+        <div style="font-family: var(--mono); font-size: 11px; color: var(--vermillion); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+          <span>🔮 Oracle of Wisdom</span>
+          <span style="font-size: 14px;">ॐ</span>
+        </div>
+        <h3 style="font-family: var(--serif-display); font-size: 26px; color: var(--gold-bright); margin-bottom: 12px; line-height: 1.2;">Scripture Guidance</h3>
+        <p id="oracleContent" style="font-size: 16px; color: var(--ivory); line-height: 1.7; font-style: italic; min-height: 80px; margin-bottom: 16px;">
+          "Truth is One; the wise call it by many names. Walk on the path of righteousness."
+        </p>
+        <div id="oracleSource" style="font-family: var(--mono); font-size: 12px; color: var(--gold-bright); margin-bottom: 20px;">— Rig Veda Complete, pg. 45</div>
+        <button onclick="generateRandomWisdom()" style="background: linear-gradient(135deg, var(--gold-bright), var(--gold)); color:#0a0705; font-family:var(--serif-display); font-weight:700; border:none; padding:10px 22px; border-radius:6px; font-size:15px; cursor:pointer; width:100%; transition: transform 0.2s;">
+          ✨ Seek Another Shloka
+        </button>
+      </div>
+
+      <!-- Scriptural Timeline Info -->
+      <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 20px; padding: 30px; display: flex; flex-direction: column; justify-content: space-between;" id="timelineWidget">
+        <div>
+          <div style="font-family: var(--mono); font-size: 11px; color: var(--vermillion); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;">📜 Interactive Scripture Timeline Map</div>
+          <h3 style="font-family: var(--serif-display); font-size: 26px; color: var(--gold-bright); margin-bottom: 10px; line-height: 1.2;" id="timelineActiveTitle">1. Vedas (Samhitas)</h3>
+          <p id="timelineActiveDesc" style="font-size: 15px; color: var(--ivory); line-height: 1.7;">
+            The oldest layer of Sanskrit literature. Divided into 4 collections: Rig, Yajur, Sama, and Atharva. Deals with praise of cosmic forces, natural laws (Ṛta), and moral duties. Backed by 4 complete books in our library (2,696 pages cataloged).
+          </p>
+        </div>
+        
+        <!-- Timeline Steps -->
+        <div class="timeline-container">
+          <div class="timeline-node active" onclick="selectTimelineNode(0, this)">
+            <div class="node-era">Mukhya</div>
+            <div class="node-title">Vedas</div>
+          </div>
+          <div class="timeline-node" onclick="selectTimelineNode(1, this)">
+            <div class="node-era">Darśana</div>
+            <div class="node-title">Upanishads</div>
+          </div>
+          <div class="timeline-node" onclick="selectTimelineNode(2, this)">
+            <div class="node-era">Smṛti</div>
+            <div class="node-title">Bhagavad Gita</div>
+          </div>
+          <div class="timeline-node" onclick="selectTimelineNode(3, this)">
+            <div class="node-era">Itihāsa</div>
+            <div class="node-title">Epics</div>
+          </div>
+          <div class="timeline-node" onclick="selectTimelineNode(4, this)">
+            <div class="node-era">Purāṇa</div>
+            <div class="node-title">Puranas</div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <style>
+    /* Desktop layout overrides for engagement widgets */
+    @media (max-width: 900px) {
+      #engagementPanel {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
 
   <!-- Main Container -->
   <div style="max-width: 1240px; margin: 0 auto; padding: 20px 24px 60px;">
@@ -367,33 +574,148 @@
       </div>
     </div>
 
-    <!-- Interactive Beginner Quiz -->
-    <div style="background: var(--bg-card); border: 1px solid var(--line); border-radius: 20px; padding: 40px; text-align: center; margin-top: 40px;">
-      <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
-        Beginner Self-Discovery
+    <!-- Solfeggio Soundboard Frequencies -->
+    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 20px; padding: 36px; margin-top: 40px;">
+      <div style="font-family: var(--mono); font-size: 11px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
+        Vedic Resonance
       </div>
-      <h3 style="font-family: var(--serif-display); font-size: 32px; color: var(--gold-bright); margin-bottom: 16px;">
-        Which Path (Yoga) Suits Your Nature?
+      <h3 style="font-family: var(--serif-display); font-size: 32px; color: var(--gold-bright); margin-bottom: 12px;">
+        Vedic Frequency & Chime Generator
       </h3>
-      <p style="color: var(--muted); max-width: 600px; margin: 0 auto 24px;">
-        Sanātana Dharma offers different spiritual paths based on individual personality. Click what resonates most with you:
+      <p style="color: var(--ivory); max-width: 750px; margin-bottom: 24px; font-size: 16px; line-height: 1.7;">
+        Sound (Nāda) is a central spiritual tool in Sanātana Dharma. Frequencies align brainwaves for meditation. Click to synthesize pure, resonant chimes using your browser's Web Audio API:
       </p>
 
-      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-        <button class="quiz-btn" data-type="action" style="background:rgba(212,160,23,0.15);color:#f5efe6;border:1px solid rgba(212,160,23,0.4);padding:14px 26px;border-radius:30px;font-family:'Lora',Georgia,serif;font-size:16px;font-weight:600;cursor:pointer;">🔨 I connect through action &amp; work</button>
-        <button class="quiz-btn" data-type="devotion" style="background:rgba(212,160,23,0.15);color:#f5efe6;border:1px solid rgba(212,160,23,0.4);padding:14px 26px;border-radius:30px;font-family:'Lora',Georgia,serif;font-size:16px;font-weight:600;cursor:pointer;">❤️ I connect through love &amp; prayer</button>
-        <button class="quiz-btn" data-type="wisdom" style="background:rgba(212,160,23,0.15);color:#f5efe6;border:1px solid rgba(212,160,23,0.4);padding:14px 26px;border-radius:30px;font-family:'Lora',Georgia,serif;font-size:16px;font-weight:600;cursor:pointer;">🧠 I connect through logic &amp; asking why</button>
-        <button class="quiz-btn" data-type="mind" style="background:rgba(212,160,23,0.15);color:#f5efe6;border:1px solid rgba(212,160,23,0.4);padding:14px 26px;border-radius:30px;font-family:'Lora',Georgia,serif;font-size:16px;font-weight:600;cursor:pointer;">🧘 I connect through quiet stillness &amp; breath</button>
+      <div class="soundboard-grid">
+        <div class="sound-card">
+          <div style="font-size: 28px; margin-bottom: 8px;">🧘</div>
+          <h4 style="font-family: var(--serif-display); font-size: 18px; color: var(--gold-bright);">108 Hz — Meditative Stillness</h4>
+          <p style="font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5;">Sacred cosmic number resonance. Calm, deep alpha-theta wave induction for introspection.</p>
+          <button onclick="playCustomFrequency(108, 'sine', 3.0)" class="sound-play-btn">🔊 Play Tone</button>
+        </div>
+        <div class="sound-card">
+          <div style="font-size: 28px; margin-bottom: 8px;">🌌</div>
+          <h4 style="font-family: var(--serif-display); font-size: 18px; color: var(--gold-bright);">432 Hz — Cosmic Order (Ṛta)</h4>
+          <p style="font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5;">Aligned with natural vibration of the Earth, heart center, and calming clarity.</p>
+          <button onclick="playCustomFrequency(432, 'sine', 2.8)" class="sound-play-btn">🔊 Play Tone</button>
+        </div>
+        <div class="sound-card">
+          <div style="font-size: 28px; margin-bottom: 8px;">✨</div>
+          <h4 style="font-family: var(--serif-display); font-size: 18px; color: var(--gold-bright);">528 Hz — Transformation</h4>
+          <p style="font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5;">Solfeggio frequency of clarity, cellular repair, and divine awareness enhancement.</p>
+          <button onclick="playCustomFrequency(528, 'sine', 2.5)" class="sound-play-btn">🔊 Play Tone</button>
+        </div>
+        <div class="sound-card">
+          <div style="font-size: 28px; margin-bottom: 8px;">🔔</div>
+          <h4 style="font-family: var(--serif-display); font-size: 18px; color: var(--gold-bright);">Temple Bell Resonance</h4>
+          <p style="font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5;">A layered synthesis of the 432 Hz frequency with higher octave resonance chime.</p>
+          <button onclick="if(window.playTempleChime) window.playTempleChime(432, 4.0)" class="sound-play-btn">🔔 Ring Bell</button>
+        </div>
       </div>
-
-      <div id="quizResult" style="display: none; margin-top: 24px; padding: 20px; background: rgba(212, 160, 23, 0.08); border-radius: 10px; border: 1px solid var(--line-strong);"></div>
     </div>
 
+    <!-- Dual Tabbed Quiz/Self-Discovery Section -->
+    <div style="background: var(--bg-card); border: 1px solid var(--line); border-radius: 20px; padding: 40px; margin-top: 40px;" id="interactiveHub">
+      
+      <!-- Tabs Selector -->
+      <div style="display:flex; justify-content:center; gap:16px; margin-bottom:30px; border-bottom: 1px solid var(--line); padding-bottom: 16px;">
+        <button id="tabBtnQuest" onclick="switchQuizTab('quest')" class="filter-btn active" style="padding: 10px 24px; border-radius: 20px; font-size: 15px;">🧠 Wisdom Quest Trivia</button>
+        <button id="tabBtnPath" onclick="switchQuizTab('path')" class="filter-btn" style="padding: 10px 24px; border-radius: 20px; font-size: 15px;">🌿 Yoga Path Discovery</button>
+      </div>
+
+      <!-- Tab 1: Wisdom Quest -->
+      <div id="tabContentQuest">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <div style="font-family: var(--mono); font-size: 11px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">Sanskrit & Vedic Knowledge Challenge</div>
+          <h3 style="font-family: var(--serif-display); font-size: 32px; color: var(--gold-bright); margin-bottom: 12px;">Sanātana Dharma Wisdom Quest</h3>
+          <p style="color: var(--muted); max-width: 600px; margin: 0 auto;">Test your understanding of the oldest scriptures, ethics, and symbols. Answer 5 questions to unlock learner ranks!</p>
+        </div>
+
+        <div style="max-width: 640px; margin: 0 auto;">
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="questProgress" style="width: 20%;"></div>
+          </div>
+          
+          <div style="display: flex; justify-content: space-between; font-family: var(--mono); font-size: 12px; color: var(--muted-2); margin-bottom: 16px;">
+            <span id="questStepNum">Question 1 of 5</span>
+            <span id="questScore">Score: 0</span>
+          </div>
+
+          <div id="questQuestionBox" style="background: rgba(0,0,0,0.3); border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin-bottom: 20px; min-height: 80px;">
+            <h4 style="font-family: var(--serif-body); font-size: 18px; color: var(--ivory);" id="questQuestionText">Loading question...</h4>
+          </div>
+
+          <div id="questOptionsBox">
+            <!-- Dynamically populated options -->
+          </div>
+
+          <div id="questFeedbackBox" style="display:none; padding:16px; border-radius:10px; margin-top:20px; border:1px solid transparent; font-size:15px; line-height:1.6;"></div>
+
+          <button id="questNextBtn" onclick="nextQuestStep()" style="display:none; background:var(--gold-bright); color:#0a0705; font-family:var(--serif-display); font-weight:700; border:none; padding:12px 30px; border-radius:6px; font-size:16px; cursor:pointer; margin: 24px auto 0; transition: transform 0.2s;">
+            Continue Challenge ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab 2: Personality Path -->
+      <div id="tabContentPath" style="display: none; text-align: center;">
+        <div style="font-family: var(--mono); font-size: 12px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
+          Beginner Self-Discovery
+        </div>
+        <h3 style="font-family: var(--serif-display); font-size: 32px; color: var(--gold-bright); margin-bottom: 16px;">
+          Which Path (Yoga) Suits Your Nature?
+        </h3>
+        <p style="color: var(--muted); max-width: 600px; margin: 0 auto 24px;">
+          Sanātana Dharma offers different spiritual paths based on individual personality. Click what resonates most with you:
+        </p>
+
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <button class="quiz-btn" data-type="action" style="background:rgba(212,160,23,0.15);color:#f5efe6;border:1px solid rgba(212,160,23,0.4);padding:14px 26px;border-radius:30px;font-family:'Lora',Georgia,serif;font-size:16px;font-weight:600;cursor:pointer;">🔨 I connect through action &amp; work</button>
+          <button class="quiz-btn" data-type="devotion" style="background:rgba(212,160,23,0.15);color:#f5efe6;border:1px solid rgba(212,160,23,0.4);padding:14px 26px;border-radius:30px;font-family:'Lora',Georgia,serif;font-size:16px;font-weight:600;cursor:pointer;">❤️ I connect through love &amp; prayer</button>
+          <button class="quiz-btn" data-type="wisdom" style="background:rgba(212,160,23,0.15);color:#f5efe6;border:1px solid rgba(212,160,23,0.4);padding:14px 26px;border-radius:30px;font-family:'Lora',Georgia,serif;font-size:16px;font-weight:600;cursor:pointer;">🧠 I connect through logic &amp; asking why</button>
+          <button class="quiz-btn" data-type="mind" style="background:rgba(212,160,23,0.15);color:#f5efe6;border:1px solid rgba(212,160,23,0.4);padding:14px 26px;border-radius:30px;font-family:'Lora',Georgia,serif;font-size:16px;font-weight:600;cursor:pointer;">🧘 I connect through quiet stillness &amp; breath</button>
+        </div>
+
+        <div id="quizResult" style="display: none; margin-top: 24px; padding: 20px; background: rgba(212, 160, 23, 0.08); border-radius: 10px; border: 1px solid var(--line-strong);"></div>
+      </div>
+
+    </div>
   </div>
 
-  <footer>
-    <div class="om">ॐ</div>
-    <p>Sanātana Dharma Guide · <a href="library">📚 Verify All Sources in Library</a></p>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo"><span class="om">ॐ</span> Sanātana Dharma <em>Guide</em></div>
+        <p class="footer-tagline">Beginner-friendly knowledge of the world's oldest living wisdom tradition — fact-checked against 20 primary source books.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">9 Modules</div>
+        <ul>
+          <li><a href="modules/01-foundations/what-is-sanatan-dharma">01 · Foundations</a></li>
+          <li><a href="modules/02-scriptures/vedas">02 · Scriptures</a></li>
+          <li><a href="modules/03-deities-symbols/trimurti-gods">03 · Deities &amp; Symbols</a></li>
+          <li><a href="modules/04-lifestyle-rites/daily-practices">04 · Lifestyle &amp; Rites</a></li>
+          <li><a href="modules/05-myths-faq/myths-busted">05 · Myths Busted</a></li>
+          <li><a href="modules/06-epics/ramayana">06 · Epics (Itihāsa)</a></li>
+          <li><a href="modules/07-darsanas/samkhya-yoga">07 · Philosophy</a></li>
+          <li><a href="modules/08-puranas-yugas/yugas-cosmology">08 · Cosmology &amp; Purāṇas</a></li>
+          <li><a href="modules/09-mantras/essential-mantras">09 · Mantras</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Resources</div>
+        <ul>
+          <li><a href="library">📚 Source Library (20 Books)</a></li>
+          <li><a href="verses-library">📜 Verses Library (23,800+)</a></li>
+          <li><a href="encyclopedia">📖 Encyclopedia</a></li>
+          <li><a href="one-hour-guide">⏱ One-Hour Guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>सत्यमेव जयते — Truth Alone Triumphs</span>
+      <span>Sanātana Dharma Guide · All facts verified in primary sources</span>
+    </div>
   </footer>
 
   <script src="app.js"></script>
@@ -403,9 +725,8 @@
   <script src="master_skills_data.js"></script>
   <script src="master_verses_data.js"></script>
   <script src="search-engine.js"></script>
-  <script src="app.js"></script>
   <script>
-    // Category Filter Functionality
+    // ── 1. Category Filter Functionality ────────────────────────
     document.addEventListener('DOMContentLoaded', () => {
       const filterBtns = document.querySelectorAll('.filter-btn');
       const moduleWrappers = document.querySelectorAll('.module-wrapper');
@@ -434,6 +755,295 @@
           });
         });
       });
+
+      // Init Wisdom Quest Question
+      renderQuestQuestion();
+    });
+
+    // ── 2. Scriptural Timeline Data & Switcher ──────────────────
+    const timelineData = [
+      {
+        title: "1. Vedas (Saṁhitās)",
+        era: "Mukhya Śruti",
+        desc: "The oldest foundation of Sanātana knowledge. 4 Samhitas (Rig, Yajur, Sama, Atharva) containing 10,552 mantras on Ṛta (cosmic law), Agni, Indra, and unity of existence. 4 books, 2,696 pages cataloged in our library."
+      },
+      {
+        title: "2. Upanishads (Vedānta)",
+        era: "Jñāna-Kāṇḍa",
+        desc: "The philosophical culmination of the Vedas. 108 Muktika Upanishads exploring Brahman (Ultimate Reality), Ātman (Self), and Moksha (Liberation). Includes dialogues of Nachiketa & Yama, Gargi & Yajnavalkya."
+      },
+      {
+        title: "3. Bhagavad Gītā",
+        era: "Smṛti / Yoga-Śāstra",
+        desc: "The 700-verse dialogue between Śrī Kṛṣṇa and Arjuna on the battlefield of Kurukṣetra. Outlines Karma Yoga (action without attachment), Jñāna Yoga (wisdom), and Bhakti Yoga (devotion)."
+      },
+      {
+        title: "4. Epics (Itihāsa)",
+        era: "Practical Dharma",
+        desc: "Vālmīki Rāmāyaṇa (7 Kāṇḍas) & Vyāsa Mahābhārata (18 Parvas). Living history demonstrating ethical conduct, duty, heroism, Ramarajya governance, and Yaksha Prashna riddles."
+      },
+      {
+        title: "5. Purāṇas & Cosmology",
+        era: "Cosmic History",
+        desc: "18 Mahāpurāṇas (Bhagavata, Vishnu, Shiva, etc.) detailing creation, the 4 Yugas (Satya, Treta, Dvapara, Kali), genealogical lineages of Sages & Avatars, and cosmic time cycles."
+      }
+    ];
+
+    function selectTimelineNode(idx, elem) {
+      if (typeof window.playClickChime === 'function') window.playClickChime();
+      document.querySelectorAll('.timeline-node').forEach(n => n.classList.remove('active'));
+      if (elem) elem.classList.add('active');
+      
+      const titleEl = document.getElementById('timelineActiveTitle');
+      const descEl = document.getElementById('timelineActiveDesc');
+      if (titleEl && descEl && timelineData[idx]) {
+        titleEl.textContent = timelineData[idx].title;
+        descEl.textContent = timelineData[idx].desc;
+      }
+    }
+
+    // ── 3. Random Wisdom Shloka Generator ───────────────────────
+    function generateRandomWisdom() {
+      if (typeof window.playTempleChime === 'function') window.playTempleChime(528, 2.0);
+      const card = document.getElementById('oracleCard');
+      const contentEl = document.getElementById('oracleContent');
+      const sourceEl = document.getElementById('oracleSource');
+      
+      if (window.MASTER_VERSES && window.MASTER_VERSES.length > 0) {
+        const randomItem = window.MASTER_VERSES[Math.floor(Math.random() * window.MASTER_VERSES.length)];
+        if (card) {
+          card.style.opacity = '0.5';
+          card.style.transform = 'scale(0.98)';
+        }
+        setTimeout(() => {
+          if (contentEl) contentEl.textContent = `"${randomItem.content}"`;
+          if (sourceEl) sourceEl.textContent = `— ${randomItem.book} (Page ${randomItem.page})`;
+          if (card) {
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1)';
+          }
+        }, 200);
+      }
+    }
+
+    // ── 4. Vedic Frequency Audio Synthesizer ─────────────────────
+    function playCustomFrequency(freq, type, duration) {
+      if (typeof window.playTempleChime === 'function') {
+        window.playTempleChime(freq, duration);
+      }
+    }
+
+    // ── 5. Dual Quiz Tabs Switcher & Wisdom Quest Trivia ──────────
+    function switchQuizTab(tab) {
+      if (typeof window.playClickChime === 'function') window.playClickChime();
+      const questContent = document.getElementById('tabContentQuest');
+      const pathContent = document.getElementById('tabContentPath');
+      const questBtn = document.getElementById('tabBtnQuest');
+      const pathBtn = document.getElementById('tabBtnPath');
+      
+      if (tab === 'quest') {
+        questContent.style.display = 'block';
+        pathContent.style.display = 'none';
+        questBtn.classList.add('active');
+        pathBtn.classList.remove('active');
+      } else {
+        questContent.style.display = 'none';
+        pathContent.style.display = 'block';
+        pathBtn.classList.add('active');
+        questBtn.classList.remove('active');
+      }
+    }
+
+    const questQuestions = [
+      {
+        q: "What does the Sanskrit word 'Sanātana' literally mean?",
+        options: [
+          "Ancient mythology",
+          "Eternal, timeless, without beginning or end",
+          "Strict religious rituals",
+          "A specific geographic kingdom"
+        ],
+        answer: 1,
+        explanation: "Sanātana means timeless and eternal—not founded by any human figure, existing like natural universal laws."
+      },
+      {
+        q: "Which Veda is known as the oldest book in human history?",
+        options: [
+          "Sama Veda",
+          "Yajur Veda",
+          "Rig Veda",
+          "Atharva Veda"
+        ],
+        answer: 2,
+        explanation: "Rig Veda contains 10,552 mantras in 10 Maṇḍalas praising Agni, Indra, and the cosmic order (Ṛta)."
+      },
+      {
+        q: "What is the core message of the Rig Veda verse 'Ekam Sat Vipra Bahudha Vadanti' (1.164.46)?",
+        options: [
+          "There are millions of separate competing gods",
+          "Truth is One; wise seers describe it by various names",
+          "Only rituals bring salvation",
+          "All physical matter is unreal illusion"
+        ],
+        answer: 1,
+        explanation: "It establishes monistic pluralism: One Ultimate Reality (Brahman) viewed and called by different names."
+      },
+      {
+        q: "Which famous Upanishad dialogue features a young boy questioning Death (Yama) about immortality?",
+        options: [
+          "Isha Upanishad",
+          "Katha Upanishad (Nachiketas)",
+          "Chandogya Upanishad",
+          "Mandukya Upanishad"
+        ],
+        answer: 1,
+        explanation: "In Katha Upanishad, Nachiketas asks Yama for the 3rd boon—the secret of what transcends physical death."
+      },
+      {
+        q: "What are the 4 Puruṣārthas (the four noble goals of human life)?",
+        options: [
+          "Satya, Ahimsa, Tapas, Svadhyaya",
+          "Dharma (ethics), Artha (wealth), Kāma (pleasure), Mokṣa (liberation)",
+          "Veda, Upanishad, Gita, Purana",
+          "Brahma, Vishnu, Shiva, Shakti"
+        ],
+        answer: 1,
+        explanation: "Sanātana Dharma holistically balances moral duty (Dharma), honest livelihood (Artha), joyful creation (Kama), and ultimate freedom (Moksha)."
+      }
+    ];
+
+    let currentQuestIdx = 0;
+    let questScore = 0;
+
+    function renderQuestQuestion() {
+      const qBox = document.getElementById('questQuestionText');
+      const optsBox = document.getElementById('questOptionsBox');
+      const stepNum = document.getElementById('questStepNum');
+      const scoreEl = document.getElementById('questScore');
+      const prog = document.getElementById('questProgress');
+      const fbBox = document.getElementById('questFeedbackBox');
+      const nextBtn = document.getElementById('questNextBtn');
+
+      if (!qBox || !optsBox) return;
+
+      fbBox.style.display = 'none';
+      nextBtn.style.display = 'none';
+
+      if (currentQuestIdx >= questQuestions.length) {
+        let rank = "Jijñāsu (Eager Seeker)";
+        if (questScore === 5) rank = "Āchārya (Master Seeker of Truth)";
+        else if (questScore >= 3) rank = "Sādhaka (Dedicated Practitioner)";
+
+        if (typeof window.playTempleChime === 'function') window.playTempleChime(528, 3.5);
+
+        stepNum.textContent = "Challenge Completed!";
+        scoreEl.textContent = `Final Score: ${questScore} / ${questQuestions.length}`;
+        prog.style.width = '100%';
+
+        qBox.innerHTML = `<span style="color:var(--gold-bright); font-size:22px;">🎉 Quest Completed!</span><br><br>Your Title Unlocked: <strong>${rank}</strong>`;
+        optsBox.innerHTML = `
+          <div style="text-align:center; padding: 20px;">
+            <p style="font-size: 16px; color: var(--ivory); margin-bottom: 20px;">You answered ${questScore} out of 5 questions correctly!</p>
+            <button onclick="resetWisdomQuest()" style="background: linear-gradient(135deg, var(--gold-bright), var(--gold)); color:#0a0705; font-family:var(--serif-display); font-weight:700; border:none; padding:12px 28px; border-radius:6px; font-size:16px; cursor:pointer;">
+              🔄 Retry Challenge
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      const q = questQuestions[currentQuestIdx];
+      stepNum.textContent = `Question ${currentQuestIdx + 1} of ${questQuestions.length}`;
+      scoreEl.textContent = `Score: ${questScore}`;
+      prog.style.width = `${((currentQuestIdx + 1) / questQuestions.length) * 100}%`;
+      qBox.textContent = q.q;
+
+      let optsHtml = '';
+      q.options.forEach((opt, idx) => {
+        optsHtml += `<button class="quest-option" onclick="selectQuestOption(${idx}, this)">${String.fromCharCode(65 + idx)}. ${opt}</button>`;
+      });
+      optsBox.innerHTML = optsHtml;
+    }
+
+    function selectQuestOption(selectedIdx, btn) {
+      const q = questQuestions[currentQuestIdx];
+      const fbBox = document.getElementById('questFeedbackBox');
+      const nextBtn = document.getElementById('questNextBtn');
+      const allBtns = document.querySelectorAll('.quest-option');
+
+      allBtns.forEach(b => b.disabled = true);
+
+      if (selectedIdx === q.answer) {
+        btn.classList.add('correct');
+        questScore++;
+        if (typeof window.playClickChime === 'function') window.playClickChime();
+        fbBox.style.background = 'rgba(46, 204, 113, 0.1)';
+        fbBox.style.borderColor = '#2ecc71';
+        fbBox.style.color = '#2ecc71';
+        fbBox.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
+      } else {
+        btn.classList.add('wrong');
+        if (allBtns[q.answer]) allBtns[q.answer].classList.add('correct');
+        fbBox.style.background = 'rgba(231, 76, 60, 0.1)';
+        fbBox.style.borderColor = '#e74c3c';
+        fbBox.style.color = '#e74c3c';
+        fbBox.innerHTML = `<strong>Not quite.</strong> ${q.explanation}`;
+      }
+
+      fbBox.style.display = 'block';
+      nextBtn.style.display = 'inline-block';
+    }
+
+    function nextQuestStep() {
+      currentQuestIdx++;
+      renderQuestQuestion();
+    }
+
+    function resetWisdomQuest() {
+      currentQuestIdx = 0;
+      questScore = 0;
+      renderQuestQuestion();
+    }
+
+    // ── 6. Yoga Path Discovery Quiz Handler ──────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      const quizBtns = document.querySelectorAll('.quiz-btn');
+      const quizResult = document.getElementById('quizResult');
+
+      if (quizBtns.length > 0 && quizResult) {
+        quizBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const type = btn.getAttribute('data-type');
+            if (typeof window.playClickChime === 'function') window.playClickChime();
+            
+            let title = "", desc = "", link = "";
+            if (type === 'action') {
+              title = "Karma Yoga — The Path of Action";
+              desc = "You thrive through purposeful, selfless work and service. Bhagavad Gita Chapter 2, Verse 47 teaches acting without anxiety for results.";
+              link = "modules/02-scriptures/bhagavad-gita";
+            } else if (type === 'devotion') {
+              title = "Bhakti Yoga — The Path of Devotion";
+              desc = "You connect through love, prayer, and emotional dedication to the Divine. Explore Bhagavad Gita Chapter 12 and Bhagavata Purana.";
+              link = "modules/03-deities-symbols/trimurti-gods";
+            } else if (type === 'wisdom') {
+              title = "Jnāna Yoga — The Path of Knowledge & Inquiry";
+              desc = "You seek truth through contemplation, self-inquiry (Neti Neti), and logic. Explore the Upanishads and Advaita Vedanta.";
+              link = "modules/02-scriptures/upanishads";
+            } else if (type === 'mind') {
+              title = "Rāja Yoga — The Path of Meditation & Mind Control";
+              desc = "You seek peace through inner stillness, breath (Pranayama), and meditation. Explore Patanjali's Ashtanga Yoga (Yoga Sutras).";
+              link = "modules/04-lifestyle-rites/daily-practices";
+            }
+
+            quizResult.style.display = 'block';
+            quizResult.innerHTML = `
+              <h4 style="font-family: var(--serif-display); font-size: 24px; color: var(--gold-bright); margin-bottom: 8px;">${title}</h4>
+              <p style="color: var(--ivory); font-size: 16px; margin-bottom: 12px;">${desc}</p>
+              <a href="${link}" style="font-family: var(--mono); font-size: 13px; color: var(--gold-bright); text-decoration: underline;">Explore Your Path in Curriculum →</a>
+            `;
+          });
+        });
+      }
     });
   </script>
 </body>

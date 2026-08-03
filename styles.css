@@ -556,6 +556,9 @@ a:hover {
     width: 100% !important;
   }
 }
+
+/* Mobile nav open animation — must be inside @media (max-width: 768px) */
+@media (max-width: 768px) {
   .nav-links.open li {
     animation: mobileNavItemFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
@@ -1603,7 +1606,121 @@ button.quiz-btn:active, .quiz-btn:active {
   transform: translateY(0) scale(0.98) !important;
 }
 
+/* ================================================================
+   SITE FOOTER — Rich 3-column layout
+   ================================================================ */
 
+.site-footer {
+  background: var(--bg-panel);
+  border-top: 1px solid var(--line);
+  padding: 60px 40px 0;
+  margin-top: 60px;
+}
 
+.footer-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+}
 
+.footer-logo {
+  font-family: var(--serif-display);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ivory);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo .om {
+  font-family: var(--deva);
+  font-size: 30px;
+  color: var(--gold-bright);
+  text-shadow: 0 0 12px rgba(242,193,78,0.5);
+  line-height: 1;
+}
+
+.footer-tagline {
+  font-family: var(--serif-body);
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 340px;
+}
+
+.footer-col-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--vermillion);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-col ul li a {
+  font-family: var(--serif-body);
+  font-size: 15px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: block;
+  padding: 2px 0;
+}
+
+.footer-col ul li a:hover {
+  color: var(--gold-bright);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--line);
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 1240px;
+  margin: 0 auto;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted-2);
+}
+
+/* Mobile footer stacking */
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 40px 20px 0;
+    margin-top: 40px;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-bottom: 32px;
+  }
+
+  .footer-tagline {
+    max-width: 100%;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+  }
+}
 
