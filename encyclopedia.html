@@ -25,32 +25,18 @@
     </button>
   </header>
 
-  <main style="max-width: 1280px; margin: 0 auto; padding: 40px 24px;">
+  <main style="max-width: 1280px; margin: 0 auto; padding: 40px 24px 80px;">
+
     <!-- Hero Banner -->
     <div style="background: linear-gradient(135deg, rgba(212,160,23,0.12) 0%, rgba(192,57,43,0.08) 100%); border: 1px solid var(--line-strong); border-radius: 24px; padding: 40px 32px; margin-bottom: 40px; text-align: center;">
-      <div class="hero-tag">Digital Knowledge Ecosystem · Interconnected Graph</div>
+      <div class="hero-tag">42 Entities · 78 Connections · 7 Categories · Backed by 20 Primary Books</div>
       <h1 style="font-family: var(--serif-display); font-size: clamp(34px, 5vw, 56px); color: var(--gold-bright); margin: 12px 0 16px; line-height: 1.2;">
         Encyclopedia of Sanātana Dharma
       </h1>
-      <p style="font-size: 19px; color: var(--ivory); max-width: 840px; margin: 0 auto 28px; line-height: 1.7;">
-        An interconnected digital encyclopedia grounding every concept, deity, rishi, and sacred place directly in primary source scriptures.
+      <p style="font-size: 18px; color: var(--ivory); max-width: 800px; margin: 0 auto 24px; line-height: 1.7;">
+        Explore every concept, deity, rishi, scripture, and sacred place — each with 5 levels of depth, original Sanskrit, and primary source verification.
       </p>
-
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-        <button onclick="if(window.SearchEngine) window.SearchEngine.openCommandPalette();" class="verify-link" style="background: var(--gold-bright); color: #0a0705; font-weight: 700; padding: 12px 28px; font-size: 15px;">
-          🔍 Quick Search (Press Ctrl + K)
-        </button>
-        <button onclick="if(window.GraphVisualizer) window.GraphVisualizer.openGraphModal();" class="verify-link" style="padding: 12px 28px; font-size: 15px;">
-          🌌 Launch Visual Knowledge Graph
-        </button>
-      </div>
-    </div>
-
-    <!-- Category Grid -->
-    <h2 style="font-family: var(--serif-display); font-size: 32px; color: var(--gold-bright); margin-bottom: 20px;">Explore Knowledge Categories</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 48px;">
-      
-      <div class="step-card" onclick="if(window.EntityViewer) window.EntityViewer.openEntityModal('brahman');" style="cursor: pointer;">
         <span class="step-num" style="background: rgba(242,193,78,0.2); color: var(--gold-bright);">01</span>
         <h3 style="color: var(--gold-bright);">Core Philosophy</h3>
         <p>Brahman, Ātman, Dharma, Karma, Moksha, Ṛta, Maya, and the 4 Purusharthas.</p>
@@ -124,7 +110,80 @@
   <script src="graph-visualizer.js"></script>
   <script src="master_skills_data.js"></script>
   <script src="master_verses_data.js"></script>
-  <script src="search-engine.js"></script>
+  <script>
+  // Category color map
+  const CAT_COLORS = {
+    concept:   { bg: 'rgba(242,193,78,0.12)',  text: '#f2c14e',  border: 'rgba(242,193,78,0.3)'  },
+    deity:     { bg: 'rgba(192,57,43,0.12)',   text: '#e74c3c',  border: 'rgba(192,57,43,0.3)'   },
+    rishi:     { bg: 'rgba(39,174,96,0.12)',   text: '#27ae60',  border: 'rgba(39,174,96,0.3)'   },
+    scripture: { bg: 'rgba(41,128,185,0.12)',  text: '#2980b9',  border: 'rgba(41,128,185,0.3)'  },
+    place:     { bg: 'rgba(142,68,173,0.12)',  text: '#8e44ad',  border: 'rgba(142,68,173,0.3)'  },
+    cosmology: { bg: 'rgba(211,84,0,0.12)',    text: '#d35400',  border: 'rgba(211,84,0,0.3)'    },
+    philosophy:{ bg: 'rgba(22,160,133,0.12)', text: '#16a085',  border: 'rgba(22,160,133,0.3)'  }
+  };
+
+  const CAT_LABELS = {
+    concept:   '🟡 Concepts',
+    deity:     '🔴 Deities',
+    rishi:     '🟢 Rishis',
+    scripture: '🔵 Scriptures',
+    place:     '🟣 Sacred Places',
+    cosmology: '🟠 Cosmology',
+    philosophy:'🩵 Philosophy'
+  };
+
+  let activeFilter = 'all';
+
+  function buildFilters() {
+    const bar = document.getElementById('entityFilters');
+    if (!bar || !window.KNOWLEDGE_GRAPH) return;
+    const cats = ['all', ...Object.keys(CAT_COLORS)];
+    bar.innerHTML = cats.map(cat => `
+      <button class="entity-filter-btn ${cat === 'all' ? 'active' : ''}" onclick="filterEntities('${cat}', this)">
+        ${cat === 'all' ? '✨ All Entities' : CAT_LABELS[cat] || cat}
+      </button>
+    `).join('');
+  }
+
+  function filterEntities(cat, btn) {
+    activeFilter = cat;
+    document.querySelectorAll('.entity-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    buildCards();
+  }
+
+  function buildCards() {
+    const grid = document.getElementById('entityCardGrid');
+    if (!grid || !window.KNOWLEDGE_GRAPH) return;
+    const nodes = window.KNOWLEDGE_GRAPH.nodes.filter(n => activeFilter === 'all' || n.category === activeFilter);
+    grid.innerHTML = nodes.map(node => {
+      const c = CAT_COLORS[node.category] || CAT_COLORS.concept;
+      const label = (CAT_LABELS[node.category] || node.category).replace(/^.+?\s/, '');
+      return `
+        <div class="entity-card" onclick="if(window.EntityViewer) window.EntityViewer.openEntityModal('${node.id}');">
+          <div class="entity-card-cat" style="background:${c.bg};color:${c.text};border:1px solid ${c.border};">${label}</div>
+          <div class="entity-card-name">${node.name}</div>
+          ${node.sanskrit ? `<div class="entity-card-sanskrit">${node.sanskrit}</div>` : ''}
+          <div class="entity-card-summary">${node.summary}</div>
+          ${node.meaning ? `<div class="entity-card-verse">"${node.meaning}" <span style="font-size:11px;font-family:var(--mono);color:var(--muted-2);">— ${node.citation || ''}</span></div>` : ''}
+          <div class="entity-card-cta">Explore 5 Levels →</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function openRandomEntity() {
+    if (!window.KNOWLEDGE_GRAPH) return;
+    const nodes = window.KNOWLEDGE_GRAPH.nodes;
+    const node = nodes[Math.floor(Math.random() * nodes.length)];
+    if (window.EntityViewer) window.EntityViewer.openEntityModal(node.id);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    buildFilters();
+    buildCards();
+  });
+</script>
   <script src="app.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
