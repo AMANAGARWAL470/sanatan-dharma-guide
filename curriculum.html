@@ -574,6 +574,105 @@
       </div>
     </div>
 
+    <!-- 🖼️ & 🎥 AUTHENTIC HISTORICAL MEDIA & VIDEO GALLERY -->
+    <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 20px; padding: 36px; margin-top: 40px;">
+      <div style="font-family: var(--mono); font-size: 11px; color: var(--vermillion); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;">
+        Authentic Primary Sources & Audio-Visual Archive
+      </div>
+      <h3 style="font-family: var(--serif-display); font-size: 34px; color: var(--gold-bright); margin-bottom: 12px;">
+        Historical Media & Video Recitations
+      </h3>
+      <p style="color: var(--ivory); max-width: 800px; margin-bottom: 28px; font-size: 16px; line-height: 1.7;">
+        Explore authentic historical manuscripts, ancient stone temple architecture, classical artwork, and traditional Vedic video recitations—sourced directly from public domain historical archives and verified recordings.
+      </p>
+
+      <!-- Sub-tabs: Photos / Videos -->
+      <div style="display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 1px solid var(--line); padding-bottom: 14px;">
+        <button id="mediaTabPhotos" onclick="switchMediaTab('photos')" class="filter-btn active" style="font-size: 13px; padding: 8px 18px;">🖼️ Historical Photos & Manuscripts</button>
+        <button id="mediaTabVideos" onclick="switchMediaTab('videos')" class="filter-btn" style="font-size: 13px; padding: 8px 18px;">🎥 Authentic Video Recitations</button>
+      </div>
+
+      <!-- Tab Content: Photos Gallery -->
+      <div id="mediaGalleryPhotos" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+        
+        <!-- Image 1 -->
+        <div style="background: var(--bg-card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.borderColor='var(--gold-bright)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--line)';this.style.transform='translateY(0)'">
+          <div style="height: 180px; overflow: hidden; position: relative; background: #000;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Rigveda_manuscript_page_-_Deavanagari_-_Sample.jpg/800px-Rigveda_manuscript_page_-_Deavanagari_-_Sample.jpg" alt="Rig Veda Birch Bark Manuscript" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;" loading="lazy">
+            <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); color: var(--gold-bright); font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 4px;">Rig Veda Manuscript</span>
+          </div>
+          <div style="padding: 16px;">
+            <h4 style="font-family: var(--serif-display); font-size: 18px; color: var(--gold-bright); margin-bottom: 6px;">Rig Veda Birch Bark Folio</h4>
+            <p style="font-size: 13px; color: var(--muted); line-height: 1.5;">Sharada script manuscript of the Rig Veda (19th century) from Kashmir, preserved in Bhandarkar Oriental Research Institute.</p>
+          </div>
+        </div>
+
+        <!-- Image 2 -->
+        <div style="background: var(--bg-card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.borderColor='var(--gold-bright)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--line)';this.style.transform='translateY(0)'">
+          <div style="height: 180px; overflow: hidden; position: relative; background: #000;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Krishna_tells_Gita_to_Arjuna.jpg/800px-Krishna_tells_Gita_to_Arjuna.jpg" alt="Krishna Bhagavad Gita Discourse to Arjuna" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;" loading="lazy">
+            <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); color: var(--gold-bright); font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 4px;">Raja Ravi Varma</span>
+          </div>
+          <div style="padding: 16px;">
+            <h4 style="font-family: var(--serif-display); font-size: 18px; color: var(--gold-bright); margin-bottom: 6px;">Kṛṣṇa &amp; Arjuna at Kurukṣetra</h4>
+            <p style="font-size: 13px; color: var(--muted); line-height: 1.5;">Classical depiction of Bhagavad Gītā discourse (Chapter 2, Verse 47) on the golden chariot before the battle.</p>
+          </div>
+        </div>
+
+        <!-- Image 3 -->
+        <div style="background: var(--bg-card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.borderColor='var(--gold-bright)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--line)';this.style.transform='translateY(0)'">
+          <div style="height: 180px; overflow: hidden; position: relative; background: #000;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Ellora_cave16_001.jpg/800px-Ellora_cave16_001.jpg" alt="Kailash Temple Ellora Rock Architecture" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;" loading="lazy">
+            <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); color: var(--gold-bright); font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 4px;">8th Century Rock Carving</span>
+          </div>
+          <div style="padding: 16px;">
+            <h4 style="font-family: var(--serif-display); font-size: 18px; color: var(--gold-bright); margin-bottom: 6px;">Kailash Temple (Ellora Cave 16)</h4>
+            <p style="font-size: 13px; color: var(--muted); line-height: 1.5;">The world's largest single monolithic rock excavation, carved top-down from a single basalt cliffside.</p>
+          </div>
+        </div>
+
+        <!-- Image 4 -->
+        <div style="background: var(--bg-card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.borderColor='var(--gold-bright)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--line)';this.style.transform='translateY(0)'">
+          <div style="height: 180px; overflow: hidden; position: relative; background: #000;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Konark_Wheel.jpg/800px-Konark_Wheel.jpg" alt="Konark Sun Temple Cosmic Time Wheel" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;" loading="lazy">
+            <span style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); color: var(--gold-bright); font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 4px;">13th Century Sundial</span>
+          </div>
+          <div style="padding: 16px;">
+            <h4 style="font-family: var(--serif-display); font-size: 18px; color: var(--gold-bright); margin-bottom: 6px;">Konark Wheel of Time (Kāla)</h4>
+            <p style="font-size: 13px; color: var(--muted); line-height: 1.5;">24-spoked sundial wheel representing cosmic cyclical time, 4 Yugas, and solar astronomical precision.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tab Content: Video Recitations -->
+      <div id="mediaGalleryVideos" style="display: none; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+        
+        <!-- Video 1 -->
+        <div style="background: var(--bg-card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden;">
+          <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+            <iframe style="position: absolute; top:0; left:0; width:100%; height:100%; border:none;" src="https://www.youtube.com/embed/bP7g9o_k9Y0" title="Traditional Rig Veda Chanting" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding: 16px;">
+            <h4 style="font-family: var(--serif-display); font-size: 18px; color: var(--gold-bright); margin-bottom: 6px;">Traditional Rig Veda Chanting</h4>
+            <p style="font-size: 13px; color: var(--muted); line-height: 1.5;">Authentic Vedic accents (Udatta, Anudatta, Svarita) preserved unchanged for over 3,500 years.</p>
+          </div>
+        </div>
+
+        <!-- Video 2 -->
+        <div style="background: var(--bg-card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden;">
+          <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+            <iframe style="position: absolute; top:0; left:0; width:100%; height:100%; border:none;" src="https://www.youtube.com/embed/N3qmszG8fIE" title="Gayatri Mantra Recitation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div style="padding: 16px;">
+            <h4 style="font-family: var(--serif-display); font-size: 18px; color: var(--gold-bright); margin-bottom: 6px;">Gāyatrī Mantra (Rig Veda 3.62.10)</h4>
+            <p style="font-size: 13px; color: var(--muted); line-height: 1.5;">The foundational solar prayer asking the Divine Savitar to illuminate our intellect.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- Solfeggio Soundboard Frequencies -->
     <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 20px; padding: 36px; margin-top: 40px;">
       <div style="font-family: var(--mono); font-size: 11px; color: var(--vermillion); text-transform: uppercase; margin-bottom: 8px;">
@@ -826,7 +925,28 @@
       }
     }
 
-    // ── 4. Vedic Frequency Audio Synthesizer ─────────────────────
+    // ── 4. Authentic Media Gallery Tab Switcher ─────────────────
+    function switchMediaTab(tab) {
+      if (typeof window.playClickChime === 'function') window.playClickChime();
+      const photosEl = document.getElementById('mediaGalleryPhotos');
+      const videosEl = document.getElementById('mediaGalleryVideos');
+      const btnPhotos = document.getElementById('mediaTabPhotos');
+      const btnVideos = document.getElementById('mediaTabVideos');
+
+      if (tab === 'photos') {
+        photosEl.style.display = 'grid';
+        videosEl.style.display = 'none';
+        btnPhotos.classList.add('active');
+        btnVideos.classList.remove('active');
+      } else {
+        photosEl.style.display = 'none';
+        videosEl.style.display = 'grid';
+        btnVideos.classList.add('active');
+        btnPhotos.classList.remove('active');
+      }
+    }
+
+    // ── 5. Vedic Frequency Audio Synthesizer ─────────────────────
     function playCustomFrequency(freq, type, duration) {
       if (typeof window.playTempleChime === 'function') {
         window.playTempleChime(freq, duration);
