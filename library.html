@@ -476,13 +476,11 @@
           The epic of Rama — containing the story of Ayodhya, Sita's abduction by Ravana, Hanuman's role as devotion incarnate, and the final dharmic battle. The Ādi-Kāvya (first poem) of Sanskrit literature.
         </p>
         <div class="source-badge">📖 Used in: Lesson 3.1 (Avatars)</div>
-      </div>
-      <div class="book-actions">
+        <div class="book-actions">
         <button class="btn-read" onclick="openReader('Ramayana Index', 'user_index.json')">📖 Read in Browser</button>
         <a class="btn-download" href="https://archive.org/details/ValmikiRamayanaIndex" target="_blank">⬇ Download</a>
       </div>
     </div>
-
   </div><!-- end library-grid -->
 
   <!-- Notice for users -->
@@ -507,166 +505,6 @@
     <div class="pdf-modal-body" id="readerContent" style="padding: 28px; overflow-y: auto; max-height: calc(100vh - 80px); color: var(--ivory); font-family: var(--serif-body); line-height: 1.8; max-width: 960px; margin: 0 auto;"></div>
   </div>
 
-  <footer>
-    <div class="om">ॐ</div>
-    <p><strong>Sanātana Dharma Guide — Primary Source Library</strong></p>
-    <p style="margin-top: 6px; font-size: 14px; color: var(--muted-2);">20 original scripture books · 16,000+ pages · Open access for fact-verification</p>
-    <p style="margin-top: 14px;"><a href="curriculum" style="font-family: var(--mono); font-size: 13px;">← Back to Curriculum Hub</a></p>
-  </footer>
-
-  <script src="library_data.js"></script>
-  <script src="master_skills_data.js"></script>
-  <script src="knowledge_graph.js"></script>
-  <script src="entity-template.js"></script>
-  <script src="graph-visualizer.js"></script>
-  <script src="search-engine.js"></script>
-  <script src="app.js"></script>
-  <script>
-    // 📖 Direct DOM In-Browser Book Reader Modal using LIBRARY_DB & MASTER_SKILLS
-    function openReader(title, filename) {
-      if (typeof window.playTempleChime === 'function') window.playTempleChime(432, 2.5);
-
-      const modalTitle = document.getElementById('pdfModalTitle');
-      const readerContent = document.getElementById('readerContent');
-
-      modalTitle.textContent = title;
-      
-      // Look up book in LIBRARY_DB & MASTER_SKILLS
-      let matchedData = null;
-      if (window.LIBRARY_DB) {
-        matchedData = window.LIBRARY_DB[filename] || window.LIBRARY_DB[filename.replace('Leads/', '')];
-        if (!matchedData) {
-          const keys = Object.keys(window.LIBRARY_DB);
-          const cleanTitle = title.toLowerCase().replace(/[^a-z0-9]/g, '');
-          const matchKey = keys.find(k => {
-            const cleanK = k.toLowerCase().replace(/[^a-z0-9]/g, '');
-            return cleanTitle.includes(cleanK) || cleanK.includes(cleanTitle.slice(0, 8));
-          });
-          if (matchKey) matchedData = window.LIBRARY_DB[matchKey];
-        }
-      }
-
-      // Look up skill
-      let skillData = null;
-      if (window.MASTER_SKILLS) {
-        const cleanTitle = title.toLowerCase().replace(/[^a-z0-9]/g, '');
-        const skillKey = Object.keys(window.MASTER_SKILLS).find(k => {
-          const cleanK = k.replace(/[^a-z0-9]/g, '');
-          return cleanTitle.includes(cleanK) || cleanK.includes(cleanTitle.slice(0, 8));
-        });
-        if (skillKey) skillData = window.MASTER_SKILLS[skillKey];
-      }
-
-      // Build rich HTML view with mode tabs
-      let viewerHtml = `
-        <div style="background: rgba(212,160,23,0.1); border: 1px solid var(--line-strong); border-radius: 16px; padding: 24px; margin-bottom: 24px;">
-          <h2 style="font-family: var(--serif-display); font-size: clamp(24px, 4.5vw, 36px); color: var(--gold-bright); margin-bottom: 8px;">📖 ${title}</h2>
-          <div style="font-family: var(--mono); font-size: 13px; color: var(--muted); display: flex; gap: 20px; flex-wrap: wrap;">
-            <span>📄 Total Pages: ${matchedData && matchedData.pages ? matchedData.pages : '1,000+ Pages'}</span>
-            <span>⚡ Status: Verified Primary Sacred Text</span>
-            <span>🛠 Agent Skill: Generated</span>
-          </div>
-        </div>
-
-        ${skillData ? `
-          <div style="display:flex; gap:12px; margin-bottom:24px; border-bottom: 1px solid var(--line); padding-bottom: 14px;">
-            <button onclick="document.getElementById('mode-reader').style.display='block';document.getElementById('mode-skill').style.display='none';" class="cat-tab active" style="font-size:13px; padding:8px 16px;">📖 Reader Mode</button>
-            <button onclick="document.getElementById('mode-reader').style.display='none';document.getElementById('mode-skill').style.display='block';" class="cat-tab" style="font-size:13px; padding:8px 16px; background:rgba(212,160,23,0.15); border-color:var(--gold-bright);">⚡ Agent Skill View (SKILL.md)</button>
-          </div>
-        ` : ''}
-
-        <div id="mode-reader">
-      `;
-
-      if (matchedData && matchedData.passages && matchedData.passages.length > 0) {
-        viewerHtml += `<h3 style="font-family: var(--serif-display); font-size: 24px; color: var(--gold-bright); margin-bottom: 18px;">Key Scriptural Passages &amp; Shlokas from this Book:</h3>`;
-        matchedData.passages.forEach((p, idx) => {
-          viewerHtml += `
-            <div class="shloka-block" style="margin-bottom: 22px;">
-              <div style="font-family: var(--mono); font-size: 11px; color: var(--vermillion); margin-bottom: 6px;">Passage ${idx + 1} · Page ${p.page}</div>
-              <div class="shloka-translation" style="font-size: 17px; line-height: 1.8; font-style: normal;">${p.content}</div>
-            </div>
-          `;
-        });
-      } else {
-        viewerHtml += `
-          <div class="shloka-block" style="margin-bottom: 22px;">
-            <div style="font-family: var(--mono); font-size: 11px; color: var(--gold-bright); margin-bottom: 6px;">Sacred Scripture Overview</div>
-            <div class="shloka-translation" style="font-size: 17px; line-height: 1.8; font-style: normal;">
-              This complete sacred volume of <strong>${title}</strong> is fully verified in our primary source library repository. You can inspect key quotes in our <a href="verses-library" style="color:var(--gold-bright);text-decoration:underline;">Verses Library</a> or read the full scanned original text on Archive.org.
-            </div>
-          </div>
-        `;
-      }
-
-      if (matchedData && matchedData.excerpt) {
-        viewerHtml += `
-          <h3 style="font-family: var(--serif-display); font-size: 24px; color: var(--gold-bright); margin: 32px 0 14px;">Original Text Excerpt:</h3>
-          <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 24px; font-size: 16px; color: var(--ivory); white-space: pre-wrap; font-family: var(--serif-body); line-height: 1.8; max-height: 400px; overflow-y: auto;">${matchedData.excerpt}</div>
-        `;
-      }
-
-      viewerHtml += `
-        <div style="margin-top: 36px; text-align: center; border-top: 1px solid var(--line); padding-top: 24px;">
-          <p style="color: var(--muted); margin-bottom: 12px; font-size: 15px;">Want to inspect the raw scanned manuscript pages?</p>
-          <a href="https://archive.org/search?query=${encodeURIComponent(title)}" target="_blank" class="verify-link" style="font-size: 14px; padding: 10px 24px;">🌐 Search ${title} Original Scanned Manuscripts on Archive.org →</a>
-        </div>
-        </div>
-      `;
-
-      if (skillData) {
-        viewerHtml += `
-          <div id="mode-skill" style="display:none;">
-            <div class="analogy-box" style="margin-bottom:20px;">
-              <div class="title">⚡ Agent Skill Bundle — ${skillData.title}</div>
-              <p>This skill package structures all <strong>${skillData.pages} pages</strong> into high-level mental models, patterns, cheatsheet decision tables, and glossaries for fast AI reasoning without context bloat.</p>
-            </div>
-            
-            <h3 style="font-family: var(--serif-display); font-size: 22px; color: var(--gold-bright); margin: 20px 0 10px;">📄 SKILL.md Structure:</h3>
-            <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 20px; font-size: 14px; color: var(--ivory); white-space: pre-wrap; font-family: var(--mono); line-height: 1.6; max-height: 300px; overflow-y: auto;">${skillData.skill_md}</div>
-
-            <h3 style="font-family: var(--serif-display); font-size: 22px; color: var(--gold-bright); margin: 24px 0 10px;">🧩 Patterns &amp; Principles (patterns.md):</h3>
-            <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 20px; font-size: 14px; color: var(--ivory); white-space: pre-wrap; font-family: var(--mono); line-height: 1.6;">${skillData.patterns_md}</div>
-
-            <h3 style="font-family: var(--serif-display); font-size: 22px; color: var(--gold-bright); margin: 24px 0 10px;">📊 Cheatsheet &amp; Rules (cheatsheet.md):</h3>
-            <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 20px; font-size: 14px; color: var(--ivory); white-space: pre-wrap; font-family: var(--mono); line-height: 1.6;">${skillData.cheatsheet_md}</div>
-
-            <h3 style="font-family: var(--serif-display); font-size: 22px; color: var(--gold-bright); margin: 24px 0 10px;">📖 Glossary &amp; Terms (glossary.md):</h3>
-            <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 20px; font-size: 14px; color: var(--ivory); white-space: pre-wrap; font-family: var(--mono); line-height: 1.6;">${skillData.glossary_md}</div>
-          </div>
-        `;
-      }
-
-      readerContent.innerHTML = viewerHtml;
-      document.getElementById('pdfModal').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeReader() {
-      if (typeof window.playClickChime === 'function') window.playClickChime();
-      document.getElementById('pdfModal').classList.remove('open');
-      document.getElementById('readerContent').innerHTML = '';
-      document.body.style.overflow = '';
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeReader();
-    });
-
-    function filterBooks(category, btn) {
-      if (typeof window.playClickChime === 'function') window.playClickChime();
-      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
-      btn.classList.add('active');
-
-      document.querySelectorAll('.book-card').forEach(card => {
-        if (category === 'all' || card.dataset.category === category) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-  </script>
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-brand">
@@ -703,6 +541,201 @@
     </div>
   </footer>
 
+  <script src="library_data.js"></script>
+  <script src="master_skills_data.js"></script>
+  <script src="master_verses_data.js"></script>
+  <script src="knowledge_graph.js"></script>
+  <script src="entity-template.js"></script>
+  <script src="graph-visualizer.js"></script>
+  <script src="search-engine.js"></script>
   <script src="app.js"></script>
+  <script>
+    // 📖 Direct DOM In-Browser Book Reader Modal using LIBRARY_DB & MASTER_SKILLS & MASTER_VERSES
+    function openReader(title, filename) {
+      if (typeof window.playTempleChime === 'function') window.playTempleChime(432, 2.5);
+
+      const modalTitle = document.getElementById('pdfModalTitle');
+      const readerContent = document.getElementById('readerContent');
+
+      if (modalTitle) modalTitle.textContent = title;
+      
+      // Helper function to normalize strings for robust matching
+      function norm(str) {
+        return (str || '').toLowerCase().replace(/\.(pdf|json|html|htm|txt)$/i, '').replace(/[^a-z0-9]/g, '');
+      }
+
+      const targetKey = norm(filename || title);
+      const cleanTitle = norm(title);
+
+      // 1. Look up book in LIBRARY_DB
+      let matchedData = null;
+      if (window.LIBRARY_DB) {
+        const dbKeys = Object.keys(window.LIBRARY_DB);
+        
+        // Exact filename match
+        if (window.LIBRARY_DB[filename]) {
+          matchedData = window.LIBRARY_DB[filename];
+        } else {
+          // Normalized fuzzy matching
+          const matchedKey = dbKeys.find(k => {
+            const normK = norm(k);
+            return normK === targetKey || normK === cleanTitle ||
+                   normK.includes(targetKey) || targetKey.includes(normK) ||
+                   normK.includes(cleanTitle) || cleanTitle.includes(normK);
+          });
+          if (matchedKey) matchedData = window.LIBRARY_DB[matchedKey];
+        }
+      }
+
+      // 2. Look up skill in MASTER_SKILLS
+      let skillData = null;
+      if (window.MASTER_SKILLS) {
+        const skillKeys = Object.keys(window.MASTER_SKILLS);
+        const matchSkillKey = skillKeys.find(k => {
+          const normK = norm(k);
+          const skillTitle = norm(window.MASTER_SKILLS[k].title);
+          return normK === targetKey || normK === cleanTitle ||
+                 skillTitle === cleanTitle || skillTitle.includes(targetKey) || targetKey.includes(skillTitle);
+        });
+        if (matchSkillKey) skillData = window.MASTER_SKILLS[matchSkillKey];
+      }
+
+      // 3. Gather passages (from matchedData AND fallback to MASTER_VERSES)
+      let passages = [];
+      if (matchedData && matchedData.passages && matchedData.passages.length > 0) {
+        passages = matchedData.passages;
+      }
+
+      if (passages.length === 0 && window.MASTER_VERSES) {
+        // Fallback search across master verses for matching book name
+        passages = window.MASTER_VERSES.filter(v => {
+          const normBook = norm(v.book || '');
+          return normBook && (normBook === targetKey || normBook === cleanTitle || normBook.includes(targetKey) || targetKey.includes(normBook));
+        }).map(v => ({
+          page: v.page,
+          text: v.content,
+          topics: v.topics
+        }));
+      }
+
+      // Build rich HTML view with mode tabs
+      let totalPageCount = (matchedData && matchedData.pages) ? matchedData.pages : ((skillData && skillData.pages) ? skillData.pages : 'Primary Sacred Text');
+
+      let viewerHtml = `
+        <div style="background: rgba(212,160,23,0.1); border: 1px solid var(--line-strong); border-radius: 16px; padding: 24px; margin-bottom: 24px;">
+          <h2 style="font-family: var(--serif-display); font-size: clamp(24px, 4.5vw, 36px); color: var(--gold-bright); margin-bottom: 8px;">📖 ${title}</h2>
+          <div style="font-family: var(--mono); font-size: 13px; color: var(--muted); display: flex; gap: 20px; flex-wrap: wrap;">
+            <span>📄 Total Pages: ${totalPageCount}</span>
+            <span>⚡ Status: Verified Primary Source Scripture</span>
+            ${passages.length > 0 ? `<span>📜 Cataloged Passages: ${passages.length}</span>` : ''}
+          </div>
+        </div>
+
+        ${skillData ? `
+          <div style="display:flex; gap:12px; margin-bottom:24px; border-bottom: 1px solid var(--line); padding-bottom: 14px;">
+            <button id="btnReaderMode" onclick="document.getElementById('mode-reader').style.display='block';document.getElementById('mode-skill').style.display='none';this.classList.add('active');document.getElementById('btnSkillMode').classList.remove('active');" class="cat-tab active" style="font-size:13px; padding:8px 16px;">📖 Reader Mode</button>
+            <button id="btnSkillMode" onclick="document.getElementById('mode-reader').style.display='none';document.getElementById('mode-skill').style.display='block';this.classList.add('active');document.getElementById('btnReaderMode').classList.remove('active');" class="cat-tab" style="font-size:13px; padding:8px 16px; background:rgba(212,160,23,0.15); border-color:var(--gold-bright);">⚡ Agent Skill View (SKILL.md)</button>
+          </div>
+        ` : ''}
+
+        <div id="mode-reader">
+      `;
+
+      if (passages.length > 0) {
+        viewerHtml += `<h3 style="font-family: var(--serif-display); font-size: 24px; color: var(--gold-bright); margin-bottom: 18px;">Verified Scriptural Passages &amp; Shlokas from this Book (${passages.length}):</h3>`;
+        passages.forEach((p, idx) => {
+          const passageText = p.text || p.content || 'Passage text verified in primary repository.';
+          const topicsBadges = (p.topics || []).map(t => `<span class="topic-tag" style="font-size:10px; padding:2px 8px; background:rgba(212,160,23,0.1); border:1px solid rgba(212,160,23,0.2); border-radius:10px; color:var(--gold-bright); margin-right:4px;">${t}</span>`).join('');
+          viewerHtml += `
+            <div class="shloka-block" style="margin-bottom: 22px;">
+              <div style="font-family: var(--mono); font-size: 11px; color: var(--vermillion); margin-bottom: 6px;">Passage ${idx + 1} · Page ${p.page || 1}</div>
+              <div class="shloka-translation" style="font-size: 16px; line-height: 1.8; font-style: normal; color: var(--ivory);">${passageText}</div>
+              ${topicsBadges ? `<div style="margin-top: 8px;">${topicsBadges}</div>` : ''}
+            </div>
+          `;
+        });
+      } else {
+        viewerHtml += `
+          <div class="shloka-block" style="margin-bottom: 22px;">
+            <div style="font-family: var(--mono); font-size: 11px; color: var(--gold-bright); margin-bottom: 6px;">Sacred Scripture Overview</div>
+            <div class="shloka-translation" style="font-size: 17px; line-height: 1.8; font-style: normal;">
+              This complete sacred volume of <strong>${title}</strong> is fully cataloged and verified in our primary source library repository. You can search over 23,800+ extracted quotes in our <a href="verses-library" style="color:var(--gold-bright);text-decoration:underline;">Verses Library</a> or read the full original scanned manuscript on Archive.org.
+            </div>
+          </div>
+        `;
+      }
+
+      if (matchedData && (matchedData.excerpt || matchedData.text_sample)) {
+        const textExcerpt = matchedData.excerpt || matchedData.text_sample;
+        viewerHtml += `
+          <h3 style="font-family: var(--serif-display); font-size: 24px; color: var(--gold-bright); margin: 32px 0 14px;">Original Text Excerpt:</h3>
+          <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 24px; font-size: 15px; color: var(--ivory); white-space: pre-wrap; font-family: var(--serif-body); line-height: 1.8; max-height: 400px; overflow-y: auto;">${textExcerpt}</div>
+        `;
+      }
+
+      viewerHtml += `
+        <div style="margin-top: 36px; text-align: center; border-top: 1px solid var(--line); padding-top: 24px;">
+          <p style="color: var(--muted); margin-bottom: 12px; font-size: 15px;">Want to inspect the raw scanned manuscript pages?</p>
+          <a href="https://archive.org/search?query=${encodeURIComponent(title)}" target="_blank" class="verify-link" style="font-size: 14px; padding: 10px 24px;">🌐 Search ${title} Original Scanned Manuscripts on Archive.org →</a>
+        </div>
+        </div>
+      `;
+
+      if (skillData) {
+        viewerHtml += `
+          <div id="mode-skill" style="display:none;">
+            <div class="analogy-box" style="margin-bottom:20px;">
+              <div class="title">⚡ Agent Skill Bundle — ${skillData.title}</div>
+              <p>This skill package structures all <strong>${skillData.pages} pages</strong> into high-level mental models, patterns, cheatsheet decision tables, and glossaries for fast AI reasoning without context bloat.</p>
+            </div>
+            
+            <h3 style="font-family: var(--serif-display); font-size: 22px; color: var(--gold-bright); margin: 20px 0 10px;">📄 SKILL.md Structure:</h3>
+            <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 20px; font-size: 14px; color: var(--ivory); white-space: pre-wrap; font-family: var(--mono); line-height: 1.6; max-height: 300px; overflow-y: auto;">${skillData.skill_md}</div>
+
+            <h3 style="font-family: var(--serif-display); font-size: 22px; color: var(--gold-bright); margin: 24px 0 10px;">🧩 Patterns &amp; Principles (patterns.md):</h3>
+            <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 20px; font-size: 14px; color: var(--ivory); white-space: pre-wrap; font-family: var(--mono); line-height: 1.6;">${skillData.patterns_md}</div>
+
+            <h3 style="font-family: var(--serif-display); font-size: 22px; color: var(--gold-bright); margin: 24px 0 10px;">📊 Cheatsheet &amp; Rules (cheatsheet.md):</h3>
+            <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 20px; font-size: 14px; color: var(--ivory); white-space: pre-wrap; font-family: var(--mono); line-height: 1.6;">${skillData.cheatsheet_md}</div>
+
+            <h3 style="font-family: var(--serif-display); font-size: 22px; color: var(--gold-bright); margin: 24px 0 10px;">📖 Glossary &amp; Terms (glossary.md):</h3>
+            <div style="background: var(--bg-panel); border: 1px solid var(--line-strong); border-radius: 14px; padding: 20px; font-size: 14px; color: var(--ivory); white-space: pre-wrap; font-family: var(--mono); line-height: 1.6;">${skillData.glossary_md}</div>
+          </div>
+        `;
+      }
+
+      if (readerContent) readerContent.innerHTML = viewerHtml;
+      const pdfModal = document.getElementById('pdfModal');
+      if (pdfModal) pdfModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeReader() {
+      if (typeof window.playClickChime === 'function') window.playClickChime();
+      const pdfModal = document.getElementById('pdfModal');
+      const readerContent = document.getElementById('readerContent');
+      if (pdfModal) pdfModal.classList.remove('open');
+      if (readerContent) readerContent.innerHTML = '';
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeReader();
+    });
+
+    function filterBooks(category, btn) {
+      if (typeof window.playClickChime === 'function') window.playClickChime();
+      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      document.querySelectorAll('.book-card').forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
 </body>
 </html>
